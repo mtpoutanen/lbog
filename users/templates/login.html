@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if form.errors %}
+<p>Your username and password didn't match, please try again.</p>
+{% endif %}
+
+<div class="area">
+    <form class="form-horizontal" method="post" action=""> {% csrf_token %}
+      <fieldset>
+          <div class="control-group">
+            <label class="control-label" for="id_username">Username:</label>
+            <div class="controls">
+                {{ form.username }}
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="id_password">Password:</label>
+            <div class="controls">
+                {{ form.password }}
+            </div>
+        </div>
+        <div class="controls">
+            <input type="submit" class="btn btn-success" value="login" />
+        </div>
+        <div class="controls">
+            <br>
+            <a href="/account/forgot-password/">Forgot your password?</a><br>
+            <a href="/account/register/">Not yet registered?</a>
+        </div>
+    </fieldset>
+</form>
+
+
+</div>
+{% endblock content %}

@@ -1,0 +1,62 @@
+#my-wrapper > #body-wrapper {
+  	padding: -10px 10px -10px 10px;
+  	box-shadow: 0 0 10px black;
+  	margin-bottom: 10px
+}
+
+#my-wrapper, #my-wrapper > #body-wrapper {
+	min-height: -webkit-calc(100% - 40px);
+    min-height: -moz-calc(100% - 40px);
+	min-height: calc(100% - 40px);
+	
+}
+
+#my-wrapper {
+	margin: 0px 0px 0px 0px;
+	padding-top: 0px;
+	overflow: hidden;
+}
+
+#my-wrapper {
+	
+}
+
+#main {
+	box-sizing: border-box;
+	padding-top: 20px;
+}
+
+#what-we-do {
+  	box-sizing: border-box;
+	padding-left: 15px;
+}
+
+#open-projects {
+  	box-sizing: border-box;
+	padding-right: 15px;
+}
+
+.thumbnails {
+	text-align: center;
+}
+
+.thumbnails > li {
+	display: inline-block;
+	float: none;
+}
+
+.footer {
+	height: 40px;
+}
+
+#my-footer { 
+  	text-align: right;
+}
+
+#open-projects-header {
+	text-align: center;
+}	
+
+#more-projects {
+	text-align: center;
+}	
