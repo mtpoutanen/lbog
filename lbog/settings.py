@@ -82,7 +82,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     ('global', '/var/www/lbog/globalstatic/',),
     ('users', '/var/www/lbog/users/templates/static/'),
-    ('', '/var/www/lbog/lbog/errors/',),
 )
 
 # List of finder classes that know how to find static files in
