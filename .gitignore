@@ -1,5 +1,10 @@
 /media/
 /static/
 /lbog/local_settings.*
+<<<<<<< HEAD
 migrations/
 *.pyc
+=======
+*pyc
+
+>>>>>>> 6a967b568cd0095fe7d7e81dc0d57dc26248a2c0
