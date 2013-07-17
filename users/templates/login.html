@@ -26,8 +26,9 @@
         </div>
         <div class="controls">
             <br>
-            <a href="/account/forgot-password/">Forgot your password?</a><br>
-            <a href="/account/register/">Not yet registered?</a>
+
+            <a href="{% url "password_reset" %}">Forgot password?</a><br>
+            <a href="{% url "register" %}">Not yet registered?</a>
         </div>
     </fieldset>
 </form>

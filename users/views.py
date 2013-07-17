@@ -1,59 +1,143 @@
 # Create your views here.
 
-from django.contrib.auth.forms import AuthenticationForm #, UserCreationForm, UserChangeForm
-from users.forms import BaseCreationForm
-from django.contrib.auth import login
+from braces.views import LoginRequiredMixin
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+from django.contrib.auth import login, get_user_model
 from django.contrib.auth.models import User
-from django.views.generic.edit import FormView
+from django.core.urlresolvers import reverse_lazy
+from django.views.generic.edit import FormView, UpdateView
 from django.views.generic import TemplateView
 from users.models import UserProfile
+from users.forms import MyCreationForm, MyChangeForm
 
-# def handle_uploaded_file(file):
-#     destination = open('/images/test/testimage.jpg', 'wb+')
-#     for chunk in f.chunks():
-#         destination.write(chunk)
-#     destination.close()
+def update_profile(user, form):
+    profile                 = user.get_profile()
+    profile.user_type       = form.cleaned_data['user_type']
+    profile.title           = form.cleaned_data['title']
+    profile.company_name    = form.cleaned_data['company_name']
+    profile.country         = form.cleaned_data['country']
+    profile.state           = form.cleaned_data['state']
+    profile.city            = form.cleaned_data['city']
+    # profile.post_code       = form.cleaned_data['post_code']
+    # profile.address         = form.cleaned_data['address']
+    profile.lat             = form.cleaned_data['lat']
+    profile.lon             = form.cleaned_data['lon']
+    profile.description     = form.cleaned_data['description']
+    profile.logo            = form.cleaned_data['logo']
+
+    skill_list = []
+    for skill in form.cleaned_data['skills']:
+        skill_list.append(skill)
+    profile.skills          = skill_list
+    profile.save()
+
 
 class LoginView(FormView):
     template_name = 'login.html'
     form_class = AuthenticationForm
-    success_url = '/account/logged-in/'
+    success_url = reverse_lazy('logged-in')
 
     def form_valid(self, form):
         user = form.get_user()
         login(self.request, user)
         return super(LoginView, self).form_valid(form)
 
+class LoginRequiredView(TemplateView):
+    template_name = 'login-required.html'
+
 class LoginSuccessfulView(TemplateView):
     # content_type = 'text/image'
     template_name = 'logged-in.html'
 
 class RegistrationView(FormView):
-    template_name = 'register.html'
-    form_class = BaseCreationForm
     model = UserProfile
-    success_url = '/account/login/'
+    template_name = 'register.html'
+    form_class = MyCreationForm
+    success_url = reverse_lazy('registration-successful')
 
     def form_valid(self, form):
-        # form                    = BaseCreationForm(self.request.POST, self.request.FILES)
-        user                    = form.save()
-        profile                 = user.get_profile()
-        profile.user_type       = form.cleaned_data['user_type']
-        profile.title           = form.cleaned_data['title']
-        profile.company_name    = form.cleaned_data['company_name']
-        profile.country         = form.cleaned_data['country']
-        profile.state           = form.cleaned_data['state']
-        profile.city            = form.cleaned_data['city']
-        profile.post_code       = form.cleaned_data['post_code']
-        profile.address         = form.cleaned_data['address']
-        profile.description     = form.cleaned_data['description']
-
-        skill_list = []
-        for skill in form.cleaned_data['skills']:
-            skill_list.append(skill)
-        profile.skills = skill_list
-
-        profile.logo = form.cleaned_data['logo']
-
-        profile.save()
+        user = form.save()
+        update_profile(user, form)     
         return super(RegistrationView, self).form_valid(form)
+
+class PasswordChangeView(FormView):
+    form_class      = PasswordChangeForm
+    # model           = User
+    template_name   = 'registration/password_change_form.html'
+    success_url     = reverse_lazy('profile-changed')
+    
+class ChangeView(LoginRequiredMixin, UpdateView):
+    model           = UserProfile  #get_user_model()
+    login_url       = reverse_lazy('login-required')
+    template_name   = 'change-details.html'
+    form_class      = MyChangeForm
+    success_url     = reverse_lazy('profile-changed')
+
+    def form_valid(self, form):
+        user = self.request.user
+        update_profile(user, form)
+        return super(ChangeView, self).form_valid(form)
+
+    def get_initial(self):
+        """
+        Returns the initial data to use for forms on this view.
+        """ 
+        super(ChangeView, self).get_initial()
+        my_id       = self.kwargs['pk']
+        my_user     = User.objects.get(pk=my_id) 
+        profile     = my_user.get_profile()
+        skill_list  = profile.skills
+        initial = {
+            'skills':     list(skill_list.all()),
+        }
+        return initial
+
+    def render_to_response(self, context, **response_kwargs):
+        """
+        Returns a response with a template rendered with the given context.
+        """
+        # import pdb; pdb.set_trace()
+        profile_id      = self.kwargs['pk']
+        logged_in_id        = self.request.user.id
+        print profile_id
+        print logged_in_id
+        # mysum = profile_id + logged_in_id
+        # if 3 == 3:
+        if logged_in_id == int(profile_id):
+            return self.response_class(
+                request = self.request,
+                template = self.get_template_names(),
+                context = context,
+                **response_kwargs
+            )
+        else:
+            return self.response_class(
+                request = self.request,
+                template = 'wrong_profile.html',
+                context = context,
+                **response_kwargs
+            )
+
+
+    # def get_context_data(self, **kwargs):
+        
+    #     context             = super(ChangeView, self).get_context_data()
+    #     logged_in_id        = self.request.user.id
+    #     my_id               = self.kwargs['pk']
+    #     mysum               = my_id + logged_in_id
+    #     context['my_id']    = my_id
+    #     context['logged_in_id'] = logged_in_id 
+    #     context['mysum'] = mysum 
+
+    #     return context
+        
+    # slug_field      = "username"
+    # initial         = {'username': 'John Holmes',}
+    # context_object_name = 'my_user'
+
+
+class SuccessView(LoginRequiredMixin, TemplateView):
+    template_name = 'profile_change_done.html' 
+
+class RegSuccessView(TemplateView):
+    template_name = 'registration_done.html' 

@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p>Something went wrong. The profile you're trying to access belongs to another user</p>
+<p>Click <a href="{% url "login" %}">here</a> to log in as a different user</p>
+{% endblock content %}

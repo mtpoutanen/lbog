@@ -27,18 +27,29 @@ class State(models.Model):
         return self.state_name
 
 class UserProfile(models.Model):
-    user           = models.OneToOneField(User)
+    '''
+    Contains all the user information except for username, email and password 
+    which are handled by Django's User class. Instead each user profile is 
+    attached to a user object. Because a profile is created and saved immediately
+    after a User object is created, not null conditions cannot be enforced on 
+    these fields or else the db will throw an exception 
+    '''
+    user            = models.OneToOneField(User)
+    given_name      = models.CharField(max_length=30, blank=True, null=True)
+    family_name     = models.CharField(max_length=50, blank=True, null=True)
     user_type       = models.CharField(max_length=30, choices={
                     ('Developer', 'Developer'),
                     ('Charity', 'Charity'),
-                    })
+                    }, blank=True, null=True)
     title           = models.CharField(max_length=254, blank=True)
     company_name    = models.CharField(max_length=50, blank=True)
     country         = models.ForeignKey(Country, blank=True, null=True)
     state           = models.ForeignKey(State, blank=True, null=True)
-    city            = models.CharField(max_length=50, blank=False, null=False)
-    post_code       = models.CharField(max_length=10, blank=True)
-    address         = models.CharField(max_length=100, blank=True)
+    city            = models.CharField(max_length=50, blank=True, null=True)
+    # post_code       = models.CharField(max_length=10, blank=True)
+    # address         = models.CharField(max_length=100, blank=True)
+    lat             = models.FloatField(blank=False, null=False, default=0.0)
+    lon             = models.FloatField(blank=False, null=False, default=0.0)
     description     = models.TextField(blank=True)
     skills          = models.ManyToManyField(Skill)
     logo            = models.ImageField( \

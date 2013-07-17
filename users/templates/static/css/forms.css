@@ -1,3 +1,8 @@
+
+.hidden {
+  display: none;
+}
+
 .control-group > .controls > div {
     width: 206px !important;
     /*border: 2px red solid;*/

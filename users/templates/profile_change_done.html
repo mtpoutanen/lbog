@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<p>Profile changed... redirecting back to account</p>
+<div id="redirect-url" rel="{% url "my-account" pk=user.id %}" ></div>
+{% endblock content %}
+
+{% block extrascripts %}
+<script src="{% static "users/js/delay-redirect.js" %}"></script>
+<script src="{% static "global/js/jquery.timer.js" %}"></script>
+{% endblock extrascripts %}

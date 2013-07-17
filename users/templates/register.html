@@ -2,252 +2,33 @@
 {% load staticfiles %}
 
 {% block extrahead %}
-<link href="{% static "users/chosen/public/chosen.css" %}" rel="stylesheet">
-<link href="{% static "users/chosen/public/chosen.jquery.css" %}" rel="stylesheet">
+<link href="{% static "global/chosen/public/chosen.css" %}" rel="stylesheet">
+<link href="{% static "global/chosen/public/chosen.jquery.css" %}" rel="stylesheet">
 <link href="{% static "users/css/forms.css" %}" rel="stylesheet">
 {% endblock extrahead %}
 
 {% block content %}
 
 <div class="area">
-
-    <form class="form-horizontal" method="post" action="" enctype="multipart/form-data"> {% csrf_token %}
-      <fieldset>
-        {% if form.errors %}
-        <div class="controls">
-            <div class="errors main-errors">Please correct the following fields</div>
-        </div>
-        {% endif %}
-        
-        <div class="control-group">
-            {% if form.user_type.errors %}
-            <div class="errors controls"> 
-                {{ form.user_type.errors }} 
-            </div> 
-            {% endif %}
-            <label {% if form.user_type.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
-            for="" class="control-label">User Type:</label>
-            <div class="controls">
-                {{ form.user_type }}
-            </div> 
-        </div>
-        
-        <div class="control-group">
-            {% if form.username.errors %}
-            <div class="errors controls"> 
-                {{ form.username.errors }} 
-            </div> 
-            {% endif %}
-            <label {% if form.username.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
-            for="id_username"><span class="mandatory">*</span> Username:</label>
-            <div class="controls">
-                {{ form.username }}
-            </div>
-        </div>
-        
-        <div class="control-group">
-            {% if form.email.errors %}
-            <div class="errors controls"> 
-                {{ form.email.errors }} 
-            </div> 
-            {% endif %}
-            <label {% if form.email.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
-            for="" class="control-label"><span class="mandatory">*</span> Email Address:</label>
-            <div class="controls">
-                {{ form.email }}
-            </div>
-        </div>
-
-        <div class="control-group">
-            {% if form.first_name.errors %}
-            <div class="errors controls"> 
-                {{ form.first_name.errors }} 
-            </div> 
-            {% endif %}
-            <label {% if form.first_name.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
-            for="" class="control-label">First Name:</label>
-            <div class="controls">
-                {{ form.first_name }}
-            </div>
-        </div>
-
-        <div class="control-group">
-            {% if form.last_name.errors %}
-            <div class="errors controls"> 
-                {{ form.last_name.errors }} 
-            </div> 
-            {% endif %}
-            <label {% if form.last_name.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
-            for="" class="control-label">Last Name:</label>
-            <div class="controls">
-                {{ form.last_name }}
-            </div>
-        </div>
-
-        <div class="control-group">
-            {% if form.title.errors %}
-            <div class="errors controls"> 
-                {{ form.title.errors }} 
-            </div> 
-            {% endif %}
-            <label {% if form.title.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
-            for="" class="control-label">Title:</label>
-            <div class="controls">
-                {{ form.title }}
-            </div>
-        </div>
-
-        <div class="control-group">
-            {% if form.company_name.errors %}
-            <div class="errors controls"> 
-                {{ form.company_name.errors }} 
-            </div> 
-            {% endif %}
-            <label {% if form.company_name.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
-            for="" class="control-label">Company Name:</label>
-            <div class="controls">
-                {{ form.company_name }}
-            </div>
-        </div>
-
-        <div class="control-group">
-            {% if form.country.errors %}
-            <div class="errors controls"> 
-                {{ form.country.errors }} 
-            </div> 
-            {% endif %}
-            <label {% if form.country.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
-            for="" class="control-label"><span class="mandatory">*</span> Country:</label>
-            <div class="controls">
-                {{ form.country }}
-            </div>
-        </div>
-
-        <div class="control-group">
-            {% if form.state.errors %}
-            <div class="errors controls"> 
-                {{ form.state.errors }} 
-            </div> 
-            {% endif %}
-            <label {% if form.state.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
-            for="" class="control-label"><span class="mandatory">*</span> State:</label>
-            <div class="controls">
-                {{ form.state }}
-            </div>
-        </div>
-
-        <div class="control-group">
-            {% if form.city.errors %}
-            <div class="errors controls"> 
-                {{ form.city.errors }} 
-            </div> 
-            {% endif %}
-            <label {% if form.city.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
-            for="" class="control-label"><span class="mandatory">*</span> City:</label>
-            <div class="controls">
-                {{ form.city }}
-            </div>
-        </div>
-
-        <div class="control-group">
-            {% if form.post_code.errors %}
-            <div class="errors controls"> 
-                {{ form.post_code.errors }} 
-            </div> 
-            {% endif %}
-            <label {% if form.post_code.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
-            for="" class="control-label">Post Code / Zip Code:</label>
-            <div class="controls">
-                {{ form.post_code }}
-            </div>
-        </div>
-
-        <div class="control-group">
-            {% if form.address.errors %}
-            <div class="errors controls"> 
-                {{ form.address.errors }} 
-            </div> 
-            {% endif %}
-            <label {% if form.address.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
-            for="" class="control-label">Street Address:</label>
-            <div class="controls">
-                {{ form.address }}
-            </div>
-        </div>
-
-        <div class="control-group">
-            {% if form.logo.errors %}
-            <div class="errors controls"> 
-                {{ form.logo.errors }} 
-            </div> 
-            {% endif %}
-            <label {% if form.logo.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
-            for="" class="control-label">Logo:</label>
-            <div class="controls">
-                {{ form.logo }}
-            </div>
-        </div>
-
-        <div class="control-group">
-            {% if form.skills.errors %}
-            <div class="errors controls"> 
-                {{ form.skills.errors }} 
-            </div> 
-            {% endif %}
-            <label {% if form.skills.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
-            for="" class="control-label"><span class="mandatory">*</span> Skills:</label>
-            <div class="controls">
-                {{ form.skills }}
-            </div>
-        </div>
-
-        <div class="control-group">
-            {% if form.description.errors %}
-            <div class="errors controls"> 
-                {{ form.description.errors }} 
-            </div> 
-            {% endif %}
-            <label {% if form.description.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
-            for="" class="control-label">Description:</label>
-            <div class="controls">
-                {{ form.description }}
-            </div>
-        </div>
-
-
-        <div class="control-group">
-            {% if form.password1.errors %}
-            <div class="errors controls"> 
-                {{ form.password1.errors }} 
-            </div> 
-            {% endif %}
-            <label {% if form.password1.errors %} class="control-label errors" {% else %} class="control-label" {% endif %} class="control-label" for="id_password1">Password:</label>
-            <div class="controls">
-                {{ form.password1 }}
-            </div>
-        </div>
-
-        <div class="control-group">
-            {% if form.password2.errors %}
-            <div class="errors controls"> 
-                {{ form.password2.errors }} 
-            </div> 
-            {% endif %}
-            <label {% if form.password2.errors %} class="control-label errors" {% else %} class="control-label" {% endif %} class="control-label" for="id_password2">Confirm Password:</label>
-            <div class="controls">
-                {{ form.password2 }}
-            </div>
-        </div>
-        <div class="controls">
-            <input type="submit" class="btn btn-success" value="Register" />
-        </div>
-    </fieldset> 
-</form>
-
-
+	<form id="profile-form" class="form-horizontal" method="post" action="" enctype="multipart/form-data"> {% csrf_token %}
+		<fieldset>
+			{% if form.errors %}
+			<div class="controls">
+				<div class="errors main-errors">Please correct the following fields</div>
+			</div>
+			{% endif %}
+			{% include 'user-fields.html' %}
+			{% include 'profile-fields.html' %}
+			<div class="controls">
+				<input type='button' id='submit-button' class="btn btn-success" value="Save">
+			</div>
+			<input type='submit' value="Hidden Submit" style="display: none;">
+		</fieldset> 
+	</form>
 </div>
 {% endblock content %}
 
 {% block extrascripts %}
-<script src="{% static "global/users/js/userfx.js" %}"></script>       
+<script src="{% static "users/js/yqlgeo-2.js" %}"></script>       
+<script src="{% static "users/js/userfx.js" %}"></script>       
 {% endblock extrascripts %}

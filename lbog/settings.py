@@ -81,12 +81,27 @@ STATICFILES_FINDERS = (
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'lbog.user_processor.user',
+     'django.contrib.auth.context_processors.auth',
+     'django_facebook.context_processors.facebook',
+     'django.core.context_processors.request',
+     # 'django.core.context_processors.media',
+    )
+
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 #     'django.template.loaders.eggs.Loader',
 )
+
+#Added this due to django_facebook
+
+AUTHENTICATION_BACKENDS = (
+    'django_facebook.auth_backends.FacebookBackend',
+    'django.contrib.auth.backends.ModelBackend',
+    )
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -122,8 +137,16 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    'users'
+    'south',
+    'users',
+    'braces',
+    # 'django_facebook',
+    # 'django_js_utils',
+    # 'blahshsha',
+    # 'password_reset',
 )
+
+URLS_JS_GENERATED_FILE='globalstatic/js/dutils.conf.urls.js'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

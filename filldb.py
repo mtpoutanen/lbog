@@ -37,21 +37,22 @@ countrylist = [
 'Central African Republic',
 'Chad',
 'Chile',
-'China, People\'s Republic of',
+'China',
 'Colombia',
 'Comoros',
-'Congo, (Congo Brazzaville)',
-'Congo, (Congo Kinshasa)',
+'Congo',
 'Costa Rica',
-'Cote d\'Ivoire (Ivory Coast)',
+'Cote d\'Ivoire',
 'Croatia',
 'Cuba',
 'Cyprus',
 'Czech Republic',
+'Democratic Republic of Congo',
 'Denmark',
 'Djibouti',
 'Dominica',
 'Dominican Republic',
+'East Timor',
 'Ecuador',
 'Egypt',
 'El Salvador',
@@ -64,7 +65,7 @@ countrylist = [
 'Finland',
 'France',
 'Gabon',
-'Gambia, The',
+'Gambia',
 'Georgia',
 'Germany',
 'Ghana',
@@ -72,7 +73,7 @@ countrylist = [
 'Grenada',
 'Guatemala',
 'Guinea',
-'Guinea-Bissau',
+'Guinea Bissau',
 'Guyana',
 'Haiti',
 'Honduras',
@@ -92,8 +93,6 @@ countrylist = [
 'Kazakhstan',
 'Kenya',
 'Kiribati',
-'Korea, North',
-'Korea, South',
 'Kuwait',
 'Kyrgyzstan',
 'Laos',
@@ -124,7 +123,7 @@ countrylist = [
 'Montenegro',
 'Morocco',
 'Mozambique',
-'Myanmar (Burma)',
+'Myanmar',
 'Namibia',
 'Nauru',
 'Nepal',
@@ -133,6 +132,7 @@ countrylist = [
 'Nicaragua',
 'Niger',
 'Nigeria',
+'North Korea',
 'Norway',
 'Oman',
 'Pakistan',
@@ -165,6 +165,7 @@ countrylist = [
 'Solomon Islands',
 'Somalia',
 'South Africa',
+'South Korea',
 'Spain',
 'Sri Lanka',
 'Sudan',
@@ -176,7 +177,6 @@ countrylist = [
 'Tajikistan',
 'Tanzania',
 'Thailand',
-'Timor-Leste (East Timor)',
 'Togo',
 'Tonga',
 'Trinidad and Tobago',
@@ -200,7 +200,7 @@ countrylist = [
 'Zimbabwe']
 
 statelist = [
-'n/a (outside of US)',
+'n/a (outside of US or Canada)',
 'Alabama',
 'Alaska',
 'Arizona',
@@ -252,31 +252,43 @@ statelist = [
 'West Virginia',
 'Wisconsin',
 'Wyoming',
+'Alberta',
+'British Columbia',
+'Manitoba',
+'New Brunswick',
+'Newfoundland and Labrador',
+'Nova Scotia',
+'Ontario',
+'Prince Edward Island',
+'Quebec',
+'Saskatchewan',
 ]
 
 skill_list = ['PHP', 'Java', 'Ruby', 'Android', 'C', 'C#', 'C++', 
             'HTML5', 'Objective-C', 'SQL', 'JavaScript', 'Python']
 
-usernames       = ['test_developer',        'test_charity',             'mtpoutanen']
-emails          = ['dev@lbog.com',          'charity@lbog.com',         'm.poutanen.12@ucl.ac.uk']
-first_names     = ['John',                  'Jill',                     'Mikko']
-last_names      = ['Dogooder',              'Peaceandlove',             'Poutanen']
+usernames       = ['test_developer',        'test_charity',             'mikko']
+emails          = ['dev@lbog.com',          'charity@lbog.com',         'mtpoutanen.gmail.com']
 passwords       = ['password',              'password',                 'postgres']    
 titles          = ['Senior Developer',      'Director',                 'Overall Genius']
 user_types      = ['Developer',             'Charity',                  'Developer']
+given_names     = ['John',                  'Jill',                     'Mikko']
+family_names    = ['Dogooder',              'Peaceandlove',             'Poutanen']
 companies       = ['Mikkosoft',             'World Peace',              'UCL']
-countries       = ['Finland',               'United Kingdom',           'United States']
-states          = ['n/a (outside of US)',   'n/a (outside of US)',      'Virginia']
-cities          = ['Vaasa',                 'London',                   'Richmond']
-post_codes      = ['65200',                 'NW8 9JT',                  'ZZZ']
-addresses       = ['Majakka',               'Elm Tree',                 'Blaah']    
+countries       = ['Finland',               'United States',            'United Kingdom']
+states          = ['n/a (outside of US)',   'Virginia',                 'n/a (outside of US)']
+cities          = ['Vaasa',                 'Richmond',                 'London']
+post_codes      = ['65200',                 'ZZZ',                      'NW8 9JT']
+addresses       = ['Majakka',               'Blaah',                    '3 Elm Tree Court']    
 descriptions    = ['superb developer',      'a really nice charity',    'Master of Universe']
 
-user_lists      = [usernames, emails, first_names, last_names, passwords]
-profile_lists   = [titles, user_types, companies, countries, states, cities, post_codes, addresses, descriptions]
+user_lists      = [usernames, emails, passwords]
+profile_lists   = [titles, user_types, given_names, family_names, companies, 
+                    countries, states, cities, post_codes, addresses, descriptions]
 
-user_field_list     = ['username', 'email', 'first_name', 'last_name', 'password']
-profile_field_list  = ['title', 'user_type','company_name', 'country', 'state', 'city', 'post_code', 'address', 'description']
+user_field_list     = ['username', 'email', 'password']
+profile_field_list  = ['title', 'user_type', 'given_name', 'family_name', 'company_name', 
+                        'country', 'state', 'city', 'post_code', 'address', 'description']
 
 class DB_Filler():
 
@@ -297,9 +309,15 @@ class DB_Filler():
             dev_value               = source_list[0]
             charity_value           = source_list[1]
             admin_value             = source_list[2]
-            setattr(devuser, field_name, dev_value)
-            setattr(charityuser, field_name, charity_value)
-            setattr(adminuser, field_name, admin_value)
+
+            if field_name == 'password':
+                devuser.set_password(dev_value)
+                charityuser.set_password(charity_value)
+                adminuser.set_password(admin_value)
+            else:
+                setattr(devuser, field_name, dev_value)
+                setattr(charityuser, field_name, charity_value)
+                setattr(adminuser, field_name, admin_value)
 
         adminuser.is_superuser      = True
         adminuser.is_staff          = True

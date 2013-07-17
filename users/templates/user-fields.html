@@ -1,0 +1,49 @@
+<div class="control-group">
+    {% if form.username.errors %}
+    <div class="errors controls"> 
+        {{ form.username.errors }} 
+    </div> 
+    {% endif %}
+    <label {% if form.username.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
+    for="id_username"><span class="mandatory">*</span> Username:</label>
+    <div class="controls">
+        {{ form.username }}
+    </div>
+</div>
+
+<div class="control-group">
+    {% if form.email.errors %}
+    <div class="errors controls"> 
+        {{ form.email.errors }} 
+    </div> 
+    {% endif %}
+    <label {% if form.email.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
+    for="" class="control-label"><span class="mandatory">*</span> Email Address:</label>
+    <div class="controls">
+        {{ form.email }}
+    </div>
+</div>
+
+<div class="control-group">
+            {% if form.password1.errors %}
+            <div class="errors controls"> 
+                {{ form.password1.errors }} 
+            </div> 
+            {% endif %}
+            <label {% if form.password1.errors %} class="control-label errors" {% else %} class="control-label" {% endif %} class="control-label" for="id_password1">Password:</label>
+            <div class="controls">
+                {{ form.password1 }}
+            </div>
+        </div>
+
+        <div class="control-group">
+            {% if form.password2.errors %}
+            <div class="errors controls"> 
+                {{ form.password2.errors }} 
+            </div> 
+            {% endif %}
+            <label {% if form.password2.errors %} class="control-label errors" {% else %} class="control-label" {% endif %} class="control-label" for="id_password2">Confirm Password:</label>
+            <div class="controls">
+                {{ form.password2 }}
+            </div>
+        </div>

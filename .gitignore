@@ -1,4 +1,5 @@
 /media/
 /static/
 /lbog/local_settings.*
+migrations/
 *.pyc
