@@ -84,7 +84,7 @@ STATICFILES_FINDERS = (
 TEMPLATE_CONTEXT_PROCESSORS = (
     'lbog.user_processor.user',
      'django.contrib.auth.context_processors.auth',
-     'django_facebook.context_processors.facebook',
+     # 'django_facebook.context_processors.facebook',
      'django.core.context_processors.request',
      # 'django.core.context_processors.media',
     )
