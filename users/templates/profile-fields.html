@@ -169,7 +169,11 @@
             </div>
         </div>
 
-        <div id="skills_div" class="control-group hidden">
+        <div id="skills_div" {% if user.get_profile.user_type == 'Developer' %}
+                                class="control-group"
+                              {% else %}
+                                class="control-group hidden"
+                             {% endif %} >
             {% if form.skills.errors %}
             <div class="errors controls"> 
                 {{ form.skills.errors }} 

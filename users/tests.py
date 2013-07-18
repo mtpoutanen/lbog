@@ -40,7 +40,7 @@ class ModelTests(TestCase):
 	]
 
 	def save_user(self, values):
-		user = User.objects.create()
+		user 					= User.objects.create()
 		user.username 			= values[self.USERNAME]
 		user.email 				= values[self.EMAIL]
 		user.set_password(values[self.PASSWORD])
@@ -130,24 +130,24 @@ class ModelTests(TestCase):
 		self.assertEqual(response.status_code, 302)
 
 
-	def test_registration_form(self):
+	# def test_registration_form(self):
 		
-		country 	= Country.objects.create(country_name = 'Finland')
+	# 	country 	= Country.objects.create(country_name = 'Finland')
 		
-		state 		= State.objects.create(state_name = 'test state')
-		c = Client()
-		response = c.post(reverse_lazy('register'),
-			{'username': 'user',
-			'email': 'test@test.com',
-			'password1': 'password',
-			'password2': 'password',
-			'user_type': 'Developer',
-			'country': country,
-			'state': state,
-			'city': 'Vaasa',
-			'lat': 30.00,
-			'lon': 30.00,
-			})
-		self.assertEqual(response.status_code, 302)
+	# 	state 		= State.objects.create(state_name = 'test state')
+	# 	c = Client()
+	# 	response = c.post(reverse_lazy('register'),
+	# 		{'username': 'user',
+	# 		'email': 'test@test.com',
+	# 		'password1': 'password',
+	# 		'password2': 'password',
+	# 		'user_type': 'Developer',
+	# 		'country': country,
+	# 		'state': state,
+	# 		'city': 'Vaasa',
+	# 		'lat': 30.00,
+	# 		'lon': 30.00,
+	# 		})
+	# 	self.assertEqual(response.status_code, 302)
 
 

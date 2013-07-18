@@ -103,6 +103,10 @@ $(document).ready(function(){
     user_type0.attr('rel', 'popover');
     user_type0.attr('title', 'Register as a volunteer or a charitable / non-profit organisation');
 
+    if (user_type0.checked) {
+        $('#skills_div').removeClass('hidden');
+    }
+
     var user_type1 = $("#id_user_type_1");
     user_type1.attr('rel', 'popover');
     user_type1.attr('title', 'Register as a volunteer or a charitable / non-profit organisation');

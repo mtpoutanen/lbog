@@ -140,6 +140,7 @@ INSTALLED_APPS = (
     'south',
     'users',
     'braces',
+    'django_extensions',
     # 'django_facebook',
     # 'django_js_utils',
     # 'blahshsha',

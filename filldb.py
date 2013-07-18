@@ -13,7 +13,7 @@ countrylist = [
 'Australia',
 'Austria',
 'Azerbaijan',
-'Bahamas, The',
+'Bahamas',
 'Bahrain',
 'Bangladesh',
 'Barbados',
@@ -200,7 +200,7 @@ countrylist = [
 'Zimbabwe']
 
 statelist = [
-'n/a (outside of US or Canada)',
+'n/a (Outside of US or Canada)',
 'Alabama',
 'Alaska',
 'Arizona',
@@ -268,7 +268,7 @@ skill_list = ['PHP', 'Java', 'Ruby', 'Android', 'C', 'C#', 'C++',
             'HTML5', 'Objective-C', 'SQL', 'JavaScript', 'Python']
 
 usernames       = ['test_developer',        'test_charity',             'mikko']
-emails          = ['dev@lbog.com',          'charity@lbog.com',         'mtpoutanen.gmail.com']
+emails          = ['dev@lbog.com',          'charity@lbog.com',         'mtpoutanen@gmail.com']
 passwords       = ['password',              'password',                 'postgres']    
 titles          = ['Senior Developer',      'Director',                 'Overall Genius']
 user_types      = ['Developer',             'Charity',                  'Developer']
@@ -276,7 +276,7 @@ given_names     = ['John',                  'Jill',                     'Mikko']
 family_names    = ['Dogooder',              'Peaceandlove',             'Poutanen']
 companies       = ['Mikkosoft',             'World Peace',              'UCL']
 countries       = ['Finland',               'United States',            'United Kingdom']
-states          = ['n/a (outside of US or Canada)',     'Virginia',     'n/a (outside of US or Canada)']
+states          = ['n/a (Outside of US or Canada)',     'Virginia',     'n/a (Outside of US or Canada)']
 cities          = ['Vaasa',                 'Richmond',                 'London']
 lats            = [30.00,                   50.00,                      90.00]
 lons            = [30.00,                   50.00,                      90.00]
@@ -292,7 +292,7 @@ profile_lists   = [titles, user_types, given_names, family_names, companies,
 
 user_field_list     = ['username', 'email', 'password']
 profile_field_list  = ['title', 'user_type', 'given_name', 'family_name', 'company_name', 
-                        'country', 'state', 'city', 
+                        'country', 'state', 'city', 'lat', 'lon',
                         # 'post_code', 'address', 
                         'description']
 
@@ -366,6 +366,10 @@ class DB_Filler():
 
         devprofile.skills = myskills
 
+        devuser.save()
+        charityuser.save()
+        adminuser.save()
+
         devprofile.save()
         charity_profile.save()
         adminprofile.save()
@@ -383,6 +387,22 @@ class DB_Filler():
     def create_skills(self):
         for skill in skill_list:
             newskill = Skill(skill_name=skill)
-            newskill.save()        
+            newskill.save()   
 
+    def delete_all(self):
+        self.delete_users()
+        self.delete_states()
+        self.delete_countries()
+        self.delete_skills()
 
+    def delete_users(self):
+        User.objects.all().delete()
+
+    def delete_states(self):
+        State.objects.all().delete()
+    
+    def delete_skills(self):        
+        Skill.objects.all().delete()
+    
+    def delete_countries(self):
+        Country.objects.all().delete()
