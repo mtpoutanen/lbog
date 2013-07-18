@@ -4,21 +4,16 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://lboglocal.com/" />
-<title>4_recover_password</title>
+<title>6_wrong_profile</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">4_recover_password</td></tr>
+<tr><td rowspan="1" colspan="3">6_wrong_profile</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
 	<td>/accounts/logout/</td>
-	<td></td>
-</tr>
-<tr>
-	<td>open</td>
-	<td>/</td>
 	<td></td>
 </tr>
 <tr>
@@ -27,14 +22,14 @@
 	<td></td>
 </tr>
 <tr>
-	<td>clickAndWait</td>
-	<td>link=exact:Forgot password?</td>
-	<td></td>
+	<td>type</td>
+	<td>id=id_username</td>
+	<td>mikko</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=id_email</td>
-	<td>mtpoutanen@gmail.com</td>
+	<td>id=id_password</td>
+	<td>postgres</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -42,8 +37,13 @@
 	<td></td>
 </tr>
 <tr>
+	<td>open</td>
+	<td>/accounts/my-account/2/</td>
+	<td></td>
+</tr>
+<tr>
 	<td>assertTextPresent</td>
-	<td>Password reset successful</td>
+	<td>Something went wrong</td>
 	<td></td>
 </tr>
 

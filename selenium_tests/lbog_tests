@@ -11,9 +11,11 @@
 <tr><td><a href="1_login_mikko">1_login_mikko</a></td></tr>
 <tr><td><a href="2_logout">2_logout</a></td></tr>
 <tr><td><a href="3_change_password">3_change_password</a></td></tr>
-<tr><td><a href="lbog_tests">4_recover_password</a></td></tr>
-<tr><td><a href="3_register_full_info">3_register_full_info</a></td></tr>
 <tr><td><a href="4_recover_password">4_recover_password</a></td></tr>
+<tr><td><a href="5_profile_not_logged_in">5_profile_not_logged_in</a></td></tr>
+<tr><td><a href="6_wrong_profile">6_wrong_profile</a></td></tr>
+<tr><td><a href="7_change_profile">7_change_profile</a></td></tr>
+<tr><td><a href="3_register_full_info">3_register_full_info</a></td></tr>
 </tbody></table>
 </body>
 </html>

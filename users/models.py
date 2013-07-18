@@ -3,6 +3,7 @@ import os
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
+from users.models import *
 
 def get_image_path(instance, filename):
     return os.path.join('images/profile_images', str(instance.id), filename)
@@ -35,22 +36,26 @@ class UserProfile(models.Model):
     these fields or else the db will throw an exception 
     '''
     user            = models.OneToOneField(User)
-    given_name      = models.CharField(max_length=30, blank=True, null=True)
-    family_name     = models.CharField(max_length=50, blank=True, null=True)
+    given_name      = models.CharField(max_length=30, blank=True)
+    family_name     = models.CharField(max_length=50, blank=True)
     user_type       = models.CharField(max_length=30, choices={
                     ('Developer', 'Developer'),
                     ('Charity', 'Charity'),
-                    }, blank=True, null=True)
+                    }, blank=False, null=False)
     title           = models.CharField(max_length=254, blank=True)
     company_name    = models.CharField(max_length=50, blank=True)
-    country         = models.ForeignKey(Country, blank=True, null=True)
-    state           = models.ForeignKey(State, blank=True, null=True)
-    city            = models.CharField(max_length=50, blank=True, null=True)
+    country         = models.ForeignKey(Country, blank=False, 
+                        null=False, default=1)
+    state           = models.ForeignKey(State, blank=False, 
+                        null=False, default=1)
+    city            = models.CharField(max_length=50, blank=False,
+                        null=False, default="")
     # post_code       = models.CharField(max_length=10, blank=True)
     # address         = models.CharField(max_length=100, blank=True)
     lat             = models.FloatField(blank=False, null=False, default=0.0)
     lon             = models.FloatField(blank=False, null=False, default=0.0)
     description     = models.TextField(blank=True)
+    # The forms do not allow Charities to upload skills
     skills          = models.ManyToManyField(Skill)
     logo            = models.ImageField( \
                     upload_to=get_image_path, blank=True, null=True)

@@ -30,7 +30,7 @@
                 {{ form.password1.errors }} 
             </div> 
             {% endif %}
-            <label {% if form.password1.errors %} class="control-label errors" {% else %} class="control-label" {% endif %} class="control-label" for="id_password1">Password:</label>
+            <label {% if form.password1.errors %} class="control-label errors" {% else %} class="control-label" {% endif %} class="control-label" for="id_password1"><span class="mandatory">*</span> Password:</label>
             <div class="controls">
                 {{ form.password1 }}
             </div>
@@ -42,7 +42,7 @@
                 {{ form.password2.errors }} 
             </div> 
             {% endif %}
-            <label {% if form.password2.errors %} class="control-label errors" {% else %} class="control-label" {% endif %} class="control-label" for="id_password2">Confirm Password:</label>
+            <label {% if form.password2.errors %} class="control-label errors" {% else %} class="control-label" {% endif %} class="control-label" for="id_password2"><span class="mandatory">*</span> Confirm Password:</label>
             <div class="controls">
                 {{ form.password2 }}
             </div>
