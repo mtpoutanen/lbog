@@ -278,17 +278,23 @@ companies       = ['Mikkosoft',             'World Peace',              'UCL']
 countries       = ['Finland',               'United States',            'United Kingdom']
 states          = ['n/a (outside of US or Canada)',     'Virginia',     'n/a (outside of US or Canada)']
 cities          = ['Vaasa',                 'Richmond',                 'London']
-post_codes      = ['65200',                 'ZZZ',                      'NW8 9JT']
-addresses       = ['Majakka',               'Blaah',                    '3 Elm Tree Court']    
+lats            = [30.00,                   50.00,                      90.00]
+lons            = [30.00,                   50.00,                      90.00]
+# post_codes      = ['65200',                 'ZZZ',                      'NW8 9JT']
+# addresses       = ['Majakka',               'Blaah',                    '3 Elm Tree Court']    
 descriptions    = ['superb developer',      'a really nice charity',    'Master of Universe']
 
 user_lists      = [usernames, emails, passwords]
 profile_lists   = [titles, user_types, given_names, family_names, companies, 
-                    countries, states, cities, post_codes, addresses, descriptions]
+                    countries, states, cities, lats, lons,
+                    # post_codes, addresses, 
+                    descriptions]
 
 user_field_list     = ['username', 'email', 'password']
 profile_field_list  = ['title', 'user_type', 'given_name', 'family_name', 'company_name', 
-                        'country', 'state', 'city', 'post_code', 'address', 'description']
+                        'country', 'state', 'city', 
+                        # 'post_code', 'address', 
+                        'description']
 
 class DB_Filler():
 
