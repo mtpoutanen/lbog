@@ -99,7 +99,7 @@ TEMPLATE_LOADERS = (
 #Added this due to django_facebook
 
 AUTHENTICATION_BACKENDS = (
-    'django_facebook.auth_backends.FacebookBackend',
+    # 'django_facebook.auth_backends.FacebookBackend',
     'django.contrib.auth.backends.ModelBackend',
     )
 
