@@ -133,6 +133,7 @@ class ModelTests(TestCase):
 	def test_registration_form(self):
 		
 		country 	= Country.objects.create(country_name = 'Finland')
+		
 		state 		= State.objects.create(state_name = 'test state')
 		c = Client()
 		response = c.post(reverse_lazy('register'),
