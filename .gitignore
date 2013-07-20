@@ -1,6 +1,7 @@
 /media/
 /static/
 /lbog/local_settings.*
+migrations/
 <<<<<<< HEAD
 migrations/
 *.pyc

@@ -27,7 +27,7 @@ class MyBaseForm(forms.ModelForm):
     family_name     = forms.CharField(max_length=30, required=False)
     
     user_type       = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(),
-                    required=False)
+                    required=True)
     title           = forms.CharField(max_length=30, required=False) 
     company_name    = forms.CharField(max_length=30, required=False)
     country         = forms.ModelChoiceField(empty_label="Please select a country", 

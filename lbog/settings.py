@@ -48,8 +48,8 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-# PROJECT_ROOT = '/var/www/lbog/'
-MEDIA_ROOT = '/var/www/lbog/media/'
+PROJECT_ROOT = '/var/www/lbog/'
+MEDIA_ROOT = PROJECT_ROOT + 'media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -60,7 +60,7 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = '/var/www/lbog/static/'
+STATIC_ROOT = PROJECT_ROOT + 'static/'
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -68,8 +68,9 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    ('global', '/var/www/lbog/globalstatic/',),
-    ('users', '/var/www/lbog/users/templates/static/'),
+    ('global',      PROJECT_ROOT + 'globalstatic/',),
+    ('users',       PROJECT_ROOT + 'users/templates/static/'),
+    ('projects',    PROJECT_ROOT + 'projects/static/'),
 )
 
 # List of finder classes that know how to find static files in
@@ -123,7 +124,8 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     "/var/www/lbog/templates",
-    "/var/www/lbog/users/templates"
+    "/var/www/lbog/users/templates",
+    "/var/www/lbog/projects/templates",
 )
 
 INSTALLED_APPS = (
@@ -139,8 +141,12 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'south',
     'users',
+    'projects',
     'braces',
     'django_extensions',
+    # django_cleanup deletes the previous image and must
+    # be placed below all apps that use images on this list
+    'django_cleanup',
     # 'django_facebook',
     # 'django_js_utils',
     # 'blahshsha',

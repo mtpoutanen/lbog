@@ -2,9 +2,9 @@
 {% load staticfiles %}
 
 {% block extrahead %}
-<link href="{% static "global/chosen/public/chosen.css" %}" rel="stylesheet">
-<link href="{% static "global/chosen/public/chosen.jquery.css" %}" rel="stylesheet">
-<link href="{% static "users/css/forms.css" %}" rel="stylesheet">
+<link href="{% static "global/chosen/public/chosen.css" %}"         rel="stylesheet">
+<link href="{% static "global/chosen/public/chosen.jquery.css" %}"  rel="stylesheet">
+<link href="{% static "users/css/forms.css" %}"                     rel="stylesheet">
 {% endblock extrahead %}
 
 {% block content %}
@@ -31,6 +31,6 @@
 {% endblock content %}
 
 {% block extrascripts %}
-<script src="{% static "users/js/yqlgeo-2.js" %}"></script>       
-<script src="{% static "users/js/userfx.js" %}"></script>       
+<script src="{% static "users/js/userfx.js" %}"></script>  
+<script src="{% static "users/js/coordinates.js" %}"></script>            
 {% endblock extrascripts %}

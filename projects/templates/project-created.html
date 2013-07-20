@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<p>Project created... Redirecting to your account</p>
+<div id="redirect-url" rel="{% url "my-account" %}" ></div>
+{% endblock content %}
+
+{% block extrascripts %}
+<script src="{% static "users/js/delay-redirect.js" %}"></script>
+<script src="{% static "global/js/jquery.timer.js" %}"></script>
+{% endblock extrascripts %}

@@ -26,6 +26,7 @@ urlpatterns = patterns('',
     (r'^user/password/done/$', 
         'django.contrib.auth.views.password_reset_complete'),
     url(r'^accounts/', include('users.urls')),
+    url(r'^projects/', include('projects.urls')),
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'lbog.views.home', name='home'),

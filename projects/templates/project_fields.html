@@ -1,0 +1,134 @@
+
+<div class="control-group">
+    {% if form.title.errors %}
+    <div class="errors controls"> 
+        {{ form.title.errors }} 
+    </div> 
+    {% endif %}
+    <label {% if form.title.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
+    for="" class="control-label"><span class="mandatory">* </span>Project title</label>
+    <div class="controls">
+        {{ form.title }}
+    </div>
+</div>
+
+<div id="skills_div" class="control-group">
+    {% if form.skills.errors %}
+    <div class="errors controls"> 
+        {{ form.skills.errors }} 
+    </div> 
+    {% endif %}
+    <label {% if form.skills.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
+    for="" class="control-label">Skills:</label>
+    <div class="controls">
+        {{ form.skills }}
+    </div>
+</div>
+
+<div class="control-group">
+    {% if form.need_locals.errors %}
+    <div class="errors controls"> 
+        {{ form.need_locals.errors }} 
+    </div> 
+    {% endif %}
+    <label {% if form.need_locals.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
+    for="" class="control-label"><span class="mandatory">* </span>Local volunteers needed:</label>
+    <div class="controls">
+        {{ form.need_locals }}
+    </div> 
+</div>
+
+<div class="controls">
+    <button class="btn" type="button" onclick="getMyLocation()">Get my location</button>
+</div>
+
+<div class="control-group">
+    {% if form.country.errors %}
+    <div class="errors controls"> 
+        {{ form.country.errors }} 
+    </div> 
+    {% endif %}
+    <label {% if form.country.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
+    for="" class="control-label"><span class="mandatory">* </span>Country:</label>
+    <div class="controls">
+        {{ form.country }}
+    </div>
+</div>
+
+<div class="control-group">
+    {% if form.state.errors %}
+    <div class="errors controls"> 
+        {{ form.state.errors }} 
+    </div> 
+    {% endif %}
+    <label {% if form.state.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
+    for="" class="control-label"><span class="mandatory">*</span> State:</label>
+    <div class="controls">
+        {{ form.state }}
+    </div>
+</div>
+
+<div class="control-group">
+    {% if form.city.errors %}
+    <div class="errors controls"> 
+        {{ form.city.errors }} 
+    </div> 
+    {% endif %}
+    <label {% if form.city.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
+    for="" class="control-label"><span class="mandatory">*</span> City:</label>
+    <div class="controls">
+        {{ form.city }}
+    </div>
+</div>
+
+<div id="lat_div" class="control-group">
+    {% if form.lat.errors %}
+    <div class="errors controls"> 
+        {{ form.lat.errors }} 
+    </div> 
+    {% endif %}
+    <label {% if form.lat.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
+    for="" class="control-label">Latitude:</label>
+    <div class="controls">
+        {{ form.lat }}
+    </div>
+</div>
+
+{% if form.lon.errors %}
+<div class="errors controls"> 
+    {{ form.lon.errors }} 
+</div> 
+{% endif %}
+<div id="lon_div" class="control-group">
+    <label {% if form.lon.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
+    for="" class="control-label">Longitude:</label>
+    <div class="controls">
+        {{ form.lon }}
+    </div>
+</div>
+
+<div class="control-group">
+    {% if form.image.errors %}
+    <div class="errors controls"> 
+        {{ form.image.errors }} 
+    </div> 
+    {% endif %}
+    <label {% if form.image.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
+    for="" class="control-label">Image:</label>
+    <div id="image_upload" class="controls">
+        {{ form.image }}
+    </div>
+</div>
+
+<div class="control-group">
+    {% if form.description.errors %}
+    <div class="errors controls"> 
+        {{ form.description.errors }} 
+    </div> 
+    {% endif %}
+    <label {% if form.description.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
+    for="" class="control-label">Description:</label>
+    <div class="controls">
+        {{ form.description }}
+    </div>
+</div>
