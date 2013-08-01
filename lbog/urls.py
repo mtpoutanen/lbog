@@ -25,6 +25,7 @@ urlpatterns = patterns('',
     url(r'^stories/', include('stories.urls')),
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^fbtest/$', 'lbog.views.fbtest', name='fbtest'),
     url(r'^$', 'lbog.views.home', name='home'),
     url(r'^i-want-to-help/$',     'lbog.views.volunteers',                  
         name='i-want-to-help'),

@@ -119,3 +119,6 @@ def get_distance(projlat, projlon, qlat, qlon):
     # in your favorite set of units to get length.
     # 6371 = earth's radius in km
     return 6371*arc
+
+def fbtest(request):
+    return render_to_response('fbtest.html', context_instance=RequestContext(request))
