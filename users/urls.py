@@ -1,5 +1,5 @@
 from users.views import LoginView, LoginSuccessfulView, LoginRequiredView, RegSuccessView, \
-                        RegistrationView, ChangeView, SuccessView
+                        RegistrationView, ChangeView, SuccessView, CharityView
 from django.conf.urls import patterns, url
 
 urlpatterns = patterns('',
@@ -23,6 +23,8 @@ urlpatterns = patterns('',
         name='password-change'),
     url(r'^logout/$',                 'django.contrib.auth.views.logout',   
                                       {'next_page': '/accounts/login/'},    name='logout'),
+    url(r'^charity-details/(?P<pk>\d+)/$', view=CharityView.as_view(),            
+        name='charity-details'),
 )
 
 

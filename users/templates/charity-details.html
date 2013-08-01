@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+    {{ charity.company_name }}<br>
+    {{ charity.country }}<br>
+    {% if charity.state != 'n/a (Outside of US or Canada)' %}
+      {{ charity.state }}<br>
+    {% endif %}
+    {{ charity.city }}<br>
+    {{ charity.description }}<br>
+
+{% endblock content %}

@@ -1,0 +1,101 @@
+{% load new_requests %}
+{% load staticfiles %}
+
+<header>
+    <div class="container" id="header-wrapper">
+        <div class="row" id="navbg-top">
+            <div class="span3" id="logo">
+                <img src="{% static "global/images/lbog_logo.png" %}" alt="LBOG logo" id='lbog_logo'>
+            </div>
+            <div class="span3 offset3" id="fb-buttons">
+                <button class="btn btn-primary">FB Like</button>
+                <button class="btn btn-primary">FB Share</button>
+            </div>
+            <div class="span3" id="reg-login">
+                {% if user.is_authenticated %}
+                Welcome, {{ user }}<br>
+                <a href="{% url "my-account" pk=user.id %}">My Account</a> / <a href="{% url "logout" %}">Logout</a> 
+                {% else %}
+                <a href="{% url "login" %}">Login</a> / <a href="{% url "register" %}">Join</a> 
+                {% endif %}
+            </div> <!-- reg-login -->
+        </div>
+
+        <div class="container" id="navbar-container">
+            <div class="navbar" id="navbar-outer">
+                <div class="navbar-inner">
+                        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"/>
+                            <span class="icon-bar"/>
+                            <span class="icon-bar"/>
+                        </button>
+                        <div class="nav-collapse collapse" id="navlinks">
+                            <ul class="nav">
+                                <li class="" id="nav-home">
+                                    <a href="/">Home</a>
+                                </li>
+                                <li class="">
+                                    <a href="{% url 'i-want-to-help' %}">For Volunteers</a>
+                                </li>
+                                <li class="">
+                                    <a href="{% url 'looking-for-volunteers' %}">I'm Looking for Volunteers</a>
+                                </li>
+                                <li class="dropdown notification">
+                                    <a href="#" id="drop2" role="button" class="dropdown-toggle" data-toggle="dropdown">
+                                        {% get_new_notifications 10 %}
+                                        {% if new_notifications %}
+                                        <div class="inner-circle"><b>{{ new_notifications.count }}</b></div> 
+                                        {% endif %}
+                                        <div id="notification-text">Notifications</div>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
+                                        {% if user.is_authenticated %}
+                                            
+                                        <li id="view_all_notifications"><a id="view_all" href="{% url 'my-notifications' pk=user.id %}">View all notifications</a></li>
+                                            <HR class="my_hr" WIDTH="100%" SIZE="3">
+                                            {% for noti in notifications %}
+                                                {% if user.get_profile.user_type == 'Developer' %}
+                                                    <li><a href="{% url 'request-details' pk=noti.request.id noti=noti.id %}">
+                                                        {% if not noti.seen %} <b> {% endif %}
+                                                            {{ noti.sender }} has {{ noti.request.status }} your request
+                                                        {% if not noti.seen %}</b>{% endif %} 
+                                                    </a></li>
+                                                    <HR class="my_hr" WIDTH="100%" SIZE="3">    
+                                                {% endif %}
+                                                {% if user.get_profile.user_type == 'Charity' %}
+                                                    <li><a href="{% url 'request-details' pk=noti.request.id noti=noti.id %}">
+                                                        {% if not noti.seen %}<b>{% endif %}
+                                                            {{ noti.sender }} has offered to help on {{ noti.request.project.title }}
+                                                        {% if not noti.seen %}</b>{% endif %}    
+                                                    </a></li>
+                                                    <HR class="my_hr" WIDTH="100%" SIZE="3">
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% else %}
+                                            <li>Please log in to see your notifications</li>
+                                        {% endif %}
+                                    </ul>
+                                </li>
+
+                                {% if user.is_authenticated %}
+                                    <li class="mobile-menu">
+                                        <a href="#">My Account</a>
+                                    </li>
+                                    <li class="mobile-menu">
+                                        <a href="#">Logout</a>
+                                    </li>
+                                {% else %}
+                                    <li class="mobile-menu">
+                                        <a href="#">Login</a>
+                                    </li>
+                                    <li class="mobile-menu">
+                                        <a href="#">Register</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div> <!-- navlinks -->
+                </div> <!-- navbar-inner -->
+            </div> <!-- navbar-outer -->
+        </div>  <!-- navbar-container -->
+        </div>  <!-- header-wrapper -->
+</header>

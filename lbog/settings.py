@@ -87,6 +87,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
      'django.contrib.auth.context_processors.auth',
      # 'django_facebook.context_processors.facebook',
      'django.core.context_processors.request',
+     # 'messages.context_processors.inbox',
      # 'django.core.context_processors.media',
     )
 
@@ -126,6 +127,7 @@ TEMPLATE_DIRS = (
     "/var/www/lbog/templates",
     "/var/www/lbog/users/templates",
     "/var/www/lbog/projects/templates",
+    "/var/www/lbog/stories/templates",
 )
 
 INSTALLED_APPS = (
@@ -142,6 +144,7 @@ INSTALLED_APPS = (
     'south',
     'users',
     'projects',
+    'stories',
     'braces',
     'django_extensions',
     # django_cleanup deletes the previous image and must

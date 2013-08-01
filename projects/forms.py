@@ -1,5 +1,5 @@
 from django import forms
-from projects.models import Project
+from projects.models import Project, Request
 from users.models import Skill, Country, State
 
 class ProjectCreationForm(forms.ModelForm):
@@ -34,6 +34,18 @@ class ProjectCreationForm(forms.ModelForm):
                         'need_locals', 'country',
                         'state', 'city', 'lat', 'lon')
 
+class ProjectChangeForm(ProjectCreationForm):
+    
+    status          = forms.ChoiceField(choices=Project.STATUS_CHOICES,
+                    widget=forms.RadioSelect())
+
+    class Meta:
+        model       = Project
+        exclude     = ('charity',)
+        fields      = ('title', 'description', 'image', 'skills', 
+                        'need_locals', 'country',
+                        'state', 'city', 'lat', 'lon', 'status')
+
     # def save(self, commit=False):
     #     project = Project.objects.create()
     #     return project        
@@ -41,11 +53,13 @@ class ProjectCreationForm(forms.ModelForm):
 
     #     return project
 
-class ProjectChangeForm(forms.ModelForm):
+class RequestForm(forms.ModelForm):
+
+    message         = forms.CharField(widget=forms.Textarea, required=False)
 
     class Meta:
-        model       = Project
-        exclude     = ('charity',)
-        fields      = ('title', 'description', 'image', 'skills_needed', 
-                        'status', 'need_locals', 'country',
-                        'state', 'city', 'lat', 'lon')  
+        model       = Request
+        fields      = ('message',)
+            # 'project')
+
+

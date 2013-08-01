@@ -2,102 +2,35 @@
 
 <html>
 <head>
-    <title>Little Bits of Good</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style type="text/css">body {padding-top: 40px;}</style>
-    <link href="{% static "global/bootstrap/css/bootstrap.css" %}"                  rel="stylesheet" />
-    <link href="{% static "global/bootstrap/css/bootstrap-res-nav.min.css" %}"      rel="stylesheet" />
-    <link href="{% static "global/bootstrap/css/bootstrap-fileupload.min.css" %}"   rel="stylesheet" />
-    <link href="{% static "global/css/top.css" %}"                                  rel="stylesheet" />
-    <link href="{% static "global/css/styles.css" %}"                               rel="stylesheet" />
-    <!-- <link href="{% static "global/assets/bootstrap/css/bootstrap-responsive.css" %}" rel="stylesheet"> -->
-    <!-- <link href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" rel="stylesheet"> -->
 
+    {% include 'base_head.html' %}
     {% block extrahead %}
     {% endblock extrahead %}
 
 </head>
 <body>
     <!-- creates the like-button -->
-    <div class="navbar navbar-inverse navbar-fixed-top" id="navbar-top">
-        <div class="navbar-inner">
-            <div class="container" id="navbar-container">
-                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"/>
-                    <span class="icon-bar"/>
-                    <span class="icon-bar"/>
-                </button>
-                <a class="brand" href="#">Little Bits of Good</a>
-                <div class="nav-collapse collapse">
-                    <ul class="nav">
-                        <li class="">
-                            <a href="/">Home</a>
-                        </li>
-                        <li class="">
-                            <a href="../Dropbox/volunteers.php">For Volunteers</a>
-                        </li>
-                        <li class="">
-                            <a href="{% url 'looking-for-volunteers' %}">I'm Looking for Volunteers</a>
-                        </li>
-                        <li class="">
-                            <a href="#" id="login-navbar">Login</a>
-                        </li>
-                        <li class="">
-                            <a href="#" id="register-navbar">Register</a>
-                        </li>
-                    </ul>
-                </div>
-                <div id="reg-login">
-                    {{ user }}
-                    {% if user.is_authenticated %}
-                    {# {{ user }} #}
-                    <a href="{% url "my-account" pk=user.id %}">My Account</a> / <a href="{% url "logout" %}">Logout</a> 
-                    {% else %}
-                    <a href="{% url "login" %}">Login</a> / <a href="{% url "register" %}">Join</a> 
-                    {% endif %}
-                </div>
-            </div>
+    {% include 'navbar.html' %}
+    <div class="container" id="box-hide-wrapper">
+        <div class="container" id="box-hide">
+        
         </div>
     </div>
-    <!-- These are needed to create the shadow effect -->
+    <!-- These extra divs are needed to create the shadow effect -->
     <div id="my-wrapper">
-        <div class="container" id="body-wrapper">
-
+        <div class="container" id="body-wrapper">          
             {% block content %}
-            {% endblock %}
-
+            {% endblock content %}
         </div>
     </div>
 
-    <div id="footer-wrapper">
-        <div class="container footer" id="my-footer">
-            <a href="#">Back to Top</a> <b>|</b> 
-            <a href="../Dropbox/about.php">About Us</a> <b>|</b> 
-            <a href="../Dropbox/support.php">Support Us</a> <b>|</b> 
-            <a href="../Dropbox/contact.php">Feedback / Tell us Your Story</a> <b>|</b> 
-            <a href="">Privacy and Cookies</a><br>
-            <a href="#" 
-            onclick="
-            window.open(
-            'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 
-            'facebook-share-dialog', 
-            'width=626,height=436'); 
-            return false;">
-            Share on Facebook
-        </a>
+    <div class="container" id="box-hide-bottom-wrapper">
+        <div class="container" id="box-hide-bottom">
+        
+        </div>
     </div>
-</div>
 
-
-{# <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script> #}
-{# <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script> #}
-<script src="{% static "global/bootstrap/js/bootstrap.min.js" %}"></script>
-<script src="{% static "bootstrap-fileupload.min.js" %}"></script>
-<script src="{% static "global/js/fx.js" %}"></script>
-<script src="{% static "global/js/jquery-1.10.2.min.js" %}"></script>
-<script src="{% static "global/chosen/public/chosen.jquery.js" %}"></script>
-<script type="text/javascript" src="{% static 'django_js_utils.js' %}"></script>
-<!-- {# <script src="{% url 'js_reverse' %}" type="text/javascript"></script> #} -->
+    {% include 'footer.html' %}
 {% block extrascripts %}
 {% endblock %}
 </body>

@@ -9,6 +9,8 @@ from django.views.generic.edit import FormView, UpdateView
 from django.views.generic import TemplateView
 from users.models import UserProfile
 from users.forms import MyCreationForm, MyChangeForm
+from projects.models import Project
+from projects.views import CorrectUserMixin
 
 def update_profile(user, form):
     profile                 = user.get_profile()
@@ -18,8 +20,6 @@ def update_profile(user, form):
     profile.country         = form.cleaned_data['country']
     profile.state           = form.cleaned_data['state']
     profile.city            = form.cleaned_data['city']
-    # profile.post_code       = form.cleaned_data['post_code']
-    # profile.address         = form.cleaned_data['address']
     profile.lat             = form.cleaned_data['lat']
     profile.lon             = form.cleaned_data['lon']
     profile.description     = form.cleaned_data['description']
@@ -42,12 +42,15 @@ class LoginView(FormView):
         login(self.request, user)
         return super(LoginView, self).form_valid(form)
 
+
 class LoginRequiredView(TemplateView):
     template_name = 'login-required.html'
+
 
 class LoginSuccessfulView(TemplateView):
     # content_type = 'text/image'
     template_name = 'logged-in.html'
+
 
 class RegistrationView(FormView):
     model = UserProfile
@@ -60,18 +63,23 @@ class RegistrationView(FormView):
         update_profile(user, form)     
         return super(RegistrationView, self).form_valid(form)
 
+
 class PasswordChangeView(FormView):
     form_class      = PasswordChangeForm
     # model           = User
     template_name   = 'registration/password_change_form.html'
     success_url     = reverse_lazy('profile-changed')
     
-class ChangeView(LoginRequiredMixin, UpdateView):
+
+class ChangeView(LoginRequiredMixin, CorrectUserMixin, UpdateView):
+
     model           = UserProfile  #get_user_model()
     login_url       = reverse_lazy('login-required')
     template_name   = 'change-details.html'
     form_class      = MyChangeForm
     success_url     = reverse_lazy('profile-changed')
+    error_message   = 'Oops, something went wrong. \
+            The browser was trying to access someone else\'s profile.'
 
     def form_valid(self, form):
         user = self.request.user
@@ -83,6 +91,7 @@ class ChangeView(LoginRequiredMixin, UpdateView):
         Returns the initial data to use for forms on this view.
         """ 
         super(ChangeView, self).get_initial()
+        self.url_id = self.kwargs['pk']
         my_id       = self.kwargs['pk']
         my_user     = User.objects.get(pk=my_id) 
         profile     = my_user.get_profile()
@@ -92,52 +101,23 @@ class ChangeView(LoginRequiredMixin, UpdateView):
         }
         return initial
 
-    def render_to_response(self, context, **response_kwargs):
-        """
-        Returns a response with a template rendered with the given context.
-        """
-        # import pdb; pdb.set_trace()
-        profile_id      = self.kwargs['pk']
-        logged_in_id        = self.request.user.id
-        print profile_id
-        print logged_in_id
-        # mysum = profile_id + logged_in_id
-        # if 3 == 3:
-        if logged_in_id == int(profile_id):
-            return self.response_class(
-                request = self.request,
-                template = self.get_template_names(),
-                context = context,
-                **response_kwargs
-            )
-        else:
-            return self.response_class(
-                request = self.request,
-                template = 'wrong_profile.html',
-                context = context,
-                **response_kwargs
-            )
-
-
-    # def get_context_data(self, **kwargs):
-        
-    #     context             = super(ChangeView, self).get_context_data()
-    #     logged_in_id        = self.request.user.id
-    #     my_id               = self.kwargs['pk']
-    #     mysum               = my_id + logged_in_id
-    #     context['my_id']    = my_id
-    #     context['logged_in_id'] = logged_in_id 
-    #     context['mysum'] = mysum 
-
-    #     return context
-        
-    # slug_field      = "username"
-    # initial         = {'username': 'John Holmes',}
-    # context_object_name = 'my_user'
-
 
 class SuccessView(LoginRequiredMixin, TemplateView):
     template_name = 'profile_change_done.html' 
 
+
 class RegSuccessView(TemplateView):
     template_name = 'registration_done.html' 
+
+
+class CharityView(TemplateView):
+
+    template_name = 'charity-details.html'
+
+    def get_context_data(self, **kwargs):
+        charity_id      = kwargs['pk']
+        charity         = UserProfile.objects.get(id = charity_id)
+        return {
+            'params':   kwargs,
+            'charity':  charity,
+        }

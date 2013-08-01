@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block extrahead %}
+  <script src="{% static "projects/js/requests.js" %}"></script>   
+{% endblock extrahead %}
+{% block content %}
+
+{% include 'accounts-header.html' %}
+    {% for my_request in requests %}
+        <div style="border: 2px red solid; margin: 20px;">
+        <p> 
+          {{ my_request.project }} <br>
+          {{ my_request.project.charity }} <br>
+          <a href="mailto:{{ my_request.project.charity.user.email }}">{{ my_request.project.charity.user.email }}</a> <br>
+          {{ my_request.message }} <br>
+          {{ my_request.time_created }} <br>
+          {{ my_request.status }}<br>
+        </p>
+        </div>
+    {% endfor %}
+
+{% endblock content %}

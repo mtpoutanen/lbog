@@ -3,7 +3,7 @@
 
 {% block content %}
 <p>Project created... Redirecting to your account</p>
-<div id="redirect-url" rel="{% url "my-account" %}" ></div>
+<div id="redirect-url" rel="{% url "my-projects" pk=user.id %}" ></div>
 {% endblock content %}
 
 {% block extrascripts %}

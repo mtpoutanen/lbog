@@ -1,0 +1,15 @@
+{% load staticfiles %}
+{% if not latest_stories %}
+	No stories to show
+{% else %}
+	{% for story in latest_stories %}
+		<div class="story">
+			<h5 class="front-page-header">{{ story.title }}</h5>
+			<div class="story-img-wrapper">
+				<img class="my-thumbnail-image" src="/media/{{ story.story_image }}" alt="">
+			</div>
+			{{ story.article_body | truncatewords:"15" }}<br>
+			<a href="{% url 'story-details' pk=story.id %}">Read the whole story...</a>
+		</div>		
+	{% endfor %}
+{% endif %}

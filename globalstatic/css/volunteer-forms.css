@@ -1,0 +1,29 @@
+
+.search > div > a {
+  background-color:#FFFFFF !important;
+  border:1px solid #AAAAAA !important;
+  background-image: none !important;
+}
+
+#id_country_chzn > a, #id_state_chzn > a, .chzn-choices > li > input {
+    background-color:#FFFFFF !important;
+  border:1px solid #AAAAAA !important;
+  background-image: none !important;
+  height: 20px;
+  line-height: 20px;
+  color: #333333;
+  border: 1px solid #CCCCCC;
+  webkit-box-shadow:rgba(0, 0, 0, 0.0745098) 0 1px 1px inset !important;
+  -webkit-transition:border 0.2s linear, box-shadow 0.2s linear !important;
+  background-color:#FFFFFF !important;
+  border:1px solid #CCCCCC !important;
+  box-shadow:rgba(0, 0, 0, 0.0745098) 0 1px 1px inset !important;
+  transition:border 0.2s linear, box-shadow 0.2s linear !important;
+}
+
+.chzn-choices > li > input {
+    height: 20px !important;
+    padding: 0px 5px 0px 0px !important;
+    line-height: 20px !important;
+
+}

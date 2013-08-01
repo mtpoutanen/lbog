@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block extrahead %}
+<link href="{% static "global/chosen/public/chosen.css" %}" 		rel="stylesheet">
+<link href="{% static "global/chosen/public/chosen.jquery.css" %}" 	rel="stylesheet">
+<link href="{% static "users/css/forms.css" %}"                     rel="stylesheet">
+{% endblock extrahead %}
+
+{% block content %}
+<form id="profile-form" class="form-horizontal" method="post" action="" enctype="multipart/form-data"> 
+	{% csrf_token %}
+	<fieldset>
+		{% if form.errors %}
+		<div class="controls">
+			<div class="errors main-errors">Please correct the following fields</div>
+		</div>
+		{% endif %}
+		{% for field in form %}
+		<li>{{ field.errors|striptags }}</li>
+		{% endfor %}
+		{% include 'project_fields.html' %}
+		<div class="control-group">
+			{% if form.status.errors %}
+			<div class="errors controls"> 
+				{{ form.status.errors }} 
+			</div> 
+			{% endif %}
+			<label {% if form.status.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
+			for="" class="control-label"><span class="mandatory">* </span>Status:</label>
+			<div class="controls">
+				{{ form.status }}
+			</div>
+		</div>
+		<div class="controls">
+			<input type='button' id='submit-button' class="btn btn-success" value="Save Changes"
+			{% if user.get_profile.user_type != 'Charity'%}
+			rel="popover" title="You must log in as a Charity to upload a project" disabled
+			{% endif %}
+			>
+		</div>
+		<input type='submit' value="Hidden Submit" style="display: none;">
+	</fieldset> 
+</form>
+<p class="hidden" id="p_country">{{ user.get_profile.country }}</p>
+<p class="hidden" id="p_state">{{ user.get_profile.state }}</p>
+<p class="hidden" id="p_city">{{ user.get_profile.city }}</p>
+</div>
+{# <div id='charity-data-url' rel="{% url 'charity-data' %}"></div> #}
+
+
+{% endblock content %}
+
+{% block extrascripts %}
+<script src="{% static "projects/js/volunteers.js" %}"></script> 
+<script src="{% static "users/js/coordinates.js" %}"></script>             
+{% endblock extrascripts %}

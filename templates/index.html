@@ -1,10 +1,25 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
+{% block extrahead %}
+	<link href="{% static "global/css/front_page.css" %}"  rel="stylesheet" />
+{% endblock extrahead %}
+
 {% block content %}
+<div class="row">
+	<div class="span8" id="front-page-main">
+	{% include 'carousel.html' %}	
+	{% include 'thumbs.html' %}
+	</div>
 
-test extended sheet
-
-{# <img src="{% media "images/profile_images/1/proj1.jpg" %}"> #}
+	<div class="span4" id="front_page_stories">
+		{% include 'stories.html' %}
+	</div>
+</div>
 
 {% endblock content %}
+
+{% block right_sidebar %}
+	
+
+{% endblock right_sidebar %}

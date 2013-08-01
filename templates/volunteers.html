@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block extrahead %}
+
+    <link href="{% static "global/chosen/public/chosen.min.css" %}"     rel="stylesheet">
+    <script src="{% static "global/chosen/public/chosen.jquery.js" %}"></script>
+    <link href="{% static "projects/css/volunteers.css" %}"             rel="stylesheet" />
+    <link href="{% static "global/css/volunteer-forms.css" %}"          rel="stylesheet">
+
+{% endblock extrahead %}
+{% block content %}
+
+<div class="span3" id="search-form">
+  <form action="" method='GET'>
+    {% csrf_token %}
+    <div class="search">
+      <label class="search-label" for="skill">Search by Keyword</label>
+        {{ form.keywords }}
+    </div>
+    <div class="search">
+      <label class="search-label" for="skill">Search by Skills</label>
+        {{ form.skills }}
+    </div>
+
+    <div class="search">
+      <label class="search-label" for="country">Search by Location</label>
+        {{ form.country }}
+    </div>
+
+    <div class="search">
+        {{ form.state }}
+    </div>
+
+    <div class="search">
+      {{ form.city }}
+    </div>
+
+    <div class="search">
+      {{ form.lat }}
+    </div>
+
+    <div class="search">
+      {{ form.lon }}
+    </div>
+
+    <div id="search-url" rel="{% url "search-projects" %}" ></div>
+
+    <div class="search">
+      <select name="radius" id="id_radius" onchange="this.className=this.options[this.selectedIndex].className" class="default">
+        <option value="no_radius" class="my-selected" selected>Radius...</option> 
+        <option value="10" class="my-selected">10km (~6mi)</option>
+        <option value="25" class="my-selected">25km (~15mi)</option>
+        <option value="50" class="my-selected">50km (~30mi)</option>
+        <option value="100" class="my-selected">100km (~60mi)</option>
+        <option value="250" class="my-selected">250km (~155mi)</option>
+        <option value="same_country" class="my-selected">Selected Country</option>
+      </select>
+    </div>
+    <div class="search" id="filter-wrapper">
+      <button class="btn btn-primary btn-small" type="button" id="submit-button">Filter Results</button>
+    </div>
+  </div>
+  </form>
+
+  <div class="span6" id="project-search-results">
+    
+  </div>
+    <script src="{% static "projects/js/chosen-activate.js" %}"></script>
+    <script src="{% static "global/js/project-search.js" %}"></script>
+    <script src="{% static "users/js/coordinates.js" %}"></script>             
+{% endblock content %}

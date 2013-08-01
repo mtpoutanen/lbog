@@ -25,6 +25,10 @@ function getErrors(username, password1, password2, country, state, city) {
     return tempErrors;
 }
 
+function getCountrySearch() {
+    return false;
+}
+
 $('#id_user_type_0').change(function () {
     var skills_div = $("#skills_div");
     if (this.checked) {
@@ -108,4 +112,6 @@ $(document).ready(function(){
 
 });
 
-$(".chzn-select").chosen();
+function callback() {
+    $('#profile-form').submit();
+}

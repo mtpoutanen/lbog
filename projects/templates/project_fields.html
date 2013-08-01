@@ -39,7 +39,7 @@
 </div>
 
 <div class="controls">
-    <button class="btn" type="button" onclick="getMyLocation()">Get my location</button>
+    <button id="loc_button" class="btn" type="button" onclick="getMyLocation()">Get my location</button>
 </div>
 
 <div class="control-group">
@@ -81,7 +81,7 @@
     </div>
 </div>
 
-<div id="lat_div" class="control-group">
+<div id="lat_div" class="control-group hidden">
     {% if form.lat.errors %}
     <div class="errors controls"> 
         {{ form.lat.errors }} 
@@ -99,7 +99,7 @@
     {{ form.lon.errors }} 
 </div> 
 {% endif %}
-<div id="lon_div" class="control-group">
+<div id="lon_div" class="control-group hidden">
     <label {% if form.lon.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
     for="" class="control-label">Longitude:</label>
     <div class="controls">
