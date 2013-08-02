@@ -1,14 +1,6 @@
-{% extends 'base.html' %}
-{% load staticfiles %}
+{% extends 'base_main_forms.html' %}
 
-{% block extrahead %}
-<link href="{% static "global/chosen/public/chosen.css" %}" rel="stylesheet">
-<script src="{% static "global/chosen/public/chosen.jquery.js" %}"></script>
-<link href="{% static "users/css/forms.css" %}" rel="stylesheet">
-{% endblock extrahead %}
-
-{% block content %}
-
+{% block main_forms_content %}
 <div class="area">
 	<form id="profile-form" class="form-horizontal" method="post" action="" enctype="multipart/form-data"> 
 		{% csrf_token %}
@@ -18,8 +10,8 @@
 				<div class="errors main-errors">Please correct the following fields</div>
 			</div>
 			{% endif %}
-			{% include 'user-fields.html' %}
-			{% include 'profile-fields.html' %}
+			{% include 'user_fields.html' %}
+			{% include 'profile_fields.html' %}
 			<div class="controls">
 				<input type='button' id='submit-button' class="btn btn-success" value="Save">
 			</div>
@@ -27,10 +19,4 @@
 		</fieldset> 
 	</form>
 </div>
-{% endblock content %}
-
-{% block extrascripts %}
-<script src="{% static "projects/js/chosen-activate.js" %}"></script>
-<script src="{% static "users/js/userfx.js" %}"></script>       
-<script src="{% static "users/js/coordinates.js" %}"></script>       
-{% endblock extrascripts %}
+{% endblock main_forms_content %}

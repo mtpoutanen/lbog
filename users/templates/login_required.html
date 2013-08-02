@@ -1,0 +1,7 @@
+{% extends 'base_redirect.html' %}
+{% load staticfiles %}
+
+{% block redirect_content %}
+	<p>Must be logged in to view this page... Redirecting</p>
+	<div id="redirect-url" rel="{% url 'login' %}" ></div>
+{% endblock redirect_content %}

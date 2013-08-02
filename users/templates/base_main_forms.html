@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block extrahead_level1 %}
+	<script src="{% static "global/chosen/public/chosen.jquery.js" %}"></script>
+	<link href="{% static "users/css/forms.css" %}" rel="stylesheet">
+{% endblock extrahead_level1 %}
+
+{% block content %}
+	<div class="span6 offset3 main-forms">		
+	{% block main_forms_content %}
+		
+	{% endblock main_forms_content %}
+	</div>
+{% endblock content %}
+
+{% block extrascripts %}
+<script src="{% static "projects/js/chosen_activate.js" %}"></script>
+<script src="{% static "users/js/userfx.js" %}"></script>       
+<script src="{% static "users/js/coordinates.js" %}"></script>
+<script src="{% static "users/js/placeholders.js" %}"></script>              
+{% endblock extrascripts %}3

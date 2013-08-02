@@ -1,0 +1,18 @@
+{% extends 'base_sidebar.html' %}
+{% load staticfiles %}
+
+{% block extrahead_level2 %}
+    <script src="{% static "global/chosen/public/chosen.jquery.js" %}"></script>
+{% endblock extrahead_level2 %}
+
+{% block sidebar_content %}
+{% endblock sidebar_content %}
+
+{% block main_content %}
+
+	{% block main_extra_content %}
+		
+	{% endblock main_extra_content %}
+  <script src="{% static "projects/js/chosen_activate.js" %}"></script>
+  <script src="{% static "users/js/coordinates.js" %}"></script>             
+{% endblock main_content %}

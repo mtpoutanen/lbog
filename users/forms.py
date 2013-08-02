@@ -23,25 +23,31 @@ class MyBaseForm(forms.ModelForm):
     # Note that the name information is attached to the UserProfile rather
     # than the User for ease of editing later
 
-    given_name      = forms.CharField(max_length=30, required=False)
-    family_name     = forms.CharField(max_length=30, required=False)
+    given_name      = forms.CharField(max_length=30, required=False, widget=forms.TextInput(
+                            attrs={'placeholder': 'First Name...'}))
+    family_name     = forms.CharField(max_length=30, required=False, widget=forms.TextInput(
+                            attrs={'placeholder': 'Family Name...'}))
     
     user_type       = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(),
                     required=True)
-    title           = forms.CharField(max_length=30, required=False) 
-    company_name    = forms.CharField(max_length=30, required=False)
-    country         = forms.ModelChoiceField(empty_label="Please select a country", 
+    title           = forms.CharField(max_length=30, required=False, widget=forms.TextInput(
+                            attrs={'placeholder': 'Title...'})) 
+    company_name    = forms.CharField(max_length=30, required=False, widget=forms.TextInput(
+                            attrs={'placeholder': 'Company Name...'}))
+    country         = forms.ModelChoiceField(empty_label="Country...", 
                     queryset=Country.objects.all(), widget=forms.Select(
-                    attrs={'class': 'chzn-select', 'data-placeholder': 'Select Country'}))
-    state           = forms.ModelChoiceField(empty_label="Please select a state", 
+                    attrs={'class': 'chzn-select change-color'}))
+    state           = forms.ModelChoiceField(empty_label="State...", 
                     queryset=State.objects.all(), widget=forms.Select(
-                    attrs={'class': 'chzn-select', 'data-placeholder': 'Select State'}))
-    city            = forms.CharField(max_length=30)
+                    attrs={'class': 'chzn-select change-color'}))
+    city            = forms.CharField(max_length=30, widget=forms.TextInput(
+                            attrs={'placeholder': 'City...'}))
     # post_code       = forms.CharField(max_length=10, required=False)
     # address         = forms.CharField(max_length=50, required=False)
     lat             = forms.FloatField(required=True)
     lon             = forms.FloatField(required=True)
-    description     = forms.CharField(widget=forms.Textarea, required=False)
+    description     = forms.CharField(widget=forms.Textarea(
+                            attrs={'placeholder': 'Description...'}), required=False)
     skills          = forms.ModelMultipleChoiceField(
                     queryset=Skill.objects.all().order_by('skill_name'), \
                     widget=forms.SelectMultiple(

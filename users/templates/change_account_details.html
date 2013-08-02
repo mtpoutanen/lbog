@@ -1,0 +1,20 @@
+{% extends 'base_accounts.html' %}
+
+{% block accounts_content %}
+    <form id="profile-form" class="form-horizontal" method="post" action="" enctype="multipart/form-data"> {% csrf_token %}
+      <fieldset>
+      	{% if form.errors %}
+          <div class="controls">
+              <div class="errors main-errors">Please correct the following fields</div>
+          </div>
+        {% endif %}
+        
+        {% include 'profile_fields.html' %}
+        
+        <div class="controls">
+            <input type='button' id='submit-button' class="btn btn-success" value="Save">
+        </div>
+        <input type='submit' value="Hidden Submit" style="display: none;">
+       </fieldset> 
+    </form>
+{% endblock accounts_content %}

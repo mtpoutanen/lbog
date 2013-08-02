@@ -1,0 +1,9 @@
+.sidebar, .my-account-main {
+	margin-top: 20px;
+}
+
+.link-button-accounts {
+	margin-bottom: 20px;
+	width: 95%;
+	padding: 0% 2.5% 0% 2.5%;
+}

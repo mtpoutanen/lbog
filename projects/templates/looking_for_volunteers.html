@@ -1,14 +1,16 @@
-{% extends 'base.html' %}
+{% extends 'base_main_pages.html' %}
 {% load staticfiles %}
 
-{% block extrahead %}
-<link href="{% static "global/chosen/public/chosen.css" %}" 		rel="stylesheet">
+{% block extrahead_level3 %}
 <link href="{% static "users/css/forms.css" %}"                     rel="stylesheet">
-<script src="{% static "global/chosen/public/chosen.jquery.js" %}"></script>
 <script src="{% static "projects/js/volunteers.js" %}"></script> 
-{% endblock extrahead %}
+{% endblock extrahead_level3 %}
 
-{% block content %}
+{% block sidebar_content %}
+	
+{% endblock sidebar_content %}
+
+{% block main_extra_content %}
 <form id="project-form" class="form-horizontal" method="post" action="" enctype="multipart/form-data"> 
 	{% csrf_token %}
 	<fieldset>
@@ -38,9 +40,7 @@
 </div>
 {# <div id='charity-data-url' rel="{% url 'charity-data' %}"></div> #}
 
-{% endblock content %}
+{% endblock main_extra_content %}
 
 {% block extrascripts %}
-<script src="{% static "projects/js/chosen-activate.js" %}"></script>
-<script src="{% static "users/js/coordinates.js" %}"></script> 
 {% endblock extrascripts %}

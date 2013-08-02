@@ -1,0 +1,18 @@
+{% extends 'base_sidebar.html' %}
+{% load staticfiles %}
+
+{% block extrahead_level2 %}
+{% endblock extrahead_level2 %}
+
+{% block sidebar_content %}
+{% endblock sidebar_content %}
+
+{% block main_content %}
+    {{ charity.company_name }}<br>
+    {{ charity.country }}<br>
+    {% if charity.state != 'n/a (Outside of US or Canada)' %}
+      {{ charity.state }}<br>
+    {% endif %}
+    {{ charity.city }}<br>
+    {{ charity.description }}<br>
+{% endblock main_content %}

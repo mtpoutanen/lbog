@@ -1,0 +1,16 @@
+{% extends 'base_sidebar.html' %}
+{% load staticfiles %}
+
+{% block extrahead_level2 %}
+{% endblock extrahead_level2 %}
+
+{% block sidebar_content %}
+{% endblock sidebar_content %}
+
+{% block main_content %}
+    test {{ test_var }}
+    {{ my_request.project }}<br>
+    {{ my_request.message }}<br>
+    {{ my_request.sender }}<br>
+    {{ my_request.status }}<br>
+{% endblock main_content %}

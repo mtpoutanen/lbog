@@ -1,0 +1,15 @@
+{% extends 'base_main_pages.html' %}
+{% load staticfiles %}
+
+{% block extrahead_level3 %}
+    <link href="{% static "global/css/i_want_to_help.css" %}"             rel="stylesheet" />
+{% endblock extrahead_level3 %}
+
+{% block sidebar_content %}
+    {% include 'search_form_fields.html' %}
+{% endblock sidebar_content %}
+
+{% block main_extra_content %}
+  <div class="span6" id="project-search-results"><!-- filled with ajax --></div>
+  <script src="{% static "global/js/project-search.js" %}"></script>
+{% endblock main_extra_content %}

@@ -1,6 +1,6 @@
-{% extends 'base.html' %}
+{% extends 'base_info.html' %}
 
-{% block content %}
+{% block info_content %}
 <p>{{ error_message }}</p>
 <p>Click <a href="{% url "login" %}">here</a> to log in as a different user</p>
-{% endblock content %}
+{% endblock info_content %}

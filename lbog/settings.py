@@ -69,8 +69,8 @@ STATIC_URL = '/static/'
 # Additional locations of static files
 STATICFILES_DIRS = (
     ('global',      PROJECT_ROOT + 'globalstatic/',),
-    ('users',       PROJECT_ROOT + 'users/templates/static/'),
-    ('projects',    PROJECT_ROOT + 'projects/static/'),
+    ('users',       PROJECT_ROOT + 'users/templates/my_static/'),
+    ('projects',    PROJECT_ROOT + 'projects/my_static/'),
 )
 
 # List of finder classes that know how to find static files in

@@ -1,0 +1,17 @@
+{% extends 'base_accounts.html' %}
+{% load staticfiles %}
+
+{% block accounts_content %}
+    {% for project in projects %}
+        <div style="border: 2px red solid; margin: 20px;">
+        <p> 
+        <a href="{% url "update-project-details" pk=project.id %}">
+          {{ project.title }} <br>
+          <img src="/media/{{ project.image }}" alt=""> <br>
+        </a>
+          {{ project.description | truncatewords:"10" }} <br>
+        </p>
+        </div>
+    {% endfor %}
+{% endblock accounts_content %}
+

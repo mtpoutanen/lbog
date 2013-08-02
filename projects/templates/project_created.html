@@ -1,0 +1,6 @@
+{% extends 'base_redirect.html' %}
+
+{% block redirect_content %}
+<p>Project created... Redirecting to your projects</p>
+<div id="redirect-url" rel="{% url "my-projects" pk=user.id %}" ></div>
+{% endblock redirect_content %}

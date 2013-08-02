@@ -14,7 +14,9 @@ from projects.views import CorrectUserMixin
 
 def update_profile(user, form):
     profile                 = user.get_profile()
-    profile.user_type       = form.cleaned_data['user_type']
+    profile.given_name      = form.cleaned_data['given_name']
+    profile.family_name     = form.cleaned_data['family_name']
+    profile.user_type       = form.cleaned_data['user_type']    
     profile.title           = form.cleaned_data['title']
     profile.company_name    = form.cleaned_data['company_name']
     profile.country         = form.cleaned_data['country']
@@ -35,7 +37,7 @@ def update_profile(user, form):
 class LoginView(FormView):
     template_name = 'login.html'
     form_class = AuthenticationForm
-    success_url = reverse_lazy('logged-in')
+    success_url = reverse_lazy('home')
 
     def form_valid(self, form):
         user = form.get_user()
@@ -45,11 +47,6 @@ class LoginView(FormView):
 
 class LoginRequiredView(TemplateView):
     template_name = 'login-required.html'
-
-
-class LoginSuccessfulView(TemplateView):
-    # content_type = 'text/image'
-    template_name = 'logged-in.html'
 
 
 class RegistrationView(FormView):
@@ -75,7 +72,7 @@ class ChangeView(LoginRequiredMixin, CorrectUserMixin, UpdateView):
 
     model           = UserProfile  #get_user_model()
     login_url       = reverse_lazy('login-required')
-    template_name   = 'change-details.html'
+    template_name   = 'change_account_details.html'
     form_class      = MyChangeForm
     success_url     = reverse_lazy('profile-changed')
     error_message   = 'Oops, something went wrong. \
@@ -112,7 +109,7 @@ class RegSuccessView(TemplateView):
 
 class CharityView(TemplateView):
 
-    template_name = 'charity-details.html'
+    template_name = 'charity_details.html'
 
     def get_context_data(self, **kwargs):
         charity_id      = kwargs['pk']

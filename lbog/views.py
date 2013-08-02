@@ -30,7 +30,7 @@ def volunteers(request):
     form = ProjectSearchForm()
     context = {'form': form,}
     context.update(csrf(request))
-    return render_to_response('volunteers.html', context, context_instance=RequestContext(request))    
+    return render_to_response('i_want_to_help.html', context, context_instance=RequestContext(request))    
 
 def search_projects(request):
     '''
@@ -84,7 +84,7 @@ def search_projects(request):
             if not context['projects']:
                 context['nothing_found'] = True
 
-        return render_to_response('project-search-results.html', context)
+        return render_to_response('project_search_results.html', context)
 
 def get_distance(projlat, projlon, qlat, qlon):
     '''
@@ -122,3 +122,15 @@ def get_distance(projlat, projlon, qlat, qlon):
 
 def fbtest(request):
     return render_to_response('fbtest.html', context_instance=RequestContext(request))
+
+def about(request):
+    return render_to_response('about.html', context_instance=RequestContext(request))
+
+def t_and_c(request):
+    return render_to_response('t_and_c.html', context_instance=RequestContext(request))
+
+def privacy(request):
+    return render_to_response('privacy.html', context_instance=RequestContext(request))
+
+def feedback(request):
+    return render_to_response('feedback.html', context_instance=RequestContext(request))

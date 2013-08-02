@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block extrahead_level1 %}
+    <link href="{% static "global/css/solo_content.css" %}"             rel="stylesheet" />
+{% endblock extrahead_level1 %}
+
+{% block content %}
+<div class="span6 offset3">
+	{% block info_content %}
+		
+	{% endblock info_content %}
+</div>
+{% endblock content %}

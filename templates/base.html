@@ -4,8 +4,14 @@
 <head>
 
     {% include 'base_head.html' %}
-    {% block extrahead %}
-    {% endblock extrahead %}
+    {% block extrahead_level1 %}
+    {% endblock extrahead_level1 %}
+    
+    {% block extrahead_level2 %}
+    {% endblock extrahead_level2 %}
+    
+    {% block extrahead_level3 %}
+    {% endblock extrahead_level3 %}
 
 </head>
 <body>
@@ -24,14 +30,13 @@
         </div>
     </div>
 
-    <div class="container" id="box-hide-bottom-wrapper">
-        <div class="container" id="box-hide-bottom">
-        
-        </div>
-    </div>
-
     {% include 'footer.html' %}
+
+<script src="{% static "global/js/form_listeners.js" %}"></script>
+{# <script src="{% static "global/js/search_format.js" %}"></script> #}
+
 {% block extrascripts %}
 {% endblock %}
+
 </body>
 </html>

@@ -1,0 +1,29 @@
+{% extends 'base_sidebar.html' %}
+{% load staticfiles %}
+
+{% block extrahead_level2 %}
+<link href="{% static "users/css/forms.css" %}" rel="stylesheet">
+<link href="{% static "users/css/my_account.css" %}" rel="stylesheet">
+<script src="{% static "global/chosen/public/chosen.jquery.js" %}"></script>
+{% endblock extrahead_level2 %}
+
+<div id="my-account-wrapper">
+{% block sidebar_content %}
+{% include 'accounts_sidebar.html' %}
+{% endblock sidebar_content %}
+
+{% block main_content %}
+
+<div class="area span6 my-account-main">
+  {% block accounts_content %}
+  {% endblock accounts_content %}
+</div>
+{% endblock main_content %}
+</div>
+
+{% block extrascripts %}
+<script src="{% static "projects/js/chosen_activate.js" %}"></script>
+<script src="{% static "users/js/userfx.js" %}"></script>  
+<script src="{% static "users/js/text_to_dark.js" %}"></script>  
+<script src="{% static "users/js/coordinates.js" %}"></script>            
+{% endblock extrascripts %}

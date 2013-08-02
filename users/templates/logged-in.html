@@ -1,9 +1,0 @@
-{% extends 'base.html' %}
-
-{% block content %}
-    You are now logged in
-    {{ user }} 
-    {# <img src="/media/images/profile_images/proj1.jpg" /> #}
-    {# <img src="/static/proj1.jpg" /> #}
-    <img src="{{ MEDIA_URL }}{{ user.get_profile.logo.name }}" alt="">
-{% endblock content %}

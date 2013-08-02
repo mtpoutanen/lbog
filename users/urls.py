@@ -1,4 +1,4 @@
-from users.views import LoginView, LoginSuccessfulView, LoginRequiredView, RegSuccessView, \
+from users.views import LoginView, LoginRequiredView, RegSuccessView, \
                         RegistrationView, ChangeView, SuccessView, CharityView
 from django.conf.urls import patterns, url
 
@@ -11,8 +11,6 @@ urlpatterns = patterns('',
         name='login'),
     url(r'^login-required/$',         view=LoginRequiredView.as_view(),     
         name='login-required'),
-    url(r'^logged-in/$',              view=LoginSuccessfulView.as_view(),   
-        name='logged-in'),
     url(r'^my-account/(?P<pk>\d+)/$', view=ChangeView.as_view(),            
         name='my-account'),
     url(r'^profile-changed/$',        view=SuccessView.as_view(),           

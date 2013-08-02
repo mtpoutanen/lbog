@@ -1,0 +1,38 @@
+.search-wrapper {
+	margin-top: 20px;
+	width: 100%;
+	border: 2px red solid;
+	padding: 100px;
+}
+
+.search-top-wrapper {
+	/*position: relative;*/
+}
+
+.search-text-wrapper {
+	width: 49%;
+	padding: 10px 0px 0px 10px;
+}
+
+.search-image-table-column {
+	width: 49%;
+	padding: 10px 10px 0px 0px;
+}
+
+.search-image-wrapper {
+	height: 5px;
+	position: relative;
+}
+
+.search-image {
+	text-align: horizontal;
+	vertical-align: middle;
+}
+
+.search-bottom-wrapper {
+	/*margin-top: 10px;*/
+}
+.search-description-wrapper {
+	padding: 10px 10px 10px 10px;
+}
+

@@ -1,10 +1,15 @@
 <div id="footer-wrapper">
     <div class="container footer" id="my-footer">
+        <div class="container" id="box-hide-bottom-wrapper">
+            <div class="container" id="box-hide-bottom">
+            {# covers the padding between the main content and the footer #}
+            </div>
+        </div>
         <a href="#">Back to Top</a> <b>|</b> 
-        <a href="../Dropbox/about.php">About Us</a> <b>|</b> 
-        <a href="../Dropbox/support.php">Support Us</a> <b>|</b> 
-        <a href="../Dropbox/contact.php">Feedback / Tell us Your Story</a> <b>|</b> 
-        <a href="">Privacy and Cookies</a><br>
+        <a href="{% url 'feedback' %}">Feedback / Tell us Your Story</a> <b>|</b> 
+        <a href="{% url 'about' %}">About Us</a> <b>|</b> 
+        <a href="{% url 't-and-c' %}">Terms and Conditions</a> <b>|</b> 
+        <a href="{% url 'privacy' %}">Privacy and Cookies</a><br>
         <!-- <a href="#" 
         onclick="
         window.open(

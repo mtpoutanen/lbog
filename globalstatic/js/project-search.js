@@ -11,19 +11,19 @@ function getErrors() {
 	var city            = $("#id_city").val();
 	var radius          = $("#id_radius option:selected").val();
 
-	var countryEmpty    = (country == "Please select a country");
-	var stateEmpty    	= (state == "Please select a state");
+	var countryEmpty    = (country == "Country...");
+	var stateEmpty    	= (state == "State...");
 	var cityEmpty    	= (city == "");
 
 	if (countryEmpty && stateEmpty && cityEmpty) {
     	// do nothing, as the user is not filtering by geography
     } else {
-    	if (country     == "Please select a country") {
-    		tempErrors += "- Please select a country\n";
+    	if (country     == "Country...") {
+    		tempErrors += "- Please select a country...\n";
     	}
-    	if (state       == "Please select a state"
+    	if (state       == "State..."
     		&& radius 	!= 'same_country') {
-    		tempErrors += "- Please select a state\n";
+    		tempErrors += "- Please select a state...\n";
     	}
     	if (city        == ""
     		&& radius 	!= 'same_country') {
@@ -58,6 +58,18 @@ function callback() {
 
 function searchSuccess(data, textStatus, jqXHR) {
 	$('#project-search-results').html(data);
+	var wrappers = $('.search-top-wrapper');
+	for (var i = 0; i < wrappers.length; i++) {
+		var countString = i.toString();
+		var wrapperId 	= '#top-'+countString;
+		var imageId 	= '#image-'+countString;
+		var rowHeight	= $(wrapperId).height();
+		// alert(rowHeight);
+		// alert(	'wrapperId = ' + wrapperId + '\n' +
+		// 		'imageId = ' + imageId + '\n');
+				 // + 'rowHeight = ' + rowHeight.toString());
+		$(imageId).height(rowHeight);
+	}
 }
 
 function getCountrySearch() {
@@ -66,10 +78,10 @@ function getCountrySearch() {
     var city            = $("#id_city").val();
     var radius          = $("#id_radius option:selected").val();
     var countrySearch 	= false;
-    if (country != 'Please select a country'
+    if (country != 'Country...'
     	&& radius == 'same_country') {
     	countrySearch = true;
-    } else if (country == 'Please select a country') {
+    } else if (country == 'Country...') {
     	// a crude way to check whether the user is filtering by geography
     	countrySearch = true;
     }

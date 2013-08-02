@@ -1,0 +1,93 @@
+#volunteers-wrapper, #stories {
+	overflow: hidden;
+	min-height: -webkit-calc(100% - 40px);
+	min-height: -moz-calc(100% - 40px);
+	min-height: calc(100% - 40px);
+}
+
+#latest-wrapper {
+	/*margin-top: 20px;*/
+	text-align: center;
+}
+
+#latest-wrapper > button {
+	text-align: center;
+}
+
+.search {
+	width: -webkit-calc(100% - 30px);
+	width: -moz-calc(100% - 30px);
+	width: calc(100% - 30px);
+	margin: 10px 15px 0px 15px;
+	line-height: 30px;
+}
+
+#kw-label {
+	margin-top: 30px;
+}
+
+.search-label, .vol-search, .search > div {
+	width: 100%;
+}
+
+.search-label {
+	margin-top: 15px;
+}
+
+#volunteers-content {
+	box-sizing: border-box;
+	padding-top: 30px;
+	padding-right: 50px;
+}
+
+#submit-button {
+	margin-top: 15px;
+	width: 100%;
+}
+
+select {
+	background-color:#FFFFFF;
+	border:1px solid #CCCCCC;
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+}
+
+.chzn-container-single .chzn-default, .chzn-single {
+	color: black;
+	height: 30px;
+	line-height: 30px;
+}
+
+.search > input {
+	color: #333333;
+}
+
+
+
+.my-selected {
+	color: #333333;
+}
+
+.default-placeholder {
+	color: #999999;
+}
+
+.my-item {
+	width: 100%;
+	clear: both;
+}
+
+#my-select {
+	display: block;
+}
+
+#id_city, #id_keywords {
+	margin-bottom: 0px;
+}
+
+.project-search-image-wrapper {
+	position: relative;
+	height: 200px;
+	width: 100%;
+}

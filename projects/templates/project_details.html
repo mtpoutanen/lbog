@@ -1,0 +1,27 @@
+{% extends 'base_info.html' %}
+{% load staticfiles %}
+{% block extrahead_level2 %}
+    <link href="{% static "users/css/forms.css" %}"                     rel="stylesheet">
+{% endblock extrahead_level2 %}
+{% block info_content %}
+
+    {{ project.title }}<br>
+    {{ project.country }}<br>
+    {% if project.state == 'n/a (Outside of US or Canada)' %}
+      {{ project.state }}<br>
+    {% endif %}
+    {{ project.city }}<br>
+    {{ project.description }}<br>
+
+    <form id="request-form" method="post" action=""> <!-- class="form-horizontal" > -->
+       	{% csrf_token %}
+        {{ form.errors }}
+    	{{ form.message }}<br>
+    	<input type="submit" class="btn btn-primary" value="Offer to Volunteer">
+    </form>
+
+    <!-- script needs to be on the page because it uses a django template variable -->
+    <script type="text/javascript">
+        $('#id_project').val({{ project.id }});
+    </script>
+{% endblock info_content %}

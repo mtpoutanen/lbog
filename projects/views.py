@@ -56,12 +56,12 @@ class ProjectCreationView(FormView):
         return super(ProjectCreationView, self).form_valid(form)
 
 class ProjectCreatedView(TemplateView):
-    template_name   = 'project-created.html'
+    template_name   = 'project_created.html'
 
 class ProjectUpdateView(LoginRequiredMixin, UpdateView):
     model           = Project
     login_url       = reverse_lazy('login-required')
-    template_name   = 'change-project-details.html'
+    template_name   = 'change_project_details.html'
     form_class      = ProjectChangeForm
     success_url     = reverse_lazy('project-updated')
 
@@ -73,8 +73,10 @@ class ProjectUpdateView(LoginRequiredMixin, UpdateView):
         project_id      = self.kwargs['pk']
         project         = Project.objects.get(pk=project_id) 
         skill_list      = project.skills
+        status          = project.status
         initial = {
-            'skills':     list(skill_list.all()),
+            'skills':   list(skill_list.all()),
+            'status':   status,  
         }
         return initial
 
@@ -106,12 +108,12 @@ class ProjectUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class ProjectUpdatedView(TemplateView):
-    template_name = 'project-updated.html'
+    template_name = 'project_updated.html'
 
 
 class ProjectDetailView(FormView):
     model           = Request
-    template_name   = 'project-details.html'
+    template_name   = 'project_details.html'
     form_class      = RequestForm
     success_url     = reverse_lazy('request-sent')
 
@@ -143,10 +145,10 @@ class ProjectDetailView(FormView):
         return super(ProjectDetailView, self).form_valid(form)
 
 class RequestSentView(LoginRequiredMixin, TemplateView):
-    template_name   = 'request-sent.html'
+    template_name   = 'request_sent.html'
 
 class ProjectListView(LoginRequiredMixin, CorrectUserMixin, TemplateView):
-    template_name = 'my-projects.html'
+    template_name = 'my_projects.html'
     error_message = 'Oops, something went wrong. \
             The browser was trying to access someone else\'s project list.'
 
@@ -170,10 +172,10 @@ class RequestListView(LoginRequiredMixin, CorrectUserMixin, TemplateView):
         my_id       = self.request.user.id
         
         if self.request.user.get_profile().user_type == 'Charity':
-            self.template_name = 'my-requests-charity.html'
+            self.template_name = 'my_requests_charity.html'
             requests    = Request.objects.filter(project__charity__id = my_id).order_by('-time_created')
         else:
-            self.template_name = 'my-requests-developer.html'
+            self.template_name = 'my_requests_developer.html'
             requests    = Request.objects.filter(sender__id = my_id).order_by('-time_created')
         return {
             'params':   kwargs,
@@ -182,7 +184,7 @@ class RequestListView(LoginRequiredMixin, CorrectUserMixin, TemplateView):
 
 class RequestDetailView(LoginRequiredMixin, CorrectUserMixin, TemplateView):
 
-    template_name       = 'request-details.html'
+    template_name       = 'request_details.html'
     error_message       = 'Oops, something went wrong. \
             The browser was trying to access someone else\'s request.'
 
@@ -239,7 +241,7 @@ class NotificationsListView(LoginRequiredMixin, CorrectUserMixin, TemplateView):
 
     error_message = 'Oops, something went wrong. \
                     The browser was trying to access someone else\'s notification list.'
-    template_name = 'my-notifications.html'
+    template_name = 'my_notifications.html'
 
     def get_context_data(self, **kwargs):
         
