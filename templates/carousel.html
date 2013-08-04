@@ -8,15 +8,19 @@
 	<div class="carousel-inner">
 		{% for project in latest_completed  %}
 			<div class="item{% if forloop.counter == 1 %} active{% endif %}">
-			<a href="{% url 'project-details' pk=project.id %}">
-			<div class="carousel-image">
-				<img class="my-thumbnail-image" src="/media/{{ project.image }}" alt="" />
-			</div>
-			</a>
-			<div class="carousel-caption">
-				<p>{{ project.title }}</p>
-			</div>
-		</div>	
+				<a href="{% url 'project-details' pk=project.id %}">
+					<div class="carousel-image">
+						{% if project.image %}
+							<img class="my-thumbnail-image" src="/media/{{ project.image }}" alt="" />
+						{% else %}
+			    	 		<div class="no-image-wrapper">No image available</div>
+			    		{% endif %}
+					</div>
+				</a>
+				<div class="carousel-caption">
+					<p>{{ project.title }}</p>
+				</div>
+			</div>	
 		{% endfor %}
 	</div>
 	<a class="carousel-control left" href="#front-page-carousel" data-slide="prev">&lsaquo;</a>

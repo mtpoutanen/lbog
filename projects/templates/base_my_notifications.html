@@ -1,0 +1,28 @@
+{% extends 'base_accounts.html' %}
+{% load staticfiles %}
+
+{% block extrahead_level3 %}
+  <link href="{% static "projects/css/requests.css" %}" rel="stylesheet"/>   
+  <script src="{% static "projects/js/requests.js" %}"></script> 
+{% endblock extrahead_level3 %}
+{% block accounts_content %}
+	{% csrf_token %}	
+	
+		
+	<select id="id_status" class="chzn-select" onchange="getNotifications()">
+		<option value="new" selected>New Notifications</option>
+		<option value="all">View All</option>
+	</select>
+	
+
+	<div class="fill-area" id="notifications">
+	    {% block notifications %}
+	    	
+	    {% endblock notifications %}
+	</div>
+
+  	<div id="search-url" rel="{% url "get-notifications" param='placeholder' %}" ></div> <!-- needed for js -->
+	<script src="{% static "users/js/text_to_dark.js" %}"></script>
+	<script src="{% static "projects/js/noti_req_ajax_calls.js" %}"></script>
+
+{% endblock accounts_content %}

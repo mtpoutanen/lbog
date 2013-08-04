@@ -4,6 +4,7 @@ from projects.models import RequestNotification
 register = Library()
 
 class NewNotificationsNode(Node):
+    
     def __init__(self, num):
         self.num = num
     
@@ -11,7 +12,7 @@ class NewNotificationsNode(Node):
     	user   = context['request'].user
         if user.id:
             # user.id = 0
-            context['notifications'] = RequestNotification.objects.filter(receiver=user.get_profile()).order_by('-time_created')
+            context['notifications'] = RequestNotification.objects.filter(receiver=user.get_profile()).order_by('-time_created')[:self.num]
             context['new_notifications'] = RequestNotification.objects.filter(receiver=user.get_profile(), seen=False)
         else:
             context['notifications'] = []

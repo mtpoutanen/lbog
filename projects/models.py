@@ -15,7 +15,7 @@ class Project(models.Model):
     }
 
     title           = models.CharField(max_length=50, blank=False, null=False)
-    description     = models.TextField(blank=True)
+    description     = models.TextField(blank=True, max_length=1000)
     image           = models.ImageField(upload_to=get_image_path, blank=True, null=True)
     skills          = models.ManyToManyField(Skill)
     status          = models.CharField(choices=STATUS_CHOICES, max_length=50,
@@ -23,7 +23,6 @@ class Project(models.Model):
     # restrict to Developers at form level.
     developers      = models.ManyToManyField(UserProfile, related_name='project_developers',
                             null=True, blank=True)
-    # restrict to Charities at form level
     charity         = models.ForeignKey(UserProfile, related_name='project_charity',
                                 null=False, blank=False)
     need_locals     = models.BooleanField()

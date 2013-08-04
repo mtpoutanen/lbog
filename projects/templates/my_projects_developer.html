@@ -1,0 +1,19 @@
+{% extends "base_my_projects.html" %}
+
+{% block title %}
+<a href="{% url "project-details" pk=project.id %}">
+  {{ project.title }}
+</a>
+{% endblock title %}
+
+{% block image %}
+
+  {% if project.image %}
+	<a href="{% url "project-details" pk=project.id %}">
+	  <img class="my-thumbnail-image" src="/media/{{ project.image }}" alt="">
+	</a>
+  {% else %}
+  	<div class="no-image-wrapper">No image available</div>
+  {% endif %}
+{% endblock image %}
+

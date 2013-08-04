@@ -1,6 +1,8 @@
+from django.shortcuts import render_to_response
 from braces.views import LoginRequiredMixin
 from django.views.generic import TemplateView, View
 from django.views.generic.edit import FormView, UpdateView
+from django.contrib.auth.models import User
 from projects.forms import ProjectCreationForm, ProjectChangeForm, RequestForm
 from projects.models import Project, Request, RequestNotification
 from django.core.exceptions import ImproperlyConfigured
@@ -8,9 +10,9 @@ from django.http import HttpResponse
 from django import forms
 from django.utils import simplejson
 from django.core.urlresolvers import reverse_lazy
+from django.shortcuts import redirect
 
 class CorrectUserMixin(object):
-
     error_message           = 'You are logged in as the wrong user. \
                                 No detailed error message was provided'
     url_id                  = 0 # default value
@@ -58,12 +60,23 @@ class ProjectCreationView(FormView):
 class ProjectCreatedView(TemplateView):
     template_name   = 'project_created.html'
 
-class ProjectUpdateView(LoginRequiredMixin, UpdateView):
+class ProjectUpdateView(LoginRequiredMixin, CorrectUserMixin, UpdateView):
     model           = Project
     login_url       = reverse_lazy('login-required')
     template_name   = 'change_project_details.html'
     form_class      = ProjectChangeForm
     success_url     = reverse_lazy('project-updated')
+    error_message   = 'Oops, something went wrong. \
+            The browser was trying to update someone else\'s project.'
+
+    def get_context_data(self, **kwargs):
+        context                 = super(ProjectUpdateView, self).get_context_data(**kwargs)
+        project_id              = self.kwargs['pk']
+        project                 = Project.objects.get(pk=project_id) 
+        project_developers      = project.developers.all()
+        context['project_id']   = project.id 
+        context['developers']   = project_developers
+        return context
 
     def get_initial(self):
         """
@@ -78,34 +91,9 @@ class ProjectUpdateView(LoginRequiredMixin, UpdateView):
             'skills':   list(skill_list.all()),
             'status':   status,  
         }
+
+        self.url_id     = project.charity.id
         return initial
-
-    def render_to_response(self, context, **response_kwargs):
-        """
-        Returns a response with a template rendered with the given context.
-        """
-        project             = Project.objects.get(id=self.kwargs['pk'])
-        charity_id          = project.charity.id
-        logged_in_id        = self.request.user.id
-
-
-        if logged_in_id == int(charity_id):
-            return self.response_class(
-                request = self.request,
-                template = self.get_template_names(),
-                context = context,
-                **response_kwargs
-            )
-        else:
-            context['error_message'] = 'Oops, something went wrong. \
-            The browser was trying to access someone else\'s project.'
-            return self.response_class(
-                request = self.request,
-                template = 'wrong_user.html',
-                context = context,
-                **response_kwargs
-            )
-
 
 class ProjectUpdatedView(TemplateView):
     template_name = 'project_updated.html'
@@ -118,13 +106,20 @@ class ProjectDetailView(FormView):
     success_url     = reverse_lazy('request-sent')
 
     def get_context_data(self, **kwargs):
-        project_id  = self.kwargs['pk']
-        project     = Project.objects.get(id=project_id)
-        return {
-            'form':     self.get_form(self.form_class),
-            'params':   kwargs,
-            'project':  project,
-        }
+        context                         = super(ProjectDetailView, self).get_context_data(**kwargs)       
+        project_id                      = self.kwargs['pk']
+        project                         = Project.objects.get(id=project_id)
+        context['form']                 = self.get_form(self.form_class)
+        context['params']               = kwargs
+        context['project']              = project
+        
+        if self.request.user.is_authenticated():
+            my_id                           = self.request.user.id
+            # using filter just in case someone creates a second request in admin etc.
+            this_project_request            = Request.objects.filter(sender__id=my_id)
+            context['already_requested']    = this_project_request
+
+        return context
     
     def form_valid(self, form):
         'render nothing if not the right user'
@@ -148,15 +143,23 @@ class RequestSentView(LoginRequiredMixin, TemplateView):
     template_name   = 'request_sent.html'
 
 class ProjectListView(LoginRequiredMixin, CorrectUserMixin, TemplateView):
-    template_name = 'my_projects.html'
     error_message = 'Oops, something went wrong. \
             The browser was trying to access someone else\'s project list.'
 
     def get_context_data(self, **kwargs):
         
-        self.url_id              = self.kwargs['pk']
+        user_type   = self.request.user.get_profile().user_type
         my_id       = self.request.user.id
-        projects    = Project.objects.filter(charity = my_id)
+        if user_type == 'Charity':
+            projects            = Project.objects.filter(charity = my_id)
+            self.template_name  = 'my_projects_charity.html'
+        else:
+            all_projects        = Project.objects.all()
+            my_profile          = User.objects.get(id=my_id).get_profile()
+            projects            = filter(lambda project: my_profile in project.developers.all(), all_projects)
+            self.template_name  = 'my_projects_developer.html'
+
+        self.url_id             = self.kwargs['pk']
         return {
             'params':   kwargs,
             'projects': projects,
@@ -164,23 +167,26 @@ class ProjectListView(LoginRequiredMixin, CorrectUserMixin, TemplateView):
 
 class RequestListView(LoginRequiredMixin, CorrectUserMixin, TemplateView):
 
+    template_name       = 'my_requests.html'
     error_message       = 'Oops, something went wrong. \
             The browser was trying to access someone else\'s request list.'
     def get_context_data(self, **kwargs):
 
-        self.url_id              = self.kwargs['pk']
-        my_id       = self.request.user.id
+        self.url_id     = self.kwargs['pk']
+        my_id           = self.request.user.id
         
         if self.request.user.get_profile().user_type == 'Charity':
-            self.template_name = 'my_requests_charity.html'
+            template_name_requests = 'requests_charity_content.html'
             requests    = Request.objects.filter(project__charity__id = my_id).order_by('-time_created')
         else:
-            self.template_name = 'my_requests_developer.html'
+            template_name_requests = 'requests_developer_content.html'
             requests    = Request.objects.filter(sender__id = my_id).order_by('-time_created')
-        return {
-            'params':   kwargs,
-            'requests': requests,
-        }
+        
+        context = {}
+        context['template_name_requests'] = template_name_requests
+        context['params'] = kwargs
+        context['requests'] = requests
+        return context
 
 class RequestDetailView(LoginRequiredMixin, CorrectUserMixin, TemplateView):
 
@@ -200,21 +206,53 @@ class RequestDetailView(LoginRequiredMixin, CorrectUserMixin, TemplateView):
             self.url_id     = my_request.project.charity.id
         else:
             self.url_id     = my_request.sender.id   
+
         return {
             'test_var': request_id,
             'params':   kwargs,
             'my_request':  my_request,
         }
 
+def remove_developer(request, dev_id, proj_id):
+
+    if not request.user.is_authenticated():
+        return redirect(reverse_lazy('login'))
+
+    project             = Project.objects.get(id=proj_id)
+    to_be_removed       = User.objects.get(id=dev_id).get_profile()
+    project_developers  = list(project.developers.all())
+    project_developers.remove(to_be_removed)
+    project.developers  = project_developers
+    
+    if request.user.id != project.charity.id:
+        result =    {
+                    'error_message': 'Something went wrong, this project belongs to user '+project.charity.company_name, 
+                    'tr_id': '',
+                    }
+        return HttpResponse(simplejson.dumps(result), mimetype='application/json')
+    else:
+        project.save()
+        tr_id = "#developer-" + str(dev_id)
+        result = {
+                    'error_message': 'no_errors',
+                    'tr_id': tr_id,
+                    }
+        return HttpResponse(simplejson.dumps(result), mimetype='application/json')
 
 def respond_to_request(request, pk, status):
     '''
     Accepts a Developer's request to help on a project
     and creates a notification to the Developer.
     '''
-    request_id      = pk
-    my_request      = Request.objects.get(id=request_id)
-    project_owner   = my_request.project.charity
+    if not request.user.is_authenticated():
+        return redirect(reverse_lazy('login'))
+
+    request_id          = pk
+    my_request          = Request.objects.get(id=request_id)
+    project             = my_request.project
+    project_developers  = project.developers.all()
+    project_owner       = my_request.project.charity
+    request_sender      = my_request.sender
 
     if request.user.id != project_owner.id:
         result =    {
@@ -225,13 +263,27 @@ def respond_to_request(request, pk, status):
     else:
         my_request.status   = status
         my_request.save()
+        if status == 'accepted':
+            already_in = request_sender in project_developers
+            if already_in:
+                pass
+            else:
+                dev_list                = list(project_developers)
+                dev_list.append(request_sender)
+                project.developers      = dev_list
+                # import pdb
+                # pdb.set_trace()
+                project.save()
+
+        div_id = 'status-'+str(my_request.id)
         notification        = RequestNotification.objects.create(
                 sender      = project_owner,
                 receiver    = my_request.sender,
                 request     = my_request,
                 seen        = False,
             ) 
-        result =    { 
+        result =    {
+                    'div_id': div_id,
                     'status': status,
                     'error_message': '',
                     }
@@ -241,16 +293,81 @@ class NotificationsListView(LoginRequiredMixin, CorrectUserMixin, TemplateView):
 
     error_message = 'Oops, something went wrong. \
                     The browser was trying to access someone else\'s notification list.'
-    template_name = 'my_notifications.html'
-
     def get_context_data(self, **kwargs):
-        
-        self.url_id          = self.kwargs['pk']
         my_id           = self.request.user.id
-        notifications   = RequestNotification.objects.filter(request__sender__id = my_id).order_by('-time_created')
+        user_type       = self.request.user.get_profile().user_type
+
+        if user_type == 'Developer':
+            self.template_name  = 'my_notifications_developer.html'
+            notifications       = RequestNotification.objects.filter(receiver__id = my_id, seen=False).order_by('-time_created')
+        else:
+            self.template_name  = 'my_notifications_charity.html'
+            notifications       = RequestNotification.objects.filter(receiver__id = my_id, seen=False).order_by('-time_created')
+
+        # needed for correct user mixin
+        self.url_id            = self.kwargs['pk']
         return {
             'params':   kwargs,
             'notifications': notifications,
         }
 
-       
+def get_notifications(request, param):
+    
+    if not request.user.is_authenticated():
+        return redirect(reverse_lazy('login'))
+
+    if request.method == 'GET':
+        my_id       = request.user.id
+
+        if param == 'new':
+            notifications = RequestNotification.objects.\
+            filter(receiver__id = my_id, seen=False).order_by('-time_created')
+        else:
+            notifications = RequestNotification.objects.\
+            filter(receiver__id = my_id).order_by('-time_created')      
+        context = {}
+        context['notifications'] = notifications
+
+        user_type = request.user.get_profile().user_type
+        # import pdb; 
+        # pdb.set_trace()
+        if user_type == 'Developer':
+            return render_to_response('get_notifications_developer.html', context)
+        else:
+            return render_to_response('get_notifications_charity.html', context)
+
+def get_requests(request, param):
+    
+    if not request.user.is_authenticated():
+        return redirect(reverse_lazy('login'))
+        
+    if request.method == 'GET':
+        my_id       = request.user.id
+        user_type   = request.user.get_profile().user_type
+
+        if user_type == 'Developer':
+            id_kw   = 'sender__id'
+            template_name = 'requests_developer_content.html'
+        else:
+            id_kw   = 'project__charity__id'
+            template_name = 'requests_charity_content.html'
+
+        status = param
+        kwargs = {
+            id_kw: str(my_id),
+        }
+
+        if param != 'all':
+            kwargs.update({'status': status,})
+
+        requests = Request.objects.\
+            filter(**kwargs).order_by('-time_created')
+        # import pdb; 
+        # pdb.set_trace()
+
+        context = {}
+        context['requests'] = requests
+
+        return render_to_response(template_name, context)
+
+

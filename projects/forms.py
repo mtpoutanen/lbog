@@ -14,7 +14,7 @@ class ProjectCreationForm(forms.ModelForm):
                     widget=forms.SelectMultiple(
                     attrs={'class': 'chzn-select', 'data-placeholder': 'Select Skill',}),
                     required=False)
-    description     = forms.CharField(widget=forms.Textarea(
+    description     = forms.CharField(max_length=1000, widget=forms.Textarea(
                             attrs={'placeholder': 'Title'}), required=False)
     logo            = forms.ImageField(required=False)
     country         = forms.ModelChoiceField(empty_label="Country...", 
@@ -58,7 +58,7 @@ class ProjectChangeForm(ProjectCreationForm):
 
 class RequestForm(forms.ModelForm):
 
-    message         = forms.CharField(widget=forms.Textarea, required=False)
+    message         = forms.CharField(max_length=500, widget=forms.Textarea, required=False)
 
     class Meta:
         model       = Request

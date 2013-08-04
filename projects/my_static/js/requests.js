@@ -6,13 +6,21 @@ function changeStatus(url) {
 		dataType: 'json',
 		success: successFunction
 	});
-	alert(url);
+	// alert(url);
 }
 
 function successFunction(data) {
-    if (data.error_message != "") {
-    	alert(data.error_message);
+    $("."+data.div_id).html(data.status);
+    $("."+data.div_id).removeClass('pending accepted rejected').addClass(data.status);
+    if (data.status == 'accepted') {
+    	var message = 'You have '+data.status+' the request and a notification has been sent to the'
+    				+ ' developer. You may want to send him/her an email to work out the details'
+    				+ ' on how to get started. If you have enough developers, please change the project status'
+    				+ ' to "Project under way"' ;
+    	alert(message);
     } else {
-    	alert('The request has been '+data.status);
+    	var message = 'The request has been rejected and the developer has been notified.'
+    					+ ' Good luck with the search'
+    	alert(message)
     }
 }

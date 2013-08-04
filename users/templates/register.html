@@ -1,4 +1,5 @@
 {% extends 'base_main_forms.html' %}
+{% load staticfiles %}
 
 {% block main_forms_content %}
 <div class="area">
@@ -11,12 +12,15 @@
 			</div>
 			{% endif %}
 			{% include 'user_fields.html' %}
+			<p id="profile-message">Select user type to unhide the remaining fields</p>
+			<div id="profile-fields" class="hidden">
 			{% include 'profile_fields.html' %}
-			<div class="controls">
-				<input type='button' id='submit-button' class="btn btn-success" value="Save">
 			</div>
-			<input type='submit' value="Hidden Submit" style="display: none;">
+			
 		</fieldset> 
 	</form>
 </div>
+<script src="{% static "users/js/user_reg_form.js" %}"></script>
+<script src="{% static "global/js/form_listeners.js" %}"></script>
+
 {% endblock main_forms_content %}

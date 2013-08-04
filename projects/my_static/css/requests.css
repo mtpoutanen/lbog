@@ -1,0 +1,19 @@
+.status-wrapper-div {
+	padding-bottom: 10px; 
+}
+	
+.status{
+	display: inline;
+}
+
+.pending {
+	color: #333333;
+}
+
+.accepted {
+	color: green;
+}
+
+.rejected {
+	color: red;
+}

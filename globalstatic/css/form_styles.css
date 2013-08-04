@@ -1,4 +1,4 @@
-#id_country_chzn > a, #id_state_chzn > a, .chzn-choices > li > input {
+#id_status_chzn > a, #id_country_chzn > a, #id_state_chzn > a, .chzn-choices > li > input {
   background-color:#FFFFFF !important;
   border:1px solid #AAAAAA !important;
   background-image: none !important;
@@ -11,6 +11,15 @@
   border:1px solid #CCCCCC !important;
   box-shadow:rgba(0, 0, 0, 0.0745098) 0 1px 1px inset !important;
   transition:border 0.2s linear, box-shadow 0.2s linear !important;
+}
+
+#id_status_chzn {
+  margin-bottom: 20px;
+}
+
+#remainingC {
+  font-size: 10px;
+  color: #888888
 }
 
 .chzn-choices > li > input {

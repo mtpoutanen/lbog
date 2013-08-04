@@ -1,0 +1,13 @@
+#developers-project-change {
+	width: 300px;
+}
+
+.dev-name, .dev-remove-button {
+	width: 49%;
+	font-size: 14px;
+}
+
+#loc_button {
+	margin-bottom: 10px;
+}
+

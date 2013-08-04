@@ -1,0 +1,25 @@
+{% extends 'base_my_notifications.html' %}
+
+{% block notifications %}
+    {% include "get_notifications_developer.html" %}
+    {% comment %}
+        
+    {% for noti in notifications %}
+        <div class="search-wrapper">
+        <p> 
+            <a href="{% url 'charity-details' pk=noti.sender.id %}">
+                {{ noti.sender }}
+            </a>
+             has {{ noti.request.status }} your request to help with 
+             <a href="{% url 'project-details' pk=noti.request.project.id %}">
+                {{ noti.request.project.title }}
+            </a>
+        </p>
+        <p>
+            Sent: {{ noti.time_created }}
+        </p>
+        </div>
+    {% endfor %}
+    {% endcomment %}
+{% endblock notifications %}
+

@@ -13,12 +13,21 @@
     {{ project.city }}<br>
     {{ project.description }}<br>
 
-    <form id="request-form" method="post" action=""> <!-- class="form-horizontal" > -->
-       	{% csrf_token %}
-        {{ form.errors }}
-    	{{ form.message }}<br>
-    	<input type="submit" class="btn btn-primary" value="Offer to Volunteer">
-    </form>
+    {% if user.get_profile.user_type == 'Developer' %}
+        {% if already_requested %}
+            <p>You have already requested to help on this project</p>
+        {% else %}
+            <form id="request-form" method="post" action=""> <!-- class="form-horizontal" > -->
+                {% csrf_token %}
+                {{ form.errors }}
+                {{ form.message }}<br>
+                <div id="remainingC">500 / 500</div>
+                <input type="submit" class="btn btn-primary" value="Offer to Volunteer">
+            </form>
+        {% endif %}
+    {% else %}
+        <p>Please log in as a Developer and view the project again if you are interested in helping {{ project.charity }}</p>
+    {% endif %}
 
     <!-- script needs to be on the page because it uses a django template variable -->
     <script type="text/javascript">

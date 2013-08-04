@@ -57,29 +57,29 @@ $(document).ready(function(){
     user_type1.attr('rel', 'popover');
     user_type1.attr('title', 'Register as a volunteer or a charitable / non-profit organisation');
 
-    var id_username = $("#id_username");
-    id_username.attr('rel', 'popover');
-    id_username.attr('title', 'Enter a username');
+    // var id_username = $("#id_username");
+    // id_username.attr('rel', 'popover');
+    // id_username.attr('title', 'Enter a username');
 
-    var id_email = $("#id_email");
-    id_email.attr('rel', 'popover');
-    id_email.attr('title', 'Enter an email address');
+    // var id_email = $("#id_email");
+    // id_email.attr('rel', 'popover');
+    // id_email.attr('title', 'Enter an email address');
 
-    var id_first_name = $("#id_first_name");
-    id_first_name.attr('rel', 'popover');
-    id_first_name.attr('title', 'Enter your first name (optional)');
+    // var id_first_name = $("#id_first_name");
+    // id_first_name.attr('rel', 'popover');
+    // id_first_name.attr('title', 'Enter your first name (optional)');
 
-    var id_last_name = $("#id_last_name");
-    id_last_name.attr('rel', 'popover');
-    id_last_name.attr('title', 'Enter your last name (optional)');
+    // var id_last_name = $("#id_last_name");
+    // id_last_name.attr('rel', 'popover');
+    // id_last_name.attr('title', 'Enter your last name (optional)');
 
     var id_title = $("#id_title");
     id_title.attr('rel', 'popover');
     id_title.attr('title', 'Enter your title in your organisation (optional)');
 
-    var id_company_name = $("#id_company_name");
-    id_company_name.attr('rel', 'popover');
-    id_company_name.attr('title', 'Enter your company name (optional)');
+    // var id_company_name = $("#id_company_name");
+    // id_company_name.attr('rel', 'popover');
+    // id_company_name.attr('title', 'Enter your company name (optional)');
 
     var id_country = $("#id_country");
     id_country.attr('class', 'chzn-select');
@@ -101,13 +101,12 @@ $(document).ready(function(){
     id_city.attr('title', 'LBOG collects some '
         + 'geographic data on its members\' location to better be able to match volunteers with projects');
 
-    var id_post_code = $("#id_post_code");
-    id_post_code.attr('rel', 'popover');
-    id_post_code.attr('title', 'Enter your post code / zip code (optional)');
-
-    var id_address = $("#id_address");
-    id_address.attr('rel', 'popover');
-    id_address.attr('title', 'Enter your street address (optional)');
+    var id_allow_contact = $("#id_allow_contact");
+    id_allow_contact.attr('rel', 'popover');
+    id_allow_contact.attr('title', 'If you choose to opt out from this '
+        + 'your profile will only be visible to the charities you have '
+        + 'contacted and the developers working on the same projects.\n\n'
+        + 'It will also not appear in the developer search results.');
 
 
 });

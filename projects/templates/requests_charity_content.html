@@ -1,0 +1,67 @@
+{% if not requests %}
+  <p>No {{ status }} requests found</p>  
+{% endif %}
+
+{% for my_request in requests %}
+      <div class="search-wrapper">
+        <table class="search-table">
+          <tr class="search-top-wrapper" id="top-{{ forloop.counter0 }}">
+            <td class="search-text-wrapper">
+                <div class="status-wrapper-div"><b>Status:</b> <div class="status {{ my_request.status }} status-{{ my_request.id }}">{{ my_request.status }}</div></div>
+              <p>  
+                 Project: 
+                <a href="{% url "project-details" pk=my_request.project.id %}">
+                  {{ my_request.project.title }}
+                </a>
+              </p>
+              <p>
+                Sender: <a href="{% url 'developer-details' pk=my_request.sender.id %}">{{ my_request.sender }}</a>
+              </p>
+              <p>
+                Email: 
+                <a href="mailto:{{ my_request.sender.user.email }}">
+                  {{ my_request.sender.user.email }}
+                </a>
+              </p>
+              <p>
+                www: 
+                <a href="//{{ my_request.sender.www }}">
+                  {{ my_request.sender.www }}
+                </a>
+              </p>
+              <p>
+                Sent: {{ my_request.time_created }}  
+              </p>
+            </td>
+            <td class="search-image-table-column">
+              {% if my_request.project.image %}
+                <a href="{% url "project-details" pk=my_request.project.id %}">
+                  <div class="search-image-wrapper" id="image-{{ forloop.counter0 }}">
+                      <img class="my-thumbnail-image" src="/media/{{ my_request.project.image }}" alt="">
+                  </div>
+                </a>
+              {% else %}
+                <div class="no-image-wrapper">No image available</div>
+              {% endif %}
+            </td>
+          </tr>
+          <tr class="search-bottom-wrapper">
+            <td colspan="2" class="search-description-wrapper">
+              Message: {{ my_request.message }}
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" class="request-buttons-wrapper">
+              <button id="accept-button" type="button" class="btn btn-success" 
+                  onclick="changeStatus('{% url 'respond-to-request' pk=my_request.id status='accepted' %}')">
+                  Accept
+              </button>
+              <button id="reject-button" type="button" class="btn btn-danger" 
+                onclick="changeStatus('{% url 'respond-to-request' pk=my_request.id status='rejected' %}')">
+                Reject
+              </button> 
+            </td>
+          </tr>
+        </table>
+      </div>
+{% endfor %}

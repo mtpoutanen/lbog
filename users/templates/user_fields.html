@@ -47,3 +47,16 @@
                 {{ form.password2 }}
             </div>
         </div>
+
+        <div class="control-group">
+            {% if form.user_type.errors %}
+            <div class="errors controls"> 
+                {{ form.user_type.errors }} 
+            </div> 
+            {% endif %}
+            <label {% if form.user_type.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
+            for="" class="control-label">User Type:</label>
+            <div class="controls">
+                {{ form.user_type }}
+            </div> 
+        </div>

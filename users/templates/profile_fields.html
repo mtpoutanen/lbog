@@ -1,18 +1,10 @@
+        {% comment %}
+            
+        {% for key, value in form.errors.items %}
+            {{ key }} = {{ value }}
+        {% endfor %}
+        {% endcomment %}
 
-
-        <div class="control-group">
-            {% if form.user_type.errors %}
-            <div class="errors controls"> 
-                {{ form.user_type.errors }} 
-            </div> 
-            {% endif %}
-            <label {% if form.user_type.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
-            for="" class="control-label">User Type:</label>
-            <div class="controls">
-                {{ form.user_type }}
-            </div> 
-        </div>
-        
         <div class="control-group">
             {% if form.given_name.errors %}
             <div class="errors controls"> 
@@ -59,9 +51,29 @@
             </div> 
             {% endif %}
             <label {% if form.company_name.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
-            for="" class="control-label">Company Name:</label>
+            for="" class="control-label"><span class="mandatory {% if user.get_profile.user_type == 'Developer' %}hidden{% endif %}"
+             id="charity-mandatory">* </span><span id="charity-label">
+            {% if user.get_profile.user_type == 'Developer' %}
+                Company Name:
+            {% else %}
+                Charity Name:
+            {% endif %}
+            </span></label>
             <div class="controls">
                 {{ form.company_name }}
+            </div>
+        </div>
+
+        <div class="control-group">
+            {% if form.www.errors %}
+            <div class="errors controls"> 
+                {{ form.www.errors }} 
+            </div> 
+            {% endif %}
+            <label {% if form.www.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
+            for="" class="control-label">www:</label>
+            <div class="controls">
+                {{ form.www }}
             </div>
         </div>
 
@@ -103,33 +115,7 @@
                 {{ form.city }}
             </div>
         </div>
-<!--
-        <div class="control-group">
-            {% if form.post_code.errors %}
-            <div class="errors controls"> 
-                {{ form.post_code.errors }} 
-            </div> 
-            {% endif %}
-            <label {% if form.post_code.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
-            for="" class="control-label">Post Code / Zip Code:</label>
-            <div class="controls">
-                {{ form.post_code }}
-            </div>
-        </div>
 
-        <div class="control-group">
-            {% if form.address.errors %}
-            <div class="errors controls"> 
-                {{ form.address.errors }} 
-            </div> 
-            {% endif %}
-            <label {% if form.address.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
-            for="" class="control-label">Street Address:</label>
-            <div class="controls">
-                {{ form.address }}
-            </div>
-        </div>
--->
         <div id="lat_div" class="control-group hidden">
             {% if form.lat.errors %}
             <div class="errors controls"> 
@@ -168,23 +154,21 @@
                 {{ form.logo }}
             </div>
         </div>
-
-        <div id="skills_div" {% if user.get_profile.user_type == 'Developer' %}
-                                class="control-group"
-                              {% else %}
-                                class="control-group hidden"
-                             {% endif %} >
-            {% if form.skills.errors %}
-            <div class="errors controls"> 
-                {{ form.skills.errors }} 
-            </div> 
-            {% endif %}
-            <label {% if form.skills.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
-            for="" class="control-label"><span class="mandatory">*</span> Skills:</label>
-            <div class="controls">
-                {{ form.skills }}
+    
+        {% if not user.is_autheticated or user.get_profile.user_type == 'Developer' %}
+            <div id="skills_div" class="control-group">
+                {% if form.skills.errors %}
+                <div class="errors controls"> 
+                    {{ form.skills.errors }} 
+                </div> 
+                {% endif %}
+                <label {% if form.skills.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
+                for="" class="control-label">Skills:</label>
+                <div class="controls">
+                    {{ form.skills }}
+                </div>
             </div>
-        </div>
+        {% endif %} 
 
         <div class="control-group">
             {% if form.description.errors %}
@@ -196,9 +180,43 @@
             for="" class="control-label">Description:</label>
             <div class="controls">
                 {{ form.description }}
+                <div id="remainingC">1000 / 1000</div>
             </div>
         </div>
+        
+        {% if not user.is_autheticated or user.get_profile.user_type == 'Developer' %}
+        <div class="control-group" id="allow-contact-div">
+            {% if form.allow_contact.errors %}
+            <div class="errors controls"> 
+                {{ form.allow_contact.errors }} 
+            </div> 
+            {% endif %}
+            <label {% if form.allow_contact.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
+            for="" class="control-label">Allow Contact:</label>
+            <div class="controls">
+                {{ form.allow_contact }}
+            </div>
+        </div>
+        {% endif %}
+        
+        {% if not user.is_authenticated %}
+        <div class="control-group">
+            {% if form.accept_t_and_c.errors %}
+            <div class="errors controls"> 
+                {{ form.accept_t_and_c.errors }} 
+            </div> 
+            {% endif %}
+            <label {% if form.accept_t_and_c.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
+            for="" class="control-label"><span class="mandatory">*</span> Accept <a target="_blank" href="{% url 't-and-c' %}">Terms and Conditions</a>:</label>
+            <div class="controls">
+                {{ form.accept_t_and_c }}
+            </div>
+        </div>
+        {% endif %}
 
-
+        <div class="controls">
+                <input type='button' id='submit-button' class="btn btn-success" value="Save">
+        </div>
+        <input type='submit' value="Hidden Submit" style="display: none;">
         
         

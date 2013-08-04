@@ -9,7 +9,11 @@
 			<div class="thumbnail">
 				<a href="{% url 'project-details' pk=project.id %}">
 					<div class="my-img-thumb">
-						<img class="my-thumbnail-image" src='/media/{{ project.image }}' alt="">
+						{% if project.image %}
+								<img class="my-thumbnail-image" src='/media/{{ project.image }}' alt="">
+						{% else %}
+			    	 		<div class="no-image-wrapper">No image available</div>
+			    		{% endif %}
 					</div>
 				</a>
 				<h5 class="front-page-header">{{ project.title }}</h5>

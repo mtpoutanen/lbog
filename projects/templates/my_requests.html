@@ -1,0 +1,27 @@
+{% extends 'base_accounts.html' %}
+{% load staticfiles %}
+{% block extrahead_level3 %}
+  <script src="{% static "projects/js/requests.js" %}"></script>
+  <link href="{% static "projects/css/requests.css" %}" rel="stylesheet"/>   
+{% endblock extrahead_level3 %}
+
+{% block accounts_content %}
+
+<select id="id_status" class="chzn-select" onchange="getNotifications()">
+  <option value="all">View All</option>
+  <option value="pending" selected>Pending</option>
+  <option value="accepted" selected>Accepted</option>
+  <option value="rejected">Rejected</option>
+</select>
+
+  <div class='fill-area'>
+    {% include template_name_requests %} 
+  </div>
+<div id="search-url" rel="{% url "get-requests" param='placeholder' %}" ></div> <!-- needed for js -->
+<script src="{% static "users/js/text_to_dark.js" %}"></script>
+<script src="{% static "projects/js/noti_req_ajax_calls.js" %}"></script>
+<script type="text/javascript">
+  	$(document).ready(resizeImages());
+	$('#id_status').val('all').trigger('liszt:updated');
+</script>
+{% endblock accounts_content %}

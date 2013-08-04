@@ -3,8 +3,8 @@
 {% else %}
   {% if projects %}
     {% for project in projects %}
-    {# <div class="search-wrapper"> #}
-         <table class="search-wrapper">
+    <div class="search-wrapper">
+         <table class="search-table">
            <tr class="search-top-wrapper" id="top-{{ forloop.counter0 }}">
              <td class="search-text-wrapper">
                 <p><a href="{% url "project-details" pk=project.id %}">
@@ -16,13 +16,24 @@
                     {{ project.state }}, 
                 {% endif %}
                  {{ project.country }}</p>
+                  <dl>
+                    <dt> 
+                   {% for skill in project.skills.all %}
+                      <dd>- {{ skill.skill_name }}</dd>
+                   {% endfor %}
+                    </dt>
+                  </dl>
              </td>
              <td class="search-image-table-column">
+              {% if project.image %}
                 <a href="{% url "project-details" pk=project.id %}">
                   <div class="search-image-wrapper" id="image-{{ forloop.counter0 }}">
                       <img class="my-thumbnail-image" src="/media/{{ project.image }}" alt="">
                   </div>
                 </a>
+              {% else %}
+                <div class="no-image-wrapper">No image available</div>
+              {% endif %}
              </td>
            </tr>
          <tr class="search-bottom-wrapper">
@@ -31,7 +42,7 @@
            </td>
          </tr>
        </table>
-    {# </div> #}
+    </div>
     {% endfor %}
   {% else %}
     <p>No projects found, please try again with less restrictive search parameters</p>

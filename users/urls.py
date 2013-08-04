@@ -1,5 +1,5 @@
-from users.views import LoginView, LoginRequiredView, RegSuccessView, \
-                        RegistrationView, ChangeView, SuccessView, CharityView
+from users.views import LoginView, RegSuccessView, RegistrationView, \
+                        ChangeView, SuccessView, CharityView, DeveloperView
 from django.conf.urls import patterns, url
 
 urlpatterns = patterns('',
@@ -9,8 +9,6 @@ urlpatterns = patterns('',
         name='registration-successful'),
     url(r'^login/$',                  view=LoginView.as_view(),             
         name='login'),
-    url(r'^login-required/$',         view=LoginRequiredView.as_view(),     
-        name='login-required'),
     url(r'^my-account/(?P<pk>\d+)/$', view=ChangeView.as_view(),            
         name='my-account'),
     url(r'^profile-changed/$',        view=SuccessView.as_view(),           
@@ -23,6 +21,8 @@ urlpatterns = patterns('',
                                       {'next_page': '/accounts/login/'},    name='logout'),
     url(r'^charity-details/(?P<pk>\d+)/$', view=CharityView.as_view(),            
         name='charity-details'),
+    url(r'^developer-details/(?P<pk>\d+)/$', view=DeveloperView.as_view(),            
+        name='developer-details'),
 )
 
 

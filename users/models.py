@@ -36,14 +36,16 @@ class UserProfile(models.Model):
     these fields or else the db will throw an exception 
     '''
     user            = models.OneToOneField(User)
-    given_name      = models.CharField(max_length=30, blank=True)
-    family_name     = models.CharField(max_length=50, blank=True)
     user_type       = models.CharField(max_length=30, choices={
                     ('Developer', 'Developer'),
                     ('Charity', 'Charity'),
                     }, blank=False, null=False)
+    allow_contact   = models.BooleanField(null=False, blank=False)
+    given_name      = models.CharField(max_length=30, blank=True)
+    family_name     = models.CharField(max_length=50, blank=True)
     title           = models.CharField(max_length=254, blank=True)
-    company_name    = models.CharField(max_length=50, blank=True)
+    company_name    = models.CharField(max_length=50, blank=True, null=True)
+    www             = models.CharField(max_length=50, blank=True)
     country         = models.ForeignKey(Country, blank=False, 
                         null=False, default=1)
     state           = models.ForeignKey(State, blank=False, 
@@ -54,7 +56,7 @@ class UserProfile(models.Model):
     # address         = models.CharField(max_length=100, blank=True)
     lat             = models.FloatField(blank=False, null=False, default=0.0)
     lon             = models.FloatField(blank=False, null=False, default=0.0)
-    description     = models.TextField(blank=True)
+    description     = models.TextField(blank=True, max_length=1000)
     # The forms do not allow Charities to upload skills
     skills          = models.ManyToManyField(Skill)
     logo            = models.ImageField( \

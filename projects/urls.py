@@ -27,6 +27,12 @@ urlpatterns = patterns('',
         name='respond-to-request'),
     url(r'^my-notifications/(?P<pk>\d+)/$',         view=NotificationsListView.as_view(),
         name='my-notifications'),
+    url(r'^get-notifications/(?P<param>\w+)/$',       'projects.views.get_notifications',
+        name='get-notifications'),
+    url(r'^get-requests/(?P<param>\w+)/$',       'projects.views.get_requests',
+        name='get-requests'),
+    url(r'^remove-developer/(?P<dev_id>\d+)/(?P<proj_id>\d+)/$',       'projects.views.remove_developer',
+        name='remove-developer'),
     )
 
 
