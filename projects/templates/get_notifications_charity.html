@@ -1,20 +1,7 @@
 {% if notifications %}
     
-{% for noti in notifications %}
-    <div class="search-wrapper">
-        <p> 
-            {# <a href="{% url 'charity-details' pk=noti.sender.id %}"> #}
-                {{ noti.sender }} (CREATE DEVELOPER PROFILE PAGE)
-            {# </a> #}
-             has offered to help with 
-             <a href="{% url 'project-details' pk=noti.request.project.id %}">
-                {{ noti.request.project.title }}
-            </a>
-        </p>
-        <p>
-            Sent: {{ noti.time_created }}
-        </p>
-    </div>
+{% for notification in notifications %}
+    {% include "notification_charity.html" %}
 {% endfor %}
 {% else %}
     <p>No notifications found</p>

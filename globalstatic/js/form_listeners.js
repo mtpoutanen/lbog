@@ -7,6 +7,14 @@ $('#id_state').change(function() {
 	$('#id_state_chzn').children().css({'color': '#333333'});
 });
 
+$('#id_search_country').change(function() {
+    $('#id_search_country_chzn').children().css({'color': '#333333'});
+});
+
+$('#id_state').change(function() {
+    $('#id_search_state_chzn').children().css({'color': '#333333'});
+});
+
 $('#id_status').change(function() {
 	$('#id_status_chzn').children().css({'color': '#333333'});
 });

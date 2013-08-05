@@ -1,5 +1,8 @@
     <a href="{% url 'my-account' pk=user.id %}" class='btn btn-primary link-button-accounts'>Change Account Details</a><br>
     <a href="{% url 'password-change' %}" class="btn btn-primary link-button-accounts">Change Password</a><br>
     <a href="{% url 'my-projects' pk=user.id %}" class="btn btn-primary link-button-accounts">My Projects</a><br>
+    {% if user.get_profile.user_type == 'Charity' %}
+    	<a href="{% url 'create-new-project' %}" class="btn btn-primary link-button-accounts">Create New Project</a><br>
+    {% endif %}
     <a href="{% url 'my-requests' pk=user.id %}" class="btn btn-primary link-button-accounts">My Requests</a><br>
     <a href="{% url 'my-notifications' pk=user.id %}" class="btn btn-primary link-button-accounts">My Notifications</a>

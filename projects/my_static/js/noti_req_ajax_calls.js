@@ -20,3 +20,21 @@ function searchSuccess(data, textStatus, jqXHR) {
 	$('.fill-area').html(data);
 	resizeImages();
 }
+
+function markAsSeen(url) {
+	$.ajax({
+		type: 'GET',
+		url: url,
+		// data: {
+		// 	'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(), 
+		// },
+		dataType: 'json',
+		success: notiSuccess,
+	});
+}
+
+function notiSuccess(data, textStatus, jqXHR) {
+	var buttonWrapper = '#notification-' + data.noti_id
+	// alert(buttonWrapper);
+	$(buttonWrapper).hide();
+}

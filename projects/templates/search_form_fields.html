@@ -1,3 +1,5 @@
+{% load staticfiles %}
+
 <form action="" method='GET' id="project-search-form">
       {% csrf_token %}
       
@@ -48,7 +50,6 @@
       <div class="search" id="filter-wrapper">
         <button class="btn btn-primary btn-small" type="button" id="submit-button">Filter Results</button>
       </div>
-
+  <script src="{% static 'global/js/search_help.js' %}"></script>
   </form> <!-- project-search-form -->
 
-  <div id="search-url" rel="{% url "search-projects" %}" ></div> <!-- needed for js -->

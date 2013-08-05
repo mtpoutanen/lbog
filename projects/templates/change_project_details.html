@@ -20,9 +20,11 @@
 				<div class="errors main-errors">Please correct the following fields</div>
 			</div>
 			{% endif %}
+			{% comment %}
 			{% for field in form %}
-			<li>{{ field.errors|striptags }}</li>
+				<div class="errors controls">{{ field.errors|striptags }}</div>
 			{% endfor %}
+			{% endcomment %}
 			{% include 'project_fields.html' %}
 			<div class="control-group">
 				<label class="control-label"for="">Developers:</label>

@@ -1,8 +1,8 @@
 .sidebar {
 	overflow: hidden;
-	min-height: -webkit-calc(100% - 40px);
-	min-height: -moz-calc(100% - 40px);
-	min-height: calc(100% - 40px);
+	min-height: -webkit-calc(100% - 180px);
+	min-height: -moz-calc(100% - 180px);
+	min-height: calc(100% - 180px);
 	padding-right: 20px;
 	box-sizing: border-box;
 }

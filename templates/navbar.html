@@ -56,7 +56,7 @@
                                             <HR class="my_hr" WIDTH="100%" SIZE="3">
                                             {% for noti in notifications %}
                                                 {% if user.get_profile.user_type == 'Developer' %}
-                                                    <li><a href="{% url 'request-details' pk=noti.request.id noti=noti.id %}">
+                                                    <li><a href="{% url 'notification-details' pk=noti.request.id noti=noti.id %}">
                                                         {% if not noti.seen %} <b> {% endif %}
                                                             {{ noti.sender }} has {{ noti.request.status }} your request
                                                         {% if not noti.seen %}</b>{% endif %} 
@@ -64,7 +64,7 @@
                                                     <HR class="my_hr" WIDTH="100%" SIZE="3">    
                                                 {% endif %}
                                                 {% if user.get_profile.user_type == 'Charity' %}
-                                                    <li><a href="{% url 'request-details' pk=noti.request.id noti=noti.id %}">
+                                                    <li><a href="{% url 'notification-details' pk=noti.request.id noti=noti.id %}">
                                                         {% if not noti.seen %}<b>{% endif %}
                                                             {{ noti.sender }} has offered to help on {{ noti.request.project.title }}
                                                         {% if not noti.seen %}</b>{% endif %}    

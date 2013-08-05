@@ -1,6 +1,7 @@
 from django import forms
 from projects.models import Project, Request
 from users.models import Skill, Country, State
+from django.db.models.fields.files import ImageFieldFile
 
 class ProjectCreationForm(forms.ModelForm):
     
@@ -29,6 +30,15 @@ class ProjectCreationForm(forms.ModelForm):
     lon             = forms.FloatField(required=True)
     need_locals     = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(),
                         required=True)
+
+    def clean_logo(self):
+        image = self.cleaned_data['image']
+        check_no_new_image = isinstance(image, ImageFieldFile)
+    
+        if image and not check_no_new_image:
+            if image._size > 1*1024*1024:
+                raise forms.ValidationError("Image file too large ( maximum 1mb )")
+            return image
 
     class Meta:
         model       = Project
@@ -65,4 +75,18 @@ class RequestForm(forms.ModelForm):
         fields      = ('message',)
             # 'project')
 
+    def clean(self):
+        # check if the user is a developer (the form is not even rendered anyway)
+        profile         = self.view_request.user.get_profile()
+        if profile.user_type    != 'Developer':
+            raise forms.ValidationError('You must log in as a Developer to offer your help on projects')
+       
+        project_id              = self.view_request_pk
+        project                 = Project.objects.get(id=project_id)
+        
+        # check if the user has already requested to help (the form is not even rendered anyway)
+        has_requested   = Request.objects.filter(sender=profile, project=project)
+        if has_requested:
+            raise forms.ValidationError('You have already requested to help on this project')
+        return self.cleaned_data
 

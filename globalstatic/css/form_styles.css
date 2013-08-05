@@ -1,4 +1,5 @@
-#id_status_chzn > a, #id_country_chzn > a, #id_state_chzn > a, .chzn-choices > li > input {
+#id_status_chzn > a, #id_country_chzn > a, #id_state_chzn > a, .chzn-choices > li > input,
+#id_search_country_chzn > a, #id_search_state_chzn > a {
   background-color:#FFFFFF !important;
   border:1px solid #AAAAAA !important;
   background-image: none !important;

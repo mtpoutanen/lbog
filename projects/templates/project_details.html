@@ -5,18 +5,57 @@
 {% endblock extrahead_level2 %}
 {% block info_content %}
 
-    {{ project.title }}<br>
-    {{ project.country }}<br>
-    {% if project.state == 'n/a (Outside of US or Canada)' %}
-      {{ project.state }}<br>
-    {% endif %}
-    {{ project.city }}<br>
-    {{ project.description }}<br>
+    <div class="search-wrapper">
+         <table class="search-table">
+           <tr class="search-top-wrapper" id="top-0">
+             <td class="search-text-wrapper">
+                <p>
+                    Title: {{ project.title }}
+                </p>
+                <p>Charity: 
+                    <a href="{% url 'charity-details' pk=project.charity.id %}">
+                    {{ project.charity.company_name }}
+                    </a>
+                </p>
+                <p>
+                    Location: {{ project.city }}, 
+                  {% if project.country.country_name == "United States" or project.country.country_name == "Canada" %} 
+                    {{ project.state }}, 
+                {% endif %}
+                 {{ project.country }}</p>
+                  <dl>
+                    <dt> 
+                   {% for skill in project.skills.all %}
+                      <dd>- {{ skill.skill_name }}</dd>
+                   {% endfor %}
+                    </dt>
+                  </dl>
+             </td>
+             <td class="search-image-table-column">
+              {% if project.image %}
+                <a href="{% url "project-details" pk=project.id %}">
+                  <div class="search-image-wrapper" id="image-0">
+                      <img class="my-thumbnail-image" src="/media/{{ project.image }}" alt="">
+                  </div>
+                </a>
+              {% else %}
+                <div class="no-image-wrapper">No image available</div>
+              {% endif %}
+             </td>
+           </tr>
+         <tr class="search-bottom-wrapper">
+           <td colspan="2" class="search-description-wrapper">
+              Project Description: {{ project.description }}
+           </td>
+         </tr>
+       </table>
+    </div>
 
     {% if user.get_profile.user_type == 'Developer' %}
         {% if already_requested %}
             <p>You have already requested to help on this project</p>
         {% else %}
+            <p><b>If you'd like to help with this project, please send a request and a message to {{ project.charity.company_name }} via the form below</b></p>
             <form id="request-form" method="post" action=""> <!-- class="form-horizontal" > -->
                 {% csrf_token %}
                 {{ form.errors }}
@@ -26,11 +65,12 @@
             </form>
         {% endif %}
     {% else %}
-        <p>Please log in as a Developer and view the project again if you are interested in helping {{ project.charity }}</p>
+        <p>Please log in as a Developer if you are interested in helping {{ project.charity.company_name }}</p>
     {% endif %}
 
     <!-- script needs to be on the page because it uses a django template variable -->
     <script type="text/javascript">
         $('#id_project').val({{ project.id }});
+        resizeImages();
     </script>
 {% endblock info_content %}

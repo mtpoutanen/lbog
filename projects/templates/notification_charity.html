@@ -1,0 +1,19 @@
+<div class="search-wrapper">
+        <p> 
+            <a href="{% url 'developer-details' pk=notification.sender.id %}">
+                {{ notification.sender }}
+            </a>
+             has offered to help with 
+             <a href="{% url 'project-details' pk=notification.request.project.id %}">
+                {{ notification.request.project.title }}
+            </a>
+        </p>
+        <p>
+            Sent: {{ notification.time_created }}
+        </p>
+        {% if not notification.seen %}    
+            <p id="notification-{{ notification.id }}">
+                <button class="btn btn-primary small" onclick="markAsSeen('{% url 'notification-seen' pk=notification.id %}')">Mark as seen</button>
+            </p>
+        {% endif %}
+    </div>

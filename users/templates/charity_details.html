@@ -8,11 +8,45 @@
 {% endblock sidebar_content %}
 
 {% block main_content %}
-    {{ charity.company_name }}<br>
-    {{ charity.country }}<br>
-    {% if charity.state != 'n/a (Outside of US or Canada)' %}
-      {{ charity.state }}<br>
-    {% endif %}
-    {{ charity.city }}<br>
-    {{ charity.description }}<br>
+	<div class="span6 main-content">
+	    <div class="search-wrapper">
+	         <table class="search-table">
+	           <tr class="search-top-wrapper" id="top-0">
+	             <td class="search-text-wrapper">
+	                <p>Name: 
+	                    {{ charity.company_name }}
+	                </p>
+	                <p>
+	                	www: <a href="{{ charity.www }}">{{ charity.www }}</a>
+	                </p>
+	                <p>
+		                Email: <a href="mailto:{{ charity.user.email }}">
+		                {{ charity.user.email }}
+		                </a>
+	                </p>
+	                <p>
+	                    Location: {{ charity.city }}, 
+	                  {% if charity.country.country_name == "United States" or charity.country.country_name == "Canada" %} 
+	                    {{ charity.state }}, 
+	                {% endif %}
+	                 {{ charity.country }}</p>
+	             </td>
+	             <td class="search-image-table-column">
+	              {% if charity.image %}
+	                  <div class="search-image-wrapper" id="image-0">
+	                      <img class="my-thumbnail-image" src="/media/{{ charity.image }}" alt="">
+	                  </div>
+	              {% else %}
+	                <div class="no-image-wrapper">No image available</div>
+	              {% endif %}
+	             </td>
+	           </tr>
+	         <tr class="search-bottom-wrapper">
+	           <td colspan="2" class="search-description-wrapper">
+	              Description: {{ project.description }}
+	           </td>
+	         </tr>
+	       </table>
+	    </div>
+	</div>
 {% endblock main_content %}

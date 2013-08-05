@@ -41,9 +41,9 @@ class CorrectUserMixin(object):
                 **response_kwargs
             )
 
-class ProjectCreationView(FormView):
+class ProjectCreationView(LoginRequiredMixin, FormView):
     model           = Project
-    template_name   = 'looking_for_volunteers.html'
+    template_name   = 'create_new_project.html'
     form_class      = ProjectCreationForm
     success_url     = reverse_lazy('project-created')
 
@@ -54,7 +54,6 @@ class ProjectCreationView(FormView):
         form.instance.charity   = profile
         form.instance.status    = 'looking'
         form.save()
-
         return super(ProjectCreationView, self).form_valid(form)
 
 class ProjectCreatedView(TemplateView):
@@ -98,12 +97,17 @@ class ProjectUpdateView(LoginRequiredMixin, CorrectUserMixin, UpdateView):
 class ProjectUpdatedView(TemplateView):
     template_name = 'project_updated.html'
 
-
 class ProjectDetailView(FormView):
     model           = Request
     template_name   = 'project_details.html'
-    form_class      = RequestForm
     success_url     = reverse_lazy('request-sent')
+    
+    def get_form(self, form_class):
+        form_class              = RequestForm
+        form = super(ProjectDetailView, self).get_form(form_class)
+        form.view_request       = self.request
+        form.view_request_pk    = self.kwargs['pk']
+        return form
 
     def get_context_data(self, **kwargs):
         context                         = super(ProjectDetailView, self).get_context_data(**kwargs)       
@@ -112,20 +116,21 @@ class ProjectDetailView(FormView):
         context['form']                 = self.get_form(self.form_class)
         context['params']               = kwargs
         context['project']              = project
-        
+        context['already_requested']    = False
+
         if self.request.user.is_authenticated():
             my_id                           = self.request.user.id
-            # using filter just in case someone creates a second request in admin etc.
-            this_project_request            = Request.objects.filter(sender__id=my_id)
-            context['already_requested']    = this_project_request
+            # using filter instead of get just in case someone creates a second request in admin etc.
+            this_project_requested          = Request.objects.filter(sender__id=my_id, project=project)
+            context['already_requested']    = this_project_requested
 
         return context
     
     def form_valid(self, form):
+        import pdb
+        pdb.set_trace();
         'render nothing if not the right user'
         profile                 = self.request.user.get_profile()
-        if profile.user_type    != 'Developer':
-            raise forms.ValidationError('You must log in as a Developer to offer your help on projects')
         form.instance.sender    = profile
         project_id              = self.kwargs['pk']
         project                 = Project.objects.get(id=project_id)
@@ -151,10 +156,10 @@ class ProjectListView(LoginRequiredMixin, CorrectUserMixin, TemplateView):
         user_type   = self.request.user.get_profile().user_type
         my_id       = self.request.user.id
         if user_type == 'Charity':
-            projects            = Project.objects.filter(charity = my_id)
+            projects            = Project.objects.filter(charity = my_id).order_by('-time_created')
             self.template_name  = 'my_projects_charity.html'
         else:
-            all_projects        = Project.objects.all()
+            all_projects        = Project.objects.all().order_by('-time_created')
             my_profile          = User.objects.get(id=my_id).get_profile()
             projects            = filter(lambda project: my_profile in project.developers.all(), all_projects)
             self.template_name  = 'my_projects_developer.html'
@@ -188,9 +193,9 @@ class RequestListView(LoginRequiredMixin, CorrectUserMixin, TemplateView):
         context['requests'] = requests
         return context
 
-class RequestDetailView(LoginRequiredMixin, CorrectUserMixin, TemplateView):
+class NotificationDetailView(LoginRequiredMixin, CorrectUserMixin, TemplateView):
 
-    template_name       = 'request_details.html'
+    template_name       = 'notification_details.html'
     error_message       = 'Oops, something went wrong. \
             The browser was trying to access someone else\'s request.'
 
@@ -208,9 +213,8 @@ class RequestDetailView(LoginRequiredMixin, CorrectUserMixin, TemplateView):
             self.url_id     = my_request.sender.id   
 
         return {
-            'test_var': request_id,
             'params':   kwargs,
-            'my_request':  my_request,
+            'notification':  notification,
         }
 
 def remove_developer(request, dev_id, proj_id):
@@ -370,4 +374,12 @@ def get_requests(request, param):
 
         return render_to_response(template_name, context)
 
+def notification_seen(request, pk):
+    if not request.user.is_authenticated():
+        return redirect(reverse_lazy('login'))
 
+    notification        = RequestNotification.objects.get(id=pk)
+    notification.seen   = True
+    notification.save()
+    result              = {'noti_id': pk}
+    return HttpResponse(simplejson.dumps(result), mimetype='application/json')

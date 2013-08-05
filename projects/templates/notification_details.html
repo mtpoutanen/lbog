@@ -1,0 +1,21 @@
+{% extends 'base_sidebar.html' %}
+{% load staticfiles %}
+
+{% block extrahead_level2 %}
+<link rel="stylesheet" href="{% static 'projects/css/requests.css' %}">
+{% endblock extrahead_level2 %}
+
+{% block sidebar_content %}
+{% endblock sidebar_content %}
+
+{% block main_content %}
+ <div class="span6 main-content">
+ 	
+{% if user.get_profile.user_type == 'Developer' %}
+    {% include "notification_dev.html" %}	
+{% else %}
+    {% include "notification_charity.html" %}	
+{% endif %}
+    
+ </div>
+{% endblock main_content %}

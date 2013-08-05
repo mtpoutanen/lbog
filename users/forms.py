@@ -3,6 +3,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from users.models import UserProfile, Skill, Country, State
+from django.db.models.fields.files import ImageFieldFile
 
 class MyBaseForm(forms.ModelForm):
     
@@ -57,6 +58,14 @@ class MyBaseForm(forms.ModelForm):
     class Meta:
         abstract    = True
 
+    def clean_logo(self):
+        image = self.cleaned_data['logo']
+        check_no_new_image = isinstance(image, ImageFieldFile)
+    
+        if image and not check_no_new_image:
+            if image._size > 1*1024*1024:
+                raise forms.ValidationError("Image file too large ( maximum 1mb )")
+            return image
 
 
 class MyCreationForm(MyBaseForm):

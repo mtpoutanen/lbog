@@ -1,0 +1,52 @@
+{% if no_args %}
+  <p>No search parameters entered</p>
+{% else %}
+  {% if developers %}
+    {% for developer in developers %}
+        <div class="search-wrapper">
+          <table class="search-table">
+            <tr class="search-top-wrapper" id="top-{{ forloop.counter0 }}">
+              <td class="search-text-wrapper">
+                 <p>Username: <a href="{% url 'developer-details' pk=developer.id %}">{{ developer }}</a></p>
+                 <p>Name: {{ developer.given_name }} {{ developer.family_name }}</p>
+                 <p>Company: {{ developer.company_name }}</p>
+                 <p>www: <a href="//{{ developer.www }}">{{ developer.www }}</a></p>
+                 <p>Email: <a href="mailto:{{ developer.user.email }}">{{ developer.user.email }}</a></p>
+                 <p>Location: {{ developer.city }}, 
+                    {% if developer.country.country_name == "United States" or developer.country.country_name == "Canada" %} 
+                      {{ developer.state }}, 
+                  {% endif %}
+                   {{ developer.country }}</p>
+              </td>
+              <td class="search-image-table-column">
+                  <div class="search-image-wrapper" id="image-{{ forloop.counter0 }}">
+                    {% if developer.image %}
+                      <img class="my-thumbnail-image" src="/media/{{ developer.image }}" alt="">
+                    {% else %}
+                      {{ developer.user.username }} hasn't uploaded an image.
+                    {% endif %}
+                  </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="dev-profile-skills">
+                <p>Skills:</p>
+                <ul>
+                  {% for skill in developer.skills.all %}
+              <li>{{ skill }}</li>                
+                  {% endfor %}
+                </ul>
+              </td>
+            </tr>
+            <tr class="search-bottom-wrapper">
+              <td colspan="2" class="search-description-wrapper">
+                Description: {{ developer.description|truncatewords:"10" }}...
+              </td>
+            </tr>
+          </table>
+        </div>
+    {% endfor %}
+  {% else %}
+    <p>No developers found, please try again with less restrictive search parameters</p>
+  {% endif %}
+{% endif %}

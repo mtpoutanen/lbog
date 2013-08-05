@@ -1,5 +1,5 @@
 $('#submit-button').click(function() {
-
+    
     var country         = $("#id_country option:selected").text();
     var state           = $("#id_state option:selected").text();
     var city            = $("#id_city").val();

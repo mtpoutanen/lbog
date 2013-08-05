@@ -15,7 +15,7 @@
                 </a>
               </p>
               <p>
-                Charity: <a href="{% url 'charity-details' pk=my_request.project.charity.id %}">{{ my_request.project.charity }}</a>
+                Charity: <a href="{% url 'charity-details' pk=my_request.project.charity.id %}">{{ my_request.project.charity.company_name }}</a>
               </p>
               <p>
                 www: <a href="//{{ my_request.project.charity.www }}">{{ my_request.project.charity.www }}</a>

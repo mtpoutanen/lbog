@@ -10,6 +10,19 @@
 {% endblock sidebar_content %}
 
 {% block main_extra_content %}
-  <div class="span6" id="project-search-results"><!-- filled with ajax --></div>
+<div class="span6 main-content" id="tabs">
+	<ul class="nav nav-tabs">
+     <li id="info-li"><a href="#info-div">What Can You Do To Help</a></li>
+     <li id="search-li"><a href="#search-results">Search Results</a></li>
+   </ul>
+  <div id="info-div">
+  	goals here
+  </div>
+  <div id="search-results">
+  	search
+  	<!-- filled with ajax -->
+  </div>
+</div>
+  <div id="search-url" rel="{% url "search-projects" %}" ></div> <!-- needed for js -->
   <script src="{% static "global/js/project-search.js" %}"></script>
 {% endblock main_extra_content %}
