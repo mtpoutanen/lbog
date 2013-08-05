@@ -3,7 +3,7 @@
 /lbog/local_settings.*
 
 <<<<<<< HEAD
-migrations/
+
 *.pyc
 =======
 *pyc
