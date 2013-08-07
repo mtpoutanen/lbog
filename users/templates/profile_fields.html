@@ -154,8 +154,8 @@
                 {{ form.logo }}
             </div>
         </div>
-    
-        {% if not user.is_autheticated or user.get_profile.user_type == 'Developer' %}
+        {{ user.get_profile.user_type }}
+        {% if not user.is_authenticated or user.get_profile.user_type == 'Developer' %}
             <div id="skills_div" class="control-group">
                 {% if form.skills.errors %}
                 <div class="errors controls"> 
@@ -184,7 +184,7 @@
             </div>
         </div>
         
-        {% if not user.is_autheticated or user.get_profile.user_type == 'Developer' %}
+        {% if not user.is_authenticated or user.get_profile.user_type == 'Developer' %}
         <div class="control-group" id="allow-contact-div">
             {% if form.allow_contact.errors %}
             <div class="errors controls"> 
