@@ -15,6 +15,7 @@
 </select>
 
   <div class='fill-area'>
+    {% csrf_token %}
     {% include template_name_requests %} 
   </div>
 <div id="search-url" rel="{% url "get-requests" param='placeholder' %}" ></div> <!-- needed for js -->

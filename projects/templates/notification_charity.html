@@ -1,4 +1,4 @@
-<div class="search-wrapper">
+<div class="search-wrapper" id="notification-{{ notification.id }}">
         <p> 
             <a href="{% url 'developer-details' pk=notification.sender.id %}">
                 {{ notification.sender }}
@@ -16,4 +16,7 @@
                 <button class="btn btn-primary small" onclick="markAsSeen('{% url 'notification-seen' pk=notification.id %}')">Mark as seen</button>
             </p>
         {% endif %}
+        <p>
+          <button class="btn btn-primary" onclick="deleteContent('{% url 'delete-notification' pk=notification.id %}')">Delete</button>          
+        </p>
     </div>

@@ -154,7 +154,7 @@
                 {{ form.logo }}
             </div>
         </div>
-        {{ user.get_profile.user_type }} {{ user.email }}
+
         {% if not user.is_authenticated or user.get_profile.user_type == 'Developer' %}
             <div id="skills_div" class="control-group">
                 {% if form.skills.errors %}

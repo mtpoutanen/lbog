@@ -35,6 +35,12 @@ urlpatterns = patterns('',
         name='remove-developer'),
     url(r'^notification-seen/(?P<pk>\d+)/$',       'projects.views.notification_seen',           
         name='notification-seen'),
+    url(r'^delete-project/(?P<pk>\d+)/$',       'projects.views.delete_project',           
+        name='delete-project'),
+    url(r'^delete-notification/(?P<pk>\d+)/$',       'projects.views.delete_notification',           
+        name='delete-notification'),
+    url(r'^delete-request/(?P<pk>\d+)/$',       'projects.views.delete_request',           
+        name='delete-request'),
 
     )
 

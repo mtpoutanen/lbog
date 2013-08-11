@@ -58,7 +58,7 @@ class UserProfile(models.Model):
     lon             = models.FloatField(blank=False, null=False, default=0.0)
     description     = models.TextField(blank=True, max_length=1000)
     # The forms do not allow Charities to upload skills
-    skills          = models.ManyToManyField(Skill)
+    skills          = models.ManyToManyField(Skill, null=True, blank=True)
     logo            = models.ImageField( \
                     upload_to=get_image_path, blank=True, null=True)
 

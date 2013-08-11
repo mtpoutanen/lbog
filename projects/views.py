@@ -381,3 +381,75 @@ def notification_seen(request, pk):
     notification.save()
     result              = {'noti_id': pk}
     return HttpResponse(simplejson.dumps(result), mimetype='application/json')
+
+def delete_project(request, pk):
+    project = Project.objects.get(id=pk)
+
+    if request.user.id != project.charity.id:
+        result =    {
+                    'error_message': 'Something went wrong, this project belongs to user '+project.charity.company_name, 
+                    'div_id': '',
+                    }
+        return HttpResponse(simplejson.dumps(result), mimetype='application/json')
+    elif project.status == 'completed':
+        result =    {
+                    'error_message': 'Sorry, cannot delete completed projects, please contact admin if this is necessary', 
+                    'div_id': '',
+                    }
+        return HttpResponse(simplejson.dumps(result), mimetype='application/json')
+    else:
+        if request.method == 'POST':
+            project.delete()
+            div_id = "#project-" + str(pk)
+            result = {
+                    'error_message': 'no_errors',
+                    'div_id': div_id,
+                    }
+            return HttpResponse(simplejson.dumps(result), mimetype='application/json')
+
+def delete_notification(request, pk):
+    notification = RequestNotification.objects.get(id=pk)
+
+    if request.user.id != notification.receiver.id:
+        result =    {
+                    'error_message': 'Something went wrong, this notification belongs to user '+notification.receiver.user.username, 
+                    'div_id': '',
+                    }
+        return HttpResponse(simplejson.dumps(result), mimetype='application/json')
+    else:
+        if request.method == 'POST':
+            notification.delete()
+            div_id = "#notification-" + str(pk)
+            result = {
+                    'error_message': 'no_errors',
+                    'div_id': div_id,
+                    }
+            return HttpResponse(simplejson.dumps(result), mimetype='application/json')
+
+def delete_request(request, pk):
+    my_request = Request.objects.get(id=pk)
+
+    if not (
+            (request.user.get_profile().user_type == 'Developer'
+            and request.user.id == my_request.sender.id  
+            ) 
+        or 
+        (   request.user.get_profile().user_type == 'Charity'
+            and request.user.id == my_request.project.charity.id
+            )
+        ):
+        result =    {
+                    'error_message': 'Something went wrong, this request belongs to another user', 
+                    'div_id': '',
+                    }
+        return HttpResponse(simplejson.dumps(result), mimetype='application/json')
+    else:
+        if request.method == 'POST':
+            my_request.delete()
+            div_id = "#request-" + str(pk)
+            result = {
+                    'error_message': 'no_errors',
+                    'div_id': div_id,
+                    }
+            return HttpResponse(simplejson.dumps(result), mimetype='application/json')
+

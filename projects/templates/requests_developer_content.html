@@ -3,7 +3,7 @@
 {% endif %}
 
 {% for my_request in requests %}
-      <div class="search-wrapper">
+      <div class="search-wrapper" id="request-{{ my_request.id }}">
         <table class="search-table">
           <tr class="search-top-wrapper" id="top-{{ forloop.counter0 }}">
             <td class="search-text-wrapper">
@@ -45,6 +45,11 @@
           <tr class="search-bottom-wrapper">
             <td colspan="2" class="search-description-wrapper">
               Message: {{ my_request.message }}
+            </td>
+          </tr>
+          <tr class="delete-button">
+            <td colspan="2" class="request-buttons-wrapper">
+              <button class="btn btn-primary" onclick="deleteContent('{% url 'delete-request' pk=my_request.id %}')">Delete</button>          
             </td>
           </tr>
         </table>

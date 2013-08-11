@@ -11,6 +11,9 @@ from users.models import UserProfile
 from users.forms import MyCreationForm, MyChangeForm
 from projects.models import Project, Request
 from projects.views import CorrectUserMixin
+from django.http import HttpResponse
+from django.utils import simplejson
+
 
 def update_profile(user, form):
     profile                 = user.get_profile()
@@ -172,7 +175,7 @@ class DeveloperView(TemplateView):
         """
         my_id                   = self.request.user.id
         developer               = context['developer']
-        is_self                 = my_id = developer.id
+        is_self                 = my_id == developer.id
         allow_contact           = developer.allow_contact
         dev_projects            = Project.objects.filter(developers__id__contains=developer.id)
         
@@ -183,6 +186,7 @@ class DeveloperView(TemplateView):
         charity_projects        = filter(lambda project: 
                             project.charity.id == my_id, dev_projects)
         
+        developer_permission    = []
         for project in dev_projects:
             # if a developer tries to access the profile, see if they are assigned to any common projects.
             developer_permission  = filter(lambda loop_developer: 
@@ -202,3 +206,14 @@ class DeveloperView(TemplateView):
                 context = context,
                 **response_kwargs
             )
+
+
+def deactivate_account(request):
+    req_user = request.user
+    if request.method == 'POST':
+        req_user.is_active = False
+        req_user.save()
+        result = {
+                'error_message': 'no_errors',
+                }
+        return HttpResponse(simplejson.dumps(result), mimetype='application/json')

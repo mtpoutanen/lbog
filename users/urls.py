@@ -23,6 +23,8 @@ urlpatterns = patterns('',
         name='charity-details'),
     url(r'^developer-details/(?P<pk>\d+)/$', view=DeveloperView.as_view(),            
         name='developer-details'),
+    url(r'^deactivate-account/$',       'users.views.deactivate_account',           
+        name='deactivate-account'),
 )
 
 

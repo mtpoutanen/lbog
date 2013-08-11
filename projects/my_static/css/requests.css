@@ -17,3 +17,7 @@
 .rejected {
 	color: red;
 }
+
+.delete-button {
+	padding: 10px 0px 0px 10px;
+}
