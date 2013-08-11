@@ -59,6 +59,28 @@ class RegistrationView(FormView):
         update_profile(user, form)     
         return super(RegistrationView, self).form_valid(form)
 
+    def render_to_response(self, context, **response_kwargs):
+
+        """
+        Returns a response with a template rendered with the given context.
+        """
+
+        if self.request.user.is_authenticated():
+            self.template_name = 'already_logged_in.html'
+            return self.response_class(
+                request = self.request,
+                template = self.get_template_names(),
+                context = context,
+                **response_kwargs
+            )
+        else:    
+            return self.response_class(
+                request = self.request,
+                template = self.get_template_names(),
+                context = context,
+                **response_kwargs
+            )
+
 class PasswordChangeView(LoginRequiredMixin, CorrectUserMixin, FormView):
     form_class      = PasswordChangeForm
     # model           = User
@@ -88,6 +110,12 @@ class ChangeView(LoginRequiredMixin, CorrectUserMixin, UpdateView):
     success_url     = reverse_lazy('profile-changed')
     error_message   = 'Oops, something went wrong. \
             The browser was trying to access someone else\'s profile.'
+    
+    def get_form(self, form_class):
+        self.form_class         = MyChangeForm
+        form = super(ChangeView, self).get_form(form_class)
+        form.view_request       = self.request
+        return form
 
     def form_valid(self, form):
         user = self.request.user

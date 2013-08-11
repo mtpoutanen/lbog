@@ -127,8 +127,6 @@ class ProjectDetailView(FormView):
         return context
     
     def form_valid(self, form):
-        import pdb
-        pdb.set_trace();
         'render nothing if not the right user'
         profile                 = self.request.user.get_profile()
         form.instance.sender    = profile

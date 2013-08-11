@@ -1,18 +1,10 @@
 
-function getErrors(username, password1, password2, country, state, city) {
+function getErrors() {
     var tempErrors = "";
-    if (username    == "") {
-        tempErrors += "- Please enter a username\n";
-    }
-    if (password1   == "") {
-        tempErrors += "- Please enter a password\n";
-    }
-    if (password2   == "") {
-        tempErrors += "- Please confirm password\n";
-    }
-    if (password1 != password2) {
-        tempErrors += "- Passwords don't match\n";
-    }
+    var country         = $("#id_country option:selected").text();
+    var state           = $("#id_state option:selected").text();
+    var city            = $("#id_city").val();
+
     if (country     == "Country...") {
         tempErrors += "- Please select a country...\n";
     }
@@ -57,29 +49,9 @@ $(document).ready(function(){
     user_type1.attr('rel', 'popover');
     user_type1.attr('title', 'Register as a volunteer or a charitable / non-profit organisation');
 
-    // var id_username = $("#id_username");
-    // id_username.attr('rel', 'popover');
-    // id_username.attr('title', 'Enter a username');
-
-    // var id_email = $("#id_email");
-    // id_email.attr('rel', 'popover');
-    // id_email.attr('title', 'Enter an email address');
-
-    // var id_first_name = $("#id_first_name");
-    // id_first_name.attr('rel', 'popover');
-    // id_first_name.attr('title', 'Enter your first name (optional)');
-
-    // var id_last_name = $("#id_last_name");
-    // id_last_name.attr('rel', 'popover');
-    // id_last_name.attr('title', 'Enter your last name (optional)');
-
     var id_title = $("#id_title");
     id_title.attr('rel', 'popover');
     id_title.attr('title', 'Enter your title in your organisation (optional)');
-
-    // var id_company_name = $("#id_company_name");
-    // id_company_name.attr('rel', 'popover');
-    // id_company_name.attr('title', 'Enter your company name (optional)');
 
     var id_country = $("#id_country");
     id_country.attr('class', 'chzn-select');

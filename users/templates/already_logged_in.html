@@ -1,0 +1,6 @@
+{% extends 'base_info.html' %}
+
+{% block info_content %}
+<p>Looks like you are already logged in.</p>
+<p>Click <a href="{% url "logout" %}">here</a> to log out before creating a new profile</p>
+{% endblock info_content %}

@@ -32,39 +32,43 @@ class Search(object):
         if self.skills:
             skill_ids = Skill.objects.filter(skill_name__in=self.skills).values_list('id', flat=True)
             self.argument_list.append( Q(**{'skills__id__in': skill_ids} ))
-            # import pdb; 
-            # pdb.set_trace()
 
     def get_search_context(self, search_type):
         context = {}
+
         if self.qlat == -1.0 and self.radius == 'same_country':
             self.argument_list.append( Q(**{'country__country_name': self.country} ))            
         elif self.qlat == -1.0:
             pass
         else:
-            distance_proj_ids = []
-
-            if search_type == 'projects':
+            if search_type == self.SEARCH_PROJECTS:
+                distance_proj_ids = []
                 all_projects = Project.objects.all()
                 for proj in all_projects:
-                    if get_distance(proj.lat, proj.lon, qlat, qlon) <= self.radius:
+                    if self.get_distance(proj.lat, proj.lon, self.qlat, self.qlon) <= self.radius:
                         distance_proj_ids.append(proj.id)
                 self.argument_list.append( Q(**{'pk__in': distance_proj_ids} ))            
-            elif search_type == 'developers':
+            elif search_type == self.SEARCH_DEVELOPERS:
+                distance_dev_ids = []
                 all_developers = UserProfile.objects.all()
                 for developer in all_developers:
-                    if get_distance(proj.lat, proj.lon, self.qlat, self.qlon) <= self.radius:
+                    if self.get_distance(developer.lat, developer.lon, self.qlat, self.qlon) <= self.radius:
                         distance_dev_ids.append(developer.id)
+                
+                # import pdb; pdb.set_trace()
                 self.argument_list.append( Q(**{'pk__in': distance_dev_ids} ))            
-
+                
         if not self.argument_list:
             context['no_args'] = True
         else:
             if search_type == 'projects':
+                self.argument_list.append( Q(**{'status': 'looking'} ))
                 context['projects'] = Project.objects.filter(reduce(and_, self.argument_list)).distinct()
                 if not context['projects']:
                     context['nothing_found'] = True
             elif search_type == 'developers':
+                self.argument_list.append( Q(**{'allow_contact': True} ))
+                self.argument_list.append( Q(**{'user_type': 'Developer'} ))
                 context['developers'] = UserProfile.objects.filter(reduce(and_, self.argument_list)).distinct()
                 if not context['developers']:
                     context['nothing_found'] = True

@@ -177,6 +177,14 @@ class MyChangeForm(MyBaseForm):
             raise forms.ValidationError(self.error_messages['too_many_skills'])
         return skills
 
+    def clean_company_name(self):
+        view_request = self.view_request
+        user_type = view_request.user.get_profile().user_type
+        company_name    = self.cleaned_data['company_name']
+        if user_type == 'Charity' and not company_name:
+            raise forms.ValidationError(self.error_messages['no_charity'])
+        return self.cleaned_data['company_name']
+
     class Meta:
         model = UserProfile
         exclude     = ('user',)
