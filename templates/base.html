@@ -17,6 +17,8 @@
 <body>
     {% include 'navbar.html' %}
     <div id="fb-app-id" rel="{{ FB_APP_ID }}"></div>
+    <div id="site-address" rel='http://{{ SITE_ROOT }}'></div>
+    <div id="image-address" rel='http://{{ SITE_ROOT }}/static/global/images/lbog_logo.png'></div>
 
     {% include 'fbscript.html' %}
     <div class="container" id="box-hide-wrapper">
