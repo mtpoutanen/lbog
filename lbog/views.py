@@ -12,6 +12,7 @@ from django.core.context_processors import csrf
 from django.db.models import Q
 from operator import or_, and_
 import math
+from django.conf import settings
 from search import Search
 
 def home(request):
@@ -63,7 +64,9 @@ def search_developers(request):
         return render_to_response('developer_search_results.html', context)
 
 def fbtest(request):
-    return render_to_response('fbtest.html', context_instance=RequestContext(request))
+    fb_app_id = settings.FACEBOOK_APP_ID
+    context={'fb_app_id': fb_app_id}
+    return render_to_response('fbtest.html', context, context_instance=RequestContext(request))
 
 def about(request):
     return render_to_response('about.html', context_instance=RequestContext(request))
