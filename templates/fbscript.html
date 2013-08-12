@@ -78,11 +78,13 @@
   }
 
   function postShare(objectToShare) {
-      var image_address = $('#site-address').attr('rel');
+      var image_address = $('#image-address').attr('rel');
+      // alert('http://lbog.cloudapp.net/static/global/images/lbog_logo_large.png\n'+image_address)
       FB.ui({
         method: 'feed',
         link: $('#site-address').attr('rel'),
-        picture: image_address,
+        // picture: 'http://fbrell.com/f8.jpg', 
+        picture: image_address,  //'http://lbog.cloudapp.net/static/global/images/lbog_logo_large.png',
         name: 'Little Bits of Good',
         caption: 'Charity Website',
         description: 'A platform for connecting charities in need of IT solutions with developers willing to volunteer.'
