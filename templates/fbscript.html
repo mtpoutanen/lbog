@@ -4,21 +4,32 @@
   // var token = null;
 
   window.fbAsyncInit = function() {
-    // FB.Event.subscribe('auth.statusChange', function(response) {
-    //   if(response.status == 'connected') {
-    //       var token = response.authResponse.accessToken;
-    //       $.ajax({
-    //         url: 'https://graph.facebook.com/10200760403585792?method=delete&access_token='+token,
-    //         type: 'POST',
-    //         success: function(result) {
-    //             alert(result);
-    //         }
-    //       });
-    //       // FB.getAuthResponse(function (result) {
-    //       //     alert(result.accessToken);
-    //       // });
-    //   }
-    // });
+    FB.Event.subscribe('auth.statusChange', function(response) {
+      if(response.status == 'connected') {
+          // var token = 
+          // alert(response.authResponse.accessToken);
+
+          // var postId = '10200760403585792';
+          // FB.api(postId, 'delete', function(response) {
+          //   if (!response || response.error) {
+          //     alert(response.error.message);
+          //   } else {
+          //     alert('Post was deleted');
+          //   }
+          // });
+          
+          // $.ajax({
+          //   url: 'https://graph.facebook.com/10200760403585792?method=delete&access_token='+token,
+          //   type: 'POST',
+          //   success: function(result) {
+          //       alert(result);
+          //   }
+          // });
+          // FB.getAuthResponse(function (result) {
+          //     alert(result.accessToken);
+          // });
+      }
+    });
 
     FB.init({
       appId      : fbAppId,        // App ID
@@ -44,6 +55,7 @@
 
   
   function postLike(objectToLike) {
+    alert(objectToLike);
     FB.api(
        'https://graph.facebook.com/me/og.likes',
        'post',
@@ -57,9 +69,9 @@
            alert('Error: ' + response.error.message);
          } else {
 
-           // document.getElementById('result').innerHTML =
-           //   '<a href=\"https://www.facebook.com/me/activity/' + response.id + '\">' +
-           //   'Story created.  ID is ' + response.id + '</a>';
+           document.getElementById('fb-app-id').innerHTML =
+             '<a href=\"https://www.facebook.com/me/activity/' + response.id + '\">' +
+             'Story created.  ID is ' + response.id + '</a>';
          }
        }
     );

@@ -1,3 +1,4 @@
+
 <html>
 <head>
 <title>Open Graph Getting Started App - og.likes</title>
@@ -12,6 +13,7 @@ div { padding: 10px; }
   // You probably don't want to use globals, but this is just example code
   var fbAppId = {{ fb_app_id }};
   var objectToLike = 'http://techcrunch.com/2013/02/06/facebook-launches-developers-live-video-channel-to-keep-its-developer-ecosystem-up-to-date/';
+
 
   // This check is just here to make sure you set your app ID. You don't
   // need to use it in production. 
@@ -66,6 +68,8 @@ div { padding: 10px; }
    */
 
   function postLike() {
+  alert(objectToLike);
+    
     FB.api(
        'https://graph.facebook.com/me/og.likes',
        'post',
