@@ -86,6 +86,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
      'django.contrib.auth.context_processors.auth',
      # 'django_facebook.context_processors.facebook',
      'django.core.context_processors.request',
+     'lbog.context_processors.fb_app_id',
      # 'messages.context_processors.inbox',
      # 'django.core.context_processors.media',
     )

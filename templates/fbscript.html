@@ -1,0 +1,89 @@
+<script type="text/javascript">
+  // You probably don't want to use globals, but this is just example code
+  var fbAppId = $('#fb-app-id').attr('rel');
+  // var token = null;
+
+  window.fbAsyncInit = function() {
+    // FB.Event.subscribe('auth.statusChange', function(response) {
+    //   if(response.status == 'connected') {
+    //       var token = response.authResponse.accessToken;
+    //       $.ajax({
+    //         url: 'https://graph.facebook.com/10200760403585792?method=delete&access_token='+token,
+    //         type: 'POST',
+    //         success: function(result) {
+    //             alert(result);
+    //         }
+    //       });
+    //       // FB.getAuthResponse(function (result) {
+    //       //     alert(result.accessToken);
+    //       // });
+    //   }
+    // });
+
+    FB.init({
+      appId      : fbAppId,        // App ID
+      status     : true,           // check login status
+      cookie     : true,           // enable cookies to allow the server to access the session
+      xfbml      : true            // parse page for xfbml or html5 social plugins like login button below
+    });
+    
+  };
+
+  // var token = FB.getAuthResponse()['accessToken']
+  // Load the SDK Asynchronously
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     // js.async = true;
+     js.src = "//connect.facebook.net/en_US/all.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+
+  
+
+  
+  function postLike(objectToLike) {
+    FB.api(
+       'https://graph.facebook.com/me/og.likes',
+       'post',
+       { object: objectToLike
+         // ,privacy: {'value': 'SELF'}
+          },
+       function(response) {
+         if (!response) {
+           alert('Error occurred.');
+         } else if (response.error) {
+           alert('Error: ' + response.error.message);
+         } else {
+
+           // document.getElementById('result').innerHTML =
+           //   '<a href=\"https://www.facebook.com/me/activity/' + response.id + '\">' +
+           //   'Story created.  ID is ' + response.id + '</a>';
+         }
+       }
+    );
+  }
+
+  function share(objectToShare) {
+    FB.api(
+       'https://graph.facebook.com/me/og.share',
+       'post',
+       { object: objectToShare
+         // ,privacy: {'value': 'SELF'}
+          },
+       function(response) {
+         if (!response) {
+           alert('Error occurred.');
+         } else if (response.error) {
+           alert('Error: ' + response.error.message);
+         } else {
+
+           // document.getElementById('result').innerHTML =
+           //   '<a href=\"https://www.facebook.com/me/activity/' + response.id + '\">' +
+           //   'Story created.  ID is ' + response.id + '</a>';
+         }
+       }
+    );
+  }
+</script>

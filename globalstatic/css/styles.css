@@ -133,3 +133,13 @@ body {
 	max-width: 100px;
 	position: relative;
 }
+
+.my-fb-like {
+	vertical-align: top;
+	margin-left: 5px;
+	width: 22px;
+	height: 21px;
+	background-image: url("../images/like-button.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+}

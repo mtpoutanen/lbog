@@ -15,8 +15,10 @@
 
 </head>
 <body>
-    <!-- creates the like-button -->
     {% include 'navbar.html' %}
+    <div id="fb-app-id" rel="{{ FB_APP_ID }}"></div>
+
+    {% include 'fbscript.html' %}
     <div class="container" id="box-hide-wrapper">
         <div class="container" id="box-hide">
         
@@ -24,7 +26,8 @@
     </div>
     <!-- These extra divs are needed to create the shadow effect -->
     <div id="my-wrapper">
-        <div class="container" id="body-wrapper">          
+        <div class="container" id="body-wrapper">               
+            <div id="fb-root"></div>
             {% block content %}
             {% endblock content %}
         </div>
