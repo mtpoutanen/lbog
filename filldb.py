@@ -505,8 +505,8 @@ story_articles      = [
 ]
 
 story_images		= [
-	'images/story_images/story1.jpg',
-	'images/story_images/story2.jpg',
+	'images/story_images/1/story1.jpg',
+	'images/story_images/2/story2.jpg',
 ]
 
 class DB_Filler():

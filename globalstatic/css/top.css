@@ -29,7 +29,7 @@ header {
   box-sizing: border-box;
   padding-top: 10px;
   color: white;
-  text-align: right;
+  text-align: left;
 }
 
 /*#fb-buttons {
@@ -37,7 +37,8 @@ header {
 }*/
 
 #reg-login{
-  margin-left: -20px;
+  /*margin-left: -20px;*/
+  text-align: right;
 }
 
 @media (max-width: 980px) {
