@@ -65,3 +65,7 @@ select {
 .chzn-container-single .chzn-default, .chzn-select, select, input:-ms-input-placeholder { 
   color:    #999999;
 }
+
+.mapquest-form {
+  font-size: 10px;
+}

@@ -124,7 +124,7 @@
 <tr>
 	<td>type</td>
 	<td>id=id_password</td>
-	<td>sel</td>
+	<td>password</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>

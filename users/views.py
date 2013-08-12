@@ -190,7 +190,7 @@ class DeveloperView(TemplateView):
         for project in dev_projects:
             # if a developer tries to access the profile, see if they are assigned to any common projects.
             developer_permission  = filter(lambda loop_developer: 
-                            loop_developer.id == developer.id, project.developers.all())
+                            loop_developer.id == my_id, project.developers.all())
         
         # import pdb
         # pdb.set_trace()

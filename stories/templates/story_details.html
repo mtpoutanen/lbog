@@ -2,11 +2,20 @@
 {% load staticfiles %}
 
 {% block extrahead_level2 %}
+<link href="{% static "stories/css/stories.css" %}" rel="stylesheet"/>   
 {% endblock extrahead_level2 %}
 
 {% block sidebar_content %}
+	<div class="stories-sidebar-wrapper"></div>
+	{% for story in other_stories %}
+		<div class="story-title"><a href="{% url 'story-details' pk=story.id %}">{{ story.title }}</a></div>
+	{% endfor %}
 {% endblock sidebar_content %}
 
 {% block main_content %}
-
+	<div class="story-wrapper span6 main-content">
+		<div class="story-title-wrapper">{{ story.title }}</div>
+		<div class="story-image-wrapper"><img src="/media/{{ story.image }}" /></div>
+		<div class="story-article-wrapper">{{ story.article_body }}</div>
+	</div>
 {% endblock main_content %}

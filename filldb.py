@@ -1,5 +1,6 @@
 from users.models import Country, State, Skill, UserProfile
 from projects.models import Project
+from stories.models import Story
 from django.contrib.auth.models import User
 import random
 import datetime
@@ -493,6 +494,21 @@ project_lists = [p_titles, p_need_locals, p_statuses, p_cities,
 
 # 'time_created', 'time_completed', 'country', 'state','skills',
 
+story_titles 		= [
+	'First test story',
+	'Second test story',
+]
+
+story_articles      = [
+'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+]
+
+story_images		= [
+	'images/story_images/story1.jpg',
+	'images/story_images/story2.jpg',
+]
+
 class DB_Filler():
 
     def fill_all(self):
@@ -501,6 +517,7 @@ class DB_Filler():
         self.create_states()
         self.create_users()
         self.create_projects()
+        self.create_stories()
 
     def create_users(self):
         adminuser = User()
@@ -609,12 +626,21 @@ class DB_Filler():
                 project.time_completed = datetime.datetime.now() - td
             project.save()
 
+    def create_stories(self):
+    	for x in xrange(0,2):
+    		story = Story()
+    		story.title = story_titles[x]
+    		story.article_body = story_articles[x]
+    		story.image = story_images[x]
+    		story.save()
+
     def delete_all(self):
         self.delete_users()
         self.delete_states()
         self.delete_countries()
         self.delete_skills()
         self.delete_projects()
+        self.delete_stories()
 
     def delete_users(self):
         User.objects.all().delete()
@@ -630,3 +656,7 @@ class DB_Filler():
 
     def delete_projects(self):
         Project.objects.all().delete()
+
+    def delete_stories(self):
+    	Story.objects.all().delete()
+

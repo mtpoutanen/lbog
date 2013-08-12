@@ -428,18 +428,25 @@ def delete_notification(request, pk):
 
 def delete_request(request, pk):
     my_request = Request.objects.get(id=pk)
+    user_type = request.user.get_profile().user_type
 
     if not (
-            (request.user.get_profile().user_type == 'Developer'
+            (user_type == 'Developer'
             and request.user.id == my_request.sender.id  
             ) 
         or 
-        (   request.user.get_profile().user_type == 'Charity'
+        (   user_type == 'Charity'
             and request.user.id == my_request.project.charity.id
             )
         ):
         result =    {
                     'error_message': 'Something went wrong, this request belongs to another user', 
+                    'div_id': '',
+                    }
+        return HttpResponse(simplejson.dumps(result), mimetype='application/json')
+    elif my_request.status == 'pending' and user_type == 'Charity':
+        result =    {
+                    'error_message': 'Please respond to the request before deleting.', 
                     'div_id': '',
                     }
         return HttpResponse(simplejson.dumps(result), mimetype='application/json')

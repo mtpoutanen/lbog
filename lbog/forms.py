@@ -26,3 +26,11 @@ class ProjectSearchForm(forms.Form):
 
     class Meta:
         fields = ('keywords', 'skills', 'country', 'state', 'city', 'lat', 'lon')
+
+class ContactForm(forms.Form):
+    sender  = forms.EmailField(max_length=100, required=True, widget=forms.TextInput(
+                            attrs={'placeholder': 'Sender email'})) 
+    subject = forms.CharField(max_length=100, required=True, widget=forms.TextInput(
+                            attrs={'placeholder': 'Subject'}))
+    message = forms.CharField(max_length=1000, widget=forms.Textarea(
+                           attrs={'placeholder': 'Message'}), required=True)

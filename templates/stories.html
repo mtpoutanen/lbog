@@ -6,7 +6,7 @@
 		<div class="story">
 			<h5 class="front-page-header">{{ story.title }}</h5>
 			<div class="story-img-wrapper">
-				<img class="my-thumbnail-image" src="/media/{{ story.story_image }}" alt="">
+				<img class="my-thumbnail-image" src="/media/{{ story.image }}" alt="">
 			</div>
 			{{ story.article_body | truncatewords:"15" }}<br>
 			<a href="{% url 'story-details' pk=story.id %}">Read the whole story...</a>

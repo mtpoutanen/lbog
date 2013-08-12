@@ -1,9 +1,11 @@
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.template import RequestContext
+from django.http import HttpResponseRedirect
+from django.core.mail import send_mail
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 from users.models import Country, State, Skill
-from lbog.forms import ProjectSearchForm
+from lbog.forms import ProjectSearchForm, ContactForm
 from projects.models import Project
 from stories.models import Story
 from django.core.context_processors import csrf
@@ -73,4 +75,20 @@ def privacy(request):
     return render_to_response('privacy.html', context_instance=RequestContext(request))
 
 def feedback(request):
-    return render_to_response('feedback.html', context_instance=RequestContext(request))
+    if request.method == 'POST': # If the form has been submitted...
+        form = ContactForm(request.POST) # A form bound to the POST data
+        if form.is_valid(): # All validation rules pass
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+            sender = form.cleaned_data['sender']
+            recipients = ['littlebitsofgood.ucl@gmail.com']
+
+            send_mail(subject, message, sender, recipients)
+
+            return HttpResponseRedirect('/') # Redirect after POST
+    else:
+        form = ContactForm() # An unbound form
+        context={}
+        context['form'] = form
+    return render(request, 'feedback.html', context)
+    # return render_to_response('feedback.html', context_instance=RequestContext(request))

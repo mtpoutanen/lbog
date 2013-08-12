@@ -122,3 +122,14 @@ body {
 	/*position: absolute;*/
 	/*margin: 0 auto;*/
 }
+
+.mapquest-wrapper {
+	font-size: 10px;
+  	margin: 50px 15px 0px;
+	width:calc(100% - 30px);
+}
+
+.mapquest-image-wrapper {
+	max-width: 100px;
+	position: relative;
+}

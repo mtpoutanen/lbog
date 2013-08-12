@@ -106,13 +106,14 @@
         <div class="control-group">
             {% if form.city.errors %}
             <div class="errors controls"> 
-                {{ form.city.errors }} 
+                {{ form.city.errors }}<br>
             </div> 
             {% endif %}
             <label {% if form.city.errors %} class="control-label errors" {% else %} class="control-label" {% endif %}
             for="" class="control-label"><span class="mandatory">*</span> City:</label>
             <div class="controls">
                 {{ form.city }}
+                <div class="mapquest-form">Geocoding Powered by: <a href="//www.mapquest.com">MapQuest</a></div>
             </div>
         </div>
 

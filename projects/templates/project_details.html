@@ -12,6 +12,9 @@
                 <p>
                     Title: {{ project.title }}
                 </p>
+                <p>
+                    Status: {{ project.get_status_display }}
+                </p>
                 <p>Charity: 
                     <a href="{% url 'charity-details' pk=project.charity.id %}">
                     {{ project.charity.company_name }}
@@ -50,25 +53,27 @@
          </tr>
        </table>
     </div>
-
-    {% if user.get_profile.user_type == 'Developer' %}
-        {% if already_requested %}
-            <p>You have already requested to help on this project</p>
-        {% else %}
-            <p><b>If you'd like to help with this project, please send a request and a message to {{ project.charity.company_name }} via the form below</b></p>
-            <form id="request-form" method="post" action=""> <!-- class="form-horizontal" > -->
-                {% csrf_token %}
-                {{ form.errors }}
-                {{ form.message }}<br>
-                <div id="remainingC">500 / 500</div>
-                <input type="submit" class="btn btn-primary" value="Offer to Volunteer">
-            </form>
-        {% endif %}
-    {% else %}
-        <p>Please log in as a Developer if you are interested in helping {{ project.charity.company_name }}</p>
+  
+    {% if project.status == 'looking' %}
+      {% if user.get_profile.user_type == 'Developer' %}
+          {% if already_requested %}
+              <p>You have already requested to help on this project</p>
+          {% else %}
+              <p><b>If you'd like to help with this project, please send a request and a message to {{ project.charity.company_name }} via the form below</b></p>
+              <form id="request-form" method="post" action=""> <!-- class="form-horizontal" > -->
+                  {% csrf_token %}
+                  {{ form.errors }}
+                  {{ form.message }}<br>
+                  <div id="remainingC">500 / 500</div>
+                  <input type="submit" class="btn btn-primary" value="Offer to Volunteer">
+              </form>
+          {% endif %}
+      {% else %}
+          <p>Please log in as a Developer if you are interested in helping {{ project.charity.company_name }}</p>
+      {% endif %}
     {% endif %}
 
-    <!-- script needs to be on the page because it uses a django template variable -->
+      <!-- script needs to be on the page because it uses a django template variable -->
     <script type="text/javascript">
         $('#id_project').val({{ project.id }});
         resizeImages();
