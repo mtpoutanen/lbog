@@ -134,11 +134,13 @@ body {
 	position: relative;
 }
 
-.my-fb-like {
+.my-fb-like, .my-fb-share {
 	vertical-align: top;
 	margin-left: 5px;
 	width: 22px;
 	height: 21px;
+}
+.my-fb-like {
 	background-image: url("../images/like-button.png");
 	background-size: contain;
 	background-repeat: no-repeat;

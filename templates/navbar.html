@@ -17,6 +17,7 @@
                   data-scope="publish_actions">
                 </div>
                 <button class="my-fb-like" onclick="postLike('http://{{ SITE_ROOT }}{% url 'home' %}')"></button>
+                <button class="my-fb-share" onclick="postShare('http://{{ SITE_ROOT }}{% url 'home' %}')">Share</button>
                 {# <button class="btn btn-primary">FB Share</button> #}
             </div>
             <div class="span3" id="reg-login">

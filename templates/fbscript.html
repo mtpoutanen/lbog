@@ -77,11 +77,11 @@
     );
   }
 
-  function share(objectToShare) {
+  function postShare(objectToShare) {
     FB.api(
-       'https://graph.facebook.com/me/og.share',
+       'https://graph.facebook.com/me/og.follows',
        'post',
-       { object: objectToShare
+       { profile: objectToShare
          // ,privacy: {'value': 'SELF'}
           },
        function(response) {
