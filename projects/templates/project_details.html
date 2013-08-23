@@ -16,7 +16,7 @@
       <a href="{% url 'project-details' pk=u_project.id %}">{{ u_project.title }}</a><br>
     {% endfor %}
 
-    <br><b>Completed Projects:</b><br>
+    <br><b>Looking for Developers:</b><br>
     {% for l_project in looking_projects %}
       <a href="{% url 'project-details' pk=l_project.id %}">{{ l_project.title }}</a><br>
     {% endfor %}
