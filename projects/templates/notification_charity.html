@@ -4,8 +4,8 @@
                 {{ notification.sender }}
             </a>
              has offered to help with 
-             <a href="{% url 'project-details' pk=notification.request.project.id %}">
-                {{ notification.request.project.title }}
+             <a href="{% url 'project-details' pk=notification.help_offer.project.id %}">
+                {{ notification.help_offer.project.title }}
             </a>
         </p>
         <p>

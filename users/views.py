@@ -9,7 +9,7 @@ from django.views.generic.edit import FormView, UpdateView
 from django.views.generic import TemplateView
 from users.models import UserProfile
 from users.forms import MyCreationForm, MyChangeForm
-from projects.models import Project, Request
+from projects.models import Project, HelpOffer
 from projects.views import CorrectUserMixin
 from django.http import HttpResponse
 from django.utils import simplejson
@@ -180,7 +180,7 @@ class DeveloperView(TemplateView):
         dev_projects            = Project.objects.filter(developers__id__contains=developer.id)
         
         # check if the developer has sent requests to the charity
-        charity_requests        = Request.objects.filter(sender=developer.id, project__charity__id=my_id)
+        charity_help_offers        = HelpOffer.objects.filter(sender=developer.id, project__charity__id=my_id)
         
         # check if the developer is assigned to any projects with the charity (largely redundant due to previous check)
         charity_projects        = filter(lambda project: 
@@ -195,7 +195,7 @@ class DeveloperView(TemplateView):
         # import pdb
         # pdb.set_trace()
         
-        if is_self or allow_contact or charity_requests or charity_projects or developer_permission:
+        if is_self or allow_contact or charity_help_offers or charity_projects or developer_permission:
             template = 'developer_details.html'
         else:
             template = 'no_developer_access.html'

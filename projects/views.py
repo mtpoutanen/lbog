@@ -3,8 +3,8 @@ from braces.views import LoginRequiredMixin
 from django.views.generic import TemplateView, View
 from django.views.generic.edit import FormView, UpdateView
 from django.contrib.auth.models import User
-from projects.forms import ProjectCreationForm, ProjectChangeForm, RequestForm
-from projects.models import Project, Request, RequestNotification
+from projects.forms import ProjectCreationForm, ProjectChangeForm, HelpOfferForm
+from projects.models import Project, HelpOffer, Notification
 from django.core.exceptions import ImproperlyConfigured
 from django.http import HttpResponse
 from django import forms
@@ -98,12 +98,12 @@ class ProjectUpdatedView(TemplateView):
     template_name = 'project_updated.html'
 
 class ProjectDetailView(FormView):
-    model           = Request
+    model           = HelpOffer
     template_name   = 'project_details.html'
-    success_url     = reverse_lazy('request-sent')
+    success_url     = reverse_lazy('help-offer-sent')
     
     def get_form(self, form_class):
-        form_class              = RequestForm
+        form_class              = HelpOfferForm
         form = super(ProjectDetailView, self).get_form(form_class)
         form.view_request       = self.request
         form.view_request_pk    = self.kwargs['pk']
@@ -116,13 +116,16 @@ class ProjectDetailView(FormView):
         context['form']                 = self.get_form(self.form_class)
         context['params']               = kwargs
         context['project']              = project
-        context['already_requested']    = False
+        context['already_offered']      = False
+        context['completed_projects']   = Project.objects.filter(status='completed')
+        context['projects_under_way']   = Project.objects.filter(status='under_way')
+        context['looking_projects']     = Project.objects.filter(status='looking')
 
         if self.request.user.is_authenticated():
             my_id                           = self.request.user.id
             # using filter instead of get just in case someone creates a second request in admin etc.
-            this_project_requested          = Request.objects.filter(sender__id=my_id, project=project)
-            context['already_requested']    = this_project_requested
+            offered_help_for_this_project   = HelpOffer.objects.filter(sender__id=my_id, project=project)
+            context['already_offered']      = offered_help_for_this_project
 
         return context
     
@@ -133,17 +136,17 @@ class ProjectDetailView(FormView):
         project_id              = self.kwargs['pk']
         project                 = Project.objects.get(id=project_id)
         form.instance.project   = project
-        request                 = form.save()
-        notification            = RequestNotification.objects.create(
+        help_offer              = form.save()
+        notification            = Notification.objects.create(
                 sender          = profile,
                 receiver        = project.charity,
-                request         = request,
+                help_offer      = help_offer,
                 seen            = False,
             ) 
         return super(ProjectDetailView, self).form_valid(form)
 
-class RequestSentView(LoginRequiredMixin, TemplateView):
-    template_name   = 'request_sent.html'
+class HelpOfferSentView(LoginRequiredMixin, TemplateView):
+    template_name   = 'help_offer_sent.html'
 
 class ProjectListView(LoginRequiredMixin, CorrectUserMixin, TemplateView):
     error_message = 'Oops, something went wrong. \
@@ -168,9 +171,9 @@ class ProjectListView(LoginRequiredMixin, CorrectUserMixin, TemplateView):
             'projects': projects,
         }
 
-class RequestListView(LoginRequiredMixin, CorrectUserMixin, TemplateView):
+class HelpOfferListView(LoginRequiredMixin, CorrectUserMixin, TemplateView):
 
-    template_name       = 'my_requests.html'
+    template_name       = 'my_help_offers.html'
     error_message       = 'Oops, something went wrong. \
             The browser was trying to access someone else\'s request list.'
     def get_context_data(self, **kwargs):
@@ -179,16 +182,16 @@ class RequestListView(LoginRequiredMixin, CorrectUserMixin, TemplateView):
         my_id           = self.request.user.id
         
         if self.request.user.get_profile().user_type == 'Charity':
-            template_name_requests = 'requests_charity_content.html'
-            requests    = Request.objects.filter(project__charity__id = my_id).order_by('-time_created')
+            template_name_help_offers = 'help_offers_charity_content.html'
+            help_offers    = HelpOffer.objects.filter(project__charity__id = my_id).order_by('-time_created')
         else:
-            template_name_requests = 'requests_developer_content.html'
-            requests    = Request.objects.filter(sender__id = my_id).order_by('-time_created')
+            template_name_help_offers = 'help_offers_developer_content.html'
+            help_offers    = HelpOffer.objects.filter(sender__id = my_id).order_by('-time_created')
         
         context = {}
-        context['template_name_requests'] = template_name_requests
+        context['template_name_help_offers'] = template_name_help_offers
         context['params'] = kwargs
-        context['requests'] = requests
+        context['help_offers'] = help_offers
         return context
 
 class NotificationDetailView(LoginRequiredMixin, CorrectUserMixin, TemplateView):
@@ -199,16 +202,16 @@ class NotificationDetailView(LoginRequiredMixin, CorrectUserMixin, TemplateView)
 
     def get_context_data(self, **kwargs):
 
-        request_id          = int(self.kwargs['pk'])
+        help_offer_id       = int(self.kwargs['pk'])
         noti_id             = int(self.kwargs['noti'])
-        notification        = RequestNotification.objects.get(id=noti_id)
+        notification        = Notification.objects.get(id=noti_id)
         notification.seen   = True
         notification.save()
-        my_request      = Request.objects.get(id=request_id)
+        help_offer          = HelpOffer.objects.get(id=help_offer_id)
         if self.request.user.get_profile().user_type == 'Charity':
-            self.url_id     = my_request.project.charity.id
+            self.url_id     = help_offer.project.charity.id
         else:
-            self.url_id     = my_request.sender.id   
+            self.url_id     = help_offer.sender.id   
 
         return {
             'params':   kwargs,
@@ -241,7 +244,7 @@ def remove_developer(request, dev_id, proj_id):
                     }
         return HttpResponse(simplejson.dumps(result), mimetype='application/json')
 
-def respond_to_request(request, pk, status):
+def respond_to_help_offer(request, pk, status):
     '''
     Accepts a Developer's request to help on a project
     and creates a notification to the Developer.
@@ -249,12 +252,12 @@ def respond_to_request(request, pk, status):
     if not request.user.is_authenticated():
         return redirect(reverse_lazy('login'))
 
-    request_id          = pk
-    my_request          = Request.objects.get(id=request_id)
-    project             = my_request.project
+    help_offer_id       = pk
+    help_offer          = HelpOffer.objects.get(id=help_offer_id)
+    project             = help_offer.project
     project_developers  = project.developers.all()
-    project_owner       = my_request.project.charity
-    request_sender      = my_request.sender
+    project_owner       = help_offer.project.charity
+    help_offer_sender      = help_offer.sender
 
     if request.user.id != project_owner.id:
         result =    {
@@ -263,25 +266,25 @@ def respond_to_request(request, pk, status):
                     }
         return HttpResponse(simplejson.dumps(result), mimetype='application/json')
     else:
-        my_request.status   = status
-        my_request.save()
+        help_offer.status   = status
+        help_offer.save()
         if status == 'accepted':
-            already_in = request_sender in project_developers
+            already_in = help_offer_sender in project_developers
             if already_in:
                 pass
             else:
                 dev_list                = list(project_developers)
-                dev_list.append(request_sender)
+                dev_list.append(help_offer_sender)
                 project.developers      = dev_list
                 # import pdb
                 # pdb.set_trace()
                 project.save()
 
-        div_id = 'status-'+str(my_request.id)
-        notification        = RequestNotification.objects.create(
+        div_id = 'status-'+str(help_offer.id)
+        notification        = Notification.objects.create(
                 sender      = project_owner,
-                receiver    = my_request.sender,
-                request     = my_request,
+                receiver    = help_offer.sender,
+                help_offer  = help_offer,
                 seen        = False,
             ) 
         result =    {
@@ -301,10 +304,10 @@ class NotificationsListView(LoginRequiredMixin, CorrectUserMixin, TemplateView):
 
         if user_type == 'Developer':
             self.template_name  = 'my_notifications_developer.html'
-            notifications       = RequestNotification.objects.filter(receiver__id = my_id, seen=False).order_by('-time_created')
+            notifications       = Notification.objects.filter(receiver__id = my_id, seen=False).order_by('-time_created')
         else:
             self.template_name  = 'my_notifications_charity.html'
-            notifications       = RequestNotification.objects.filter(receiver__id = my_id, seen=False).order_by('-time_created')
+            notifications       = Notification.objects.filter(receiver__id = my_id, seen=False).order_by('-time_created')
 
         # needed for correct user mixin
         self.url_id            = self.kwargs['pk']
@@ -322,10 +325,10 @@ def get_notifications(request, param):
         my_id       = request.user.id
 
         if param == 'new':
-            notifications = RequestNotification.objects.\
+            notifications = Notification.objects.\
             filter(receiver__id = my_id, seen=False).order_by('-time_created')
         else:
-            notifications = RequestNotification.objects.\
+            notifications = Notification.objects.\
             filter(receiver__id = my_id).order_by('-time_created')      
         context = {}
         context['notifications'] = notifications
@@ -338,7 +341,7 @@ def get_notifications(request, param):
         else:
             return render_to_response('get_notifications_charity.html', context)
 
-def get_requests(request, param):
+def get_help_offers(request, param):
     
     if not request.user.is_authenticated():
         return redirect(reverse_lazy('login'))
@@ -349,10 +352,10 @@ def get_requests(request, param):
 
         if user_type == 'Developer':
             id_kw   = 'sender__id'
-            template_name = 'requests_developer_content.html'
+            template_name = 'help_offers_developer_content.html'
         else:
             id_kw   = 'project__charity__id'
-            template_name = 'requests_charity_content.html'
+            template_name = 'help_offers_charity_content.html'
 
         status = param
         kwargs = {
@@ -362,13 +365,13 @@ def get_requests(request, param):
         if param != 'all':
             kwargs.update({'status': status,})
 
-        requests = Request.objects.\
+        help_offers = HelpOffer.objects.\
             filter(**kwargs).order_by('-time_created')
         # import pdb; 
         # pdb.set_trace()
 
         context = {}
-        context['requests'] = requests
+        context['help_offers'] = help_offers
 
         return render_to_response(template_name, context)
 
@@ -376,7 +379,7 @@ def notification_seen(request, pk):
     if not request.user.is_authenticated():
         return redirect(reverse_lazy('login'))
 
-    notification        = RequestNotification.objects.get(id=pk)
+    notification        = Notification.objects.get(id=pk)
     notification.seen   = True
     notification.save()
     result              = {'noti_id': pk}
@@ -408,7 +411,7 @@ def delete_project(request, pk):
             return HttpResponse(simplejson.dumps(result), mimetype='application/json')
 
 def delete_notification(request, pk):
-    notification = RequestNotification.objects.get(id=pk)
+    notification = Notification.objects.get(id=pk)
 
     if request.user.id != notification.receiver.id:
         result =    {
@@ -426,17 +429,17 @@ def delete_notification(request, pk):
                     }
             return HttpResponse(simplejson.dumps(result), mimetype='application/json')
 
-def delete_request(request, pk):
-    my_request = Request.objects.get(id=pk)
+def delete_help_offer(request, pk):
+    help_offer = HelpOffer.objects.get(id=pk)
     user_type = request.user.get_profile().user_type
 
     if not (
             (user_type == 'Developer'
-            and request.user.id == my_request.sender.id  
+            and request.user.id == help_offer.sender.id  
             ) 
         or 
         (   user_type == 'Charity'
-            and request.user.id == my_request.project.charity.id
+            and request.user.id == help_offer.project.charity.id
             )
         ):
         result =    {
@@ -444,7 +447,7 @@ def delete_request(request, pk):
                     'div_id': '',
                     }
         return HttpResponse(simplejson.dumps(result), mimetype='application/json')
-    elif my_request.status == 'pending' and user_type == 'Charity':
+    elif help_offer.status == 'pending' and user_type == 'Charity':
         result =    {
                     'error_message': 'Please respond to the request before deleting.', 
                     'div_id': '',
@@ -452,8 +455,8 @@ def delete_request(request, pk):
         return HttpResponse(simplejson.dumps(result), mimetype='application/json')
     else:
         if request.method == 'POST':
-            my_request.delete()
-            div_id = "#request-" + str(pk)
+            help_offer.delete()
+            div_id = "#help-offer-" + str(pk)
             result = {
                     'error_message': 'no_errors',
                     'div_id': div_id,

@@ -3,9 +3,9 @@
             <a href="{% url 'charity-details' pk=notification.sender.id %}">
                 {{ notification.sender.company_name }}
             </a>
-             has <div class="{{ notification.request.status }} status">{{ notification.request.status }}</div> your request to help with 
-             <a href="{% url 'project-details' pk=notification.request.project.id %}">
-                {{ notification.request.project.title }}
+             has <div class="{{ notification.help_offer.status }} status">{{ notification.help_offer.status }}</div> your offer to help with 
+             <a href="{% url 'project-details' pk=notification.help_offer.project.id %}">
+                {{ notification.help_offer.project.title }}
             </a>
         </div> 
         <p>

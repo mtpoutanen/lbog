@@ -1,5 +1,5 @@
 from django import forms
-from projects.models import Project, Request
+from projects.models import Project
 from users.models import Skill, Country, State
 
 class ProjectSearchForm(forms.Form):

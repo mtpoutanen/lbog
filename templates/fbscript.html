@@ -69,9 +69,9 @@
            alert('Error: ' + response.error.message);
          } else {
 
-           document.getElementById('fb-app-id').innerHTML =
-             '<a href=\"https://www.facebook.com/me/activity/' + response.id + '\">' +
-             'Story created.  ID is ' + response.id + '</a>';
+           // document.getElementById('fb-app-id').innerHTML =
+             // '<a href=\"https://www.facebook.com/me/activity/' + response.id + '\">' +
+             // 'Story created.  ID is ' + response.id + '</a>';
          }
        }
     );
@@ -82,7 +82,7 @@
       // alert('http://lbog.cloudapp.net/static/global/images/lbog_logo_large.png\n'+image_address)
       FB.ui({
         method: 'feed',
-        link: $('#site-address').attr('rel'),
+        link: objectToShare,
         // picture: 'http://fbrell.com/f8.jpg', 
         picture: image_address,  //'http://lbog.cloudapp.net/static/global/images/lbog_logo_large.png',
         name: 'Little Bits of Good',

@@ -4,7 +4,7 @@
     {% if  user.get_profile.user_type == 'Charity' %} 
     	<a href="{% url 'create-new-project' %}" class="btn btn-primary link-button-accounts">Create New Project</a><br>
     {% endif %}
-    <a href="{% url 'my-requests' pk=user.id %}" class="btn btn-primary link-button-accounts">My Requests</a><br>
+    <a href="{% url 'my-help-offers' pk=user.id %}" class="btn btn-primary link-button-accounts">My Help Offers</a><br>
     <a href="{% url 'my-notifications' pk=user.id %}" class="btn btn-primary link-button-accounts">My Notifications</a>
     <button onclick="deactivate('{% url 'deactivate-account' %}', 
     '{% url 'login' %}', '{% url 'logout' %}')" class="btn btn-primary link-button-accounts">Deactivate Account</a>

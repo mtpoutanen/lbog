@@ -1,0 +1,72 @@
+{% if not help_offers %}
+  <p>No {{ status }} help_offers found</p>  
+{% endif %}
+
+{% for help_offer in help_offers %}
+      <div class="search-wrapper" id="help-offer-{{ help_offer.id }}">
+        <table class="search-table">
+          <tr class="search-top-wrapper" id="top-{{ forloop.counter0 }}">
+            <td class="search-text-wrapper">
+                <div class="status-wrapper-div"><b>Status:</b> <div class="status {{ help_offer.status }} status-{{ help_offer.id }}">{{ help_offer.status }}</div></div>
+              <p>  
+                 Project: 
+                <a href="{% url "project-details" pk=help_offer.project.id %}">
+                  {{ help_offer.project.title }}
+                </a>
+              </p>
+              <p>
+                Sender: <a href="{% url 'developer-details' pk=help_offer.sender.id %}">{{ help_offer.sender }}</a>
+              </p>
+              <p>
+                Email: 
+                <a href="mailto:{{ help_offer.sender.user.email }}">
+                  {{ help_offer.sender.user.email }}
+                </a>
+              </p>
+              <p>
+                www: 
+                <a href="//{{ help_offer.sender.www }}">
+                  {{ help_offer.sender.www }}
+                </a>
+              </p>
+              <p>
+                Sent: {{ help_offer.time_created }}  
+              </p>
+            </td>
+            <td class="search-image-table-column">
+              {% if help_offer.project.image %}
+                <a href="{% url "project-details" pk=help_offer.project.id %}">
+                  <div class="search-image-wrapper" id="image-{{ forloop.counter0 }}">
+                      <img class="my-thumbnail-image" src="/media/{{ help_offer.project.image }}" alt="">
+                  </div>
+                </a>
+              {% else %}
+                <div class="no-image-wrapper">No image available</div>
+              {% endif %}
+            </td>
+          </tr>
+          <tr class="search-bottom-wrapper">
+            <td colspan="2" class="search-description-wrapper">
+              Message: {{ help_offer.message }}
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" class="help-offers-buttons-wrapper">
+              <button id="accept-button" type="button" class="btn btn-success" 
+                  onclick="changeStatus('{% url 'respond-to-help-offer' pk=help_offer.id status='accepted' %}')">
+                  Accept
+              </button>
+              <button id="reject-button" type="button" class="btn btn-danger" 
+                onclick="changeStatus('{% url 'respond-to-help-offer' pk=help_offer.id status='rejected' %}')">
+                Reject
+              </button> 
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" class="delete-button">
+              <button class="btn btn-primary" onclick="deleteContent('{% url 'delete-help-offer' pk=help_offer.id %}')">Delete</button>          
+            </td>
+          </tr>
+        </table>
+      </div>
+{% endfor %}

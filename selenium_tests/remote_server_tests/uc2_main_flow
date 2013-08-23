@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://lbog.cloudapp.net/" />
+<title>uc2_main_flow</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">uc2_main_flow</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/accounts/logout/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Join</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=id_username</td>
+	<td>seleniumtest_charity</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=id_email</td>
+	<td>selchar@selchar.com</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=id_password1</td>
+	<td>sel</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=id_password2</td>
+	<td>sel</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=id_user_type_0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=id_given_name</td>
+	<td>sel</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=id_family_name</td>
+	<td>sel</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=id_title</td>
+	<td>sel</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=id_company_name</td>
+	<td>Sele</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=id_www</td>
+	<td>www.selenium-example.com</td>
+</tr>
+<tr>
+	<td>clickAt</td>
+	<td>css=#id_country_chzn_o_61</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAt</td>
+	<td>css=#id_state_chzn_o_1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=id_city</td>
+	<td>Tampere</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=profile-fields</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=id_accept_t_and_c</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=submit-button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>Profile created</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=id_username</td>
+	<td>seleniumtest_dev</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=id_password</td>
+	<td>sel</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=input.btn.btn-success</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>My Account</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

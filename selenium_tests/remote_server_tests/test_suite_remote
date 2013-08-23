@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Test Suite</title>
+</head>
+<body>
+<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
+<tr><td><b>Test Suite</b></td></tr>
+<tr><td><a href="uc01_main_flow">uc01_main_flow</a></td></tr>
+<tr><td><a href="uc01_alt_flow1">uc01_alt_flow1</a></td></tr>
+<tr><td><a href="uc01_alt_flow2">uc01_alt_flow2</a></td></tr>
+<tr><td><a href="uc01_extra_already_logged_in">uc01_extra_already_logged_in</a></td></tr>
+<tr><td><a href="uc02_main_flow">uc02_main_flow</a></td></tr>
+<tr><td><a href="uc02_alt_flow1">uc02_alt_flow1</a></td></tr>
+<tr><td><a href="uc04_main_flow">uc04_main_flow</a></td></tr>
+<tr><td><a href="uc04_alt_flow">uc04_alt_flow</a></td></tr>
+<tr><td><a href="uc05_main_flow">uc05_main_flow</a></td></tr>
+<tr><td><a href="uc06_main_flow">uc06_main_flow</a></td></tr>
+<tr><td><a href="uc06_alt_flow">uc06_alt_flow</a></td></tr>
+<tr><td><a href="uc08_main_flow">uc08_main_flow</a></td></tr>
+<tr><td><a href="uc08_alt_flow">uc08_alt_flow</a></td></tr>
+<tr><td><a href="uc09_main_flow">uc09_main_flow</a></td></tr>
+<tr><td><a href="uc11_main_flow">uc11_main_flow</a></td></tr>
+<tr><td><a href="uc11_alt_flow">uc11_alt_flow</a></td></tr>
+<tr><td><a href="uc12_main_flow">uc12_main_flow</a></td></tr>
+<tr><td><a href="uc12_alt_flow">uc12_alt_flow</a></td></tr>
+<tr><td><a href="uc12_extra_change_other_users_project">uc12_extra_change_other_users_project</a></td></tr>
+<tr><td><a href="uc14_main_flow_distance">uc14_main_flow_distance</a></td></tr>
+<tr><td><a href="uc14_main_flow_keywords">uc14_main_flow_keywords</a></td></tr>
+<tr><td><a href="uc14_main_flow_skills">uc14_main_flow_skills</a></td></tr>
+<tr><td><a href="uc14_main_flow_keywords">uc15_main_flow</a></td></tr>
+<tr><td><a href="uc16_main_flow">uc16_main_flow</a></td></tr>
+<tr><td><a href="uc17_main_flow_distance">uc17_main_flow_distance</a></td></tr>
+<tr><td><a href="uc17_main_flow_keywords">uc17_main_flow_keywords</a></td></tr>
+<tr><td><a href="uc18_main_flow">uc18_main_flow</a></td></tr>
+<tr><td><a href="uc18_extra_no_permission_to_view">uc18_extra_no_permission_to_view</a></td></tr>
+<tr><td><a href="uc19_main_flow">uc19_main_flow</a></td></tr>
+<tr><td><a href="uc20_main_flow">uc20_main_flow</a></td></tr>
+<tr><td><a href="uc21_main_flow">uc21_main_flow</a></td></tr>
+<tr><td><a href="uc21_already_requested">uc21_already_requested</a></td></tr>
+<tr><td><a href="uc21_logged_in_as_charity">uc21_logged_in_as_charity</a></td></tr>
+<tr><td><a href="uc22_main_flow">uc22_main_flow</a></td></tr>
+<tr><td><a href="uc22_extra_other_users_account">uc22_extra_other_users_account</a></td></tr>
+<tr><td><a href="uc24_main_flow">uc24_main_flow</a></td></tr>
+<tr><td><a href="uc24_extra_wrong_user">uc24_extra_wrong_user</a></td></tr>
+<tr><td><a href="uc25_main_flow">uc25_main_flow</a></td></tr>
+<tr><td><a href="uc25_extra_wrong_user">uc25_extra_wrong_user</a></td></tr>
+<tr><td><a href="uc07_main_flow">uc07_main_flow</a></td></tr>
+</tbody></table>
+</body>
+</html>

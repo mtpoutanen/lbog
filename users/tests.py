@@ -75,7 +75,7 @@ class ModelTests(TestCase):
 	R_TIME_CREATED = 3
 	R_STATUS = 4
 
-	N_REQUEST = 0
+	N_HELP_OFFER = 0
 	N_SENDER = 1
 	N_RECEIVER = 2
 	N_SEEN = 3

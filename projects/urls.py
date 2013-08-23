@@ -1,6 +1,6 @@
 from projects.views import ProjectCreationView, ProjectCreatedView, ProjectUpdateView, \
-                            ProjectUpdatedView, ProjectDetailView, RequestSentView, \
-                            ProjectListView, RequestListView, NotificationDetailView, \
+                            ProjectUpdatedView, ProjectDetailView, HelpOfferSentView, \
+                            ProjectListView, HelpOfferListView, NotificationDetailView, \
                             NotificationsListView
 from django.conf.urls import patterns, url
 
@@ -15,22 +15,22 @@ urlpatterns = patterns('',
         name='project-updated'),
     url(r'^project-details/(?P<pk>\d+)/$',          view=ProjectDetailView.as_view(),                  
         name='project-details'),
-    url(r'^request-sent/$',                         view=RequestSentView.as_view(),                  
-        name='request-sent'),
+    url(r'^help-offer-sent/$',                         view=HelpOfferSentView.as_view(),                  
+        name='help-offer-sent'),
     url(r'^my-projects/(?P<pk>\d+)/$',              view=ProjectListView.as_view(),            
         name='my-projects'),
-    url(r'^my-requests/(?P<pk>\d+)/$',              view=RequestListView.as_view(),            
-        name='my-requests'),
+    url(r'^my-help-offers/(?P<pk>\d+)/$',              view=HelpOfferListView.as_view(),            
+        name='my-help-offers'),
     url(r'^notification-details/(?P<pk>\d+)/(?P<noti>\d+)/$',          view=NotificationDetailView.as_view(),            
         name='notification-details'),
-    url(r'^respond-to-request/(?P<pk>\d+)/(?P<status>\w+)/$',       'projects.views.respond_to_request',
-        name='respond-to-request'),
+    url(r'^respond-to-help-offer/(?P<pk>\d+)/(?P<status>\w+)/$',       'projects.views.respond_to_help_offer',
+        name='respond-to-help-offer'),
     url(r'^my-notifications/(?P<pk>\d+)/$',         view=NotificationsListView.as_view(),
         name='my-notifications'),
     url(r'^get-notifications/(?P<param>\w+)/$',       'projects.views.get_notifications',
         name='get-notifications'),
-    url(r'^get-requests/(?P<param>\w+)/$',       'projects.views.get_requests',
-        name='get-requests'),
+    url(r'^get-help-offers/(?P<param>\w+)/$',       'projects.views.get_help_offers',
+        name='get-help-offers'),
     url(r'^remove-developer/(?P<dev_id>\d+)/(?P<proj_id>\d+)/$',       'projects.views.remove_developer',
         name='remove-developer'),
     url(r'^notification-seen/(?P<pk>\d+)/$',       'projects.views.notification_seen',           
@@ -39,8 +39,8 @@ urlpatterns = patterns('',
         name='delete-project'),
     url(r'^delete-notification/(?P<pk>\d+)/$',       'projects.views.delete_notification',           
         name='delete-notification'),
-    url(r'^delete-request/(?P<pk>\d+)/$',       'projects.views.delete_request',           
-        name='delete-request'),
+    url(r'^delete-help-offer/(?P<pk>\d+)/$',       'projects.views.delete_help_offer',           
+        name='delete-help-offer'),
 
     )
 

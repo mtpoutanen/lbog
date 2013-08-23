@@ -1,4 +1,4 @@
-{% load new_requests %}
+{% load new_notifications %}
 {% load staticfiles %}
 
 <header>
@@ -58,17 +58,17 @@
                                             <HR class="my_hr" WIDTH="100%" SIZE="3">
                                             {% for noti in notifications %}
                                                 {% if user.get_profile.user_type == 'Developer' %}
-                                                    <li><a href="{% url 'notification-details' pk=noti.request.id noti=noti.id %}">
+                                                    <li><a href="{% url 'notification-details' pk=noti.help_offer.id noti=noti.id %}">
                                                         {% if not noti.seen %} <b> {% endif %}
-                                                            {{ noti.sender }} has {{ noti.request.status }} your request
+                                                            {{ noti.sender }} has {{ noti.help_offer.status }} your help offer
                                                         {% if not noti.seen %}</b>{% endif %} 
                                                     </a></li>
                                                     <HR class="my_hr" WIDTH="100%" SIZE="3">    
                                                 {% endif %}
                                                 {% if user.get_profile.user_type == 'Charity' %}
-                                                    <li><a href="{% url 'notification-details' pk=noti.request.id noti=noti.id %}">
+                                                    <li><a href="{% url 'notification-details' pk=noti.help_offer.id noti=noti.id %}">
                                                         {% if not noti.seen %}<b>{% endif %}
-                                                            {{ noti.sender }} has offered to help on {{ noti.request.project.title }}
+                                                            {{ noti.sender }} has offered to help on {{ noti.help_offer.project.title }}
                                                         {% if not noti.seen %}</b>{% endif %}    
                                                     </a></li>
                                                     <HR class="my_hr" WIDTH="100%" SIZE="3">

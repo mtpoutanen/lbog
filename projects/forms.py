@@ -1,5 +1,5 @@
 from django import forms
-from projects.models import Project, Request
+from projects.models import Project, HelpOffer
 from users.models import Skill, Country, State
 from django.db.models.fields.files import ImageFieldFile
 
@@ -66,12 +66,12 @@ class ProjectChangeForm(ProjectCreationForm):
 
     #     return project
 
-class RequestForm(forms.ModelForm):
+class HelpOfferForm(forms.ModelForm):
 
     message         = forms.CharField(max_length=500, widget=forms.Textarea, required=False)
 
     class Meta:
-        model       = Request
+        model       = HelpOffer
         fields      = ('message',)
             # 'project')
 
@@ -84,9 +84,9 @@ class RequestForm(forms.ModelForm):
         project_id              = self.view_request_pk
         project                 = Project.objects.get(id=project_id)
         
-        # check if the user has already requested to help (the form is not even rendered anyway)
-        has_requested   = Request.objects.filter(sender=profile, project=project)
-        if has_requested:
-            raise forms.ValidationError('You have already requested to help on this project')
+        # check if the user has already offered to help (the form is not even rendered anyway)
+        has_already_offered =   HelpOffer.objects.filter(sender=profile, project=project)
+        if has_already_offered:
+            raise forms.ValidationError('You have already offered to help on this project')
         return self.cleaned_data
 

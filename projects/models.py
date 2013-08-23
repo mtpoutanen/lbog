@@ -42,9 +42,9 @@ class Project(models.Model):
     def __unicode__(self):
         return self.title
 
-class Request(models.Model):
+class HelpOffer(models.Model):
 
-    REQUEST_CHOICES = {
+    HELP_OFFER_CHOICES = {
         ('pending', 'pending'),
         ('rejected', 'rejected'),
         ('accepted', 'accepted'),
@@ -57,14 +57,14 @@ class Request(models.Model):
                         null=False, blank=False)
     time_created    = models.DateTimeField(auto_now_add=True,
                         null=False, blank=False)
-    status          = models.CharField(max_length=10, choices=REQUEST_CHOICES,
+    status          = models.CharField(max_length=10, choices=HELP_OFFER_CHOICES,
                         null=False, blank=False, default='pending')
 
     def __unicode__(self):
-        return      "Request for " + self.project.title + " from " + self.sender.user.username
+        return      "Help offer for " + self.project.title + " from " + self.sender.user.username
 
-class RequestNotification(models.Model):
-    request         = models.ForeignKey(Request) 
+class Notification(models.Model):
+    help_offer      = models.ForeignKey(HelpOffer) 
     sender          = models.ForeignKey(UserProfile,
                     null=False, blank=False, related_name="noti_sender")
     receiver        = models.ForeignKey(UserProfile,
@@ -75,4 +75,4 @@ class RequestNotification(models.Model):
                         null=False, blank=False)
 
     def __unicode__(self):
-        return 'Notification for ' + self.request.project.title
+        return 'Notification for ' + self.help_offer.project.title

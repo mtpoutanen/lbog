@@ -1,10 +1,33 @@
-{% extends 'base_info.html' %}
+{% extends 'base_sidebar.html' %}
 {% load staticfiles %}
 {% block extrahead_level2 %}
     <link href="{% static "users/css/forms.css" %}"                     rel="stylesheet">
 {% endblock extrahead_level2 %}
-{% block info_content %}
 
+{% block sidebar_content %}
+    <h4>Other Projects</h4>
+    <br><b>Completed:</b><br>
+    {% for c_project in completed_projects %}
+      <a href="{% url 'project-details' pk=c_project.id %}">{{ c_project.title }}</a><br>
+    {% endfor %}
+
+    <br><b>Projects Under Way:</b><br>
+    {% for u_project in projects_under_way %}
+      <a href="{% url 'project-details' pk=u_project.id %}">{{ u_project.title }}</a><br>
+    {% endfor %}
+
+    <br><b>Completed Projects:</b><br>
+    {% for l_project in looking_projects %}
+      <a href="{% url 'project-details' pk=l_project.id %}">{{ l_project.title }}</a><br>
+    {% endfor %}
+
+{% endblock sidebar_content %}
+
+
+
+{% block main_content %}
+  <div class="span6 main-content">
+    
     <div class="search-wrapper">
          <table class="search-table">
            <tr class="search-top-wrapper" id="top-0">
@@ -51,16 +74,24 @@
               Project Description: {{ project.description }}
            </td>
          </tr>
+         <tr>
+           <td>Like this Project on Facebook:</td>
+           <td><button class="my-fb-like" onclick="postLike('http://{{ SITE_ROOT }}{% url 'project-details' pk=project.id %}')"></button></td>
+         </tr>
+         <tr>
+           <td>Share this Project on Facebook:</td>
+           <td><button class="my-fb-share" onclick="postShare('http://{{ SITE_ROOT }}{% url 'project-details' pk=project.id %}')"></button></td>
+         </tr>
        </table>
     </div>
   
     {% if project.status == 'looking' %}
       {% if user.get_profile.user_type == 'Developer' %}
-          {% if already_requested %}
-              <p>You have already requested to help on this project</p>
+          {% if already_offered %}
+              <p>You have already offered to help on this project</p>
           {% else %}
-              <p><b>If you'd like to help with this project, please send a request and a message to {{ project.charity.company_name }} via the form below</b></p>
-              <form id="request-form" method="post" action=""> <!-- class="form-horizontal" > -->
+              <p><b>If you'd like to help with this project, please send help offer including a message to {{ project.charity.company_name }} via the form below</b></p>
+              <form id="help-offer-form" method="post" action=""> <!-- class="form-horizontal" > -->
                   {% csrf_token %}
                   {{ form.errors }}
                   {{ form.message }}<br>
@@ -78,4 +109,5 @@
         $('#id_project').val({{ project.id }});
         resizeImages();
     </script>
-{% endblock info_content %}
+  </div>
+{% endblock main_content %}
