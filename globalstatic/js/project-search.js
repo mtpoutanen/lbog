@@ -17,6 +17,8 @@ function getErrors() {
 
 	if (countryEmpty && stateEmpty && cityEmpty && radiusEmpty) {
     	// do nothing, as the user is not filtering by geography
+    } else if (country != 'Country...' && radius == 'Selected Country') {
+    	// do nothing, the user is searching within one country.
     } else {
     	if (country     == "Country...") {
     		tempErrors += "- Please select a country...\n";

@@ -49,13 +49,10 @@
                     {{ project.state }}, 
                 {% endif %}
                  {{ project.country }}</p>
-                  <dl>
-                    <dt> 
-                   {% for skill in project.skills.all %}
-                      <dd>- {{ skill.skill_name }}</dd>
-                   {% endfor %}
-                    </dt>
-                  </dl>
+                <p>
+                  Local Developers Required: {% if project.need_locals == True %} Yes {% else %} No {% endif %}
+                </p>
+
              </td>
              <td class="search-image-table-column">
               {% if project.image %}
@@ -68,6 +65,18 @@
                 <div class="no-image-wrapper">No image available</div>
               {% endif %}
              </td>
+           </tr>
+           <tr class="search-bottom-wrapper">
+              <td colspan="2" class="search-description-wrapper">
+              Required Skills:<br>
+                  <dl>
+                    <dt> 
+                   {% for skill in project.skills.all %}
+                      <dd>- {{ skill.skill_name }}</dd>
+                   {% endfor %}
+                    </dt>
+                  </dl>
+              </td>
            </tr>
          <tr class="search-bottom-wrapper">
            <td colspan="2" class="search-description-wrapper">

@@ -573,14 +573,13 @@ class DB_Filler():
             setattr(charity_profile, field_name, charity_value)
             setattr(adminprofile, field_name, admin_value)
 
-        allskills = Skill.objects.all()
-        myskills = []
+        all_skills = Skill.objects.all()
 
-        for myskill in allskills:
-            if len(myskill.skill_name) > 15:
-                myskills.append(myskill)
+        skills_sample = random.sample(skills, 3)
+        devprofile.skills = skills_sample
 
-        devprofile.skills = myskills
+        skills_sample = random.sample(skills, 3)
+        adminprofile.skills = skills_sample
 
         devuser.save()
         charityuser.save()

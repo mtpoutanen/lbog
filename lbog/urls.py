@@ -34,5 +34,5 @@ urlpatterns = patterns('',
     url(r'^about/$',                    'lbog.views.about',             name='about'),
     url(r'^feedback/$',                 'lbog.views.feedback',          name='feedback'),
     url(r'^t_and_c/$',                  'lbog.views.t_and_c',           name='t-and-c'),
-    url(r'^privacy/$',                  'lbog.views.privacy',           name='privacy'),
+    # url(r'^privacy/$',                  'lbog.views.privacy',           name='privacy'),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
