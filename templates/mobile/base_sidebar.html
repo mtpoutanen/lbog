@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block extrahead_level1 %}
+	<link href="{% static "global/mobile_css/m_sidebar.css" %}" rel="stylesheet" />
+	{# <link href="{% static "global/sidr/jquery.sidr.dark.css" %}"  rel="stylesheet" /> #}
+{% endblock extrahead_level1 %}
+
+{% block content %}
+<div id="sidebar-content-wrapper">
+	
+		<div id="my-menu-toggle">
+  			<a id="open-sidebar" class="btn-small btn-primary" href="#">open sidebar</a>
+    	</div>
+    <div id="sidr">
+    	<div id="my-menu-toggle">
+  			<a id="close-sidebar" class="btn-small btn-primary" href="#">Close Sidebar</a>
+    	</div>
+
+		{% block sidebar_content %}
+		{% endblock sidebar_content %}
+	</div> 
+	
+	{% block main_content %}
+	{% endblock main_content %}
+
+</div>
+
+	<script>
+		$(document).ready(function() {
+		    $('#sidr').animate({
+		        left: '-'+$('.main-content').width()*2
+		    }, 10);
+		});
+
+		$(document).ready(function() {
+			// $('#my-menu-toggle>a').css('display', 'inline');
+			$('#my-menu-toggle>a').click(function() {
+				var left = $('#sidr').css('left');
+				// alert(left);
+				if (left != '0px') {
+					$('#sidr').animate({
+						left: '0' //+$('.main-content').width()
+					}, 200);
+					$('#open-sidebar').hide();
+				} else {
+					$('#open-sidebar').show();
+					$('#sidr').animate({
+					    left: '-'+$('.main-content').width()*2
+					}, 200);
+				}
+			});
+		});
+	</script>	
+
+{% endblock content %}

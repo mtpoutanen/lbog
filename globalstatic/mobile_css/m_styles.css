@@ -1,0 +1,147 @@
+.mobile-wrapper {
+	position:absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	/*overflow: hidden;*/
+}
+
+.hidden {
+  display: none;
+}
+
+.main-forms {
+	margin-top: 20px;
+}
+
+.main-forms {
+	margin-top: 20px;
+}
+
+.main-content {
+	margin-top: 20px;
+	position: absolute;
+	top: 0;
+	/*overflow: scroll;*/
+}
+
+#sidr {
+	position: relative;
+}
+
+/*#my-wrapper > #body-wrapper {
+
+  	box-shadow: 0 0 10px black;
+  	margin-bottom: 10px;
+  	background-color: #FFFFFF;
+  	z-index: 4;
+  	padding-bottom: 20px;
+  	box-sizing: border-box;
+}*/
+
+#my-wrapper, #my-wrapper > #body-wrapper {
+	min-height: -webkit-calc(100% - 180px);
+    min-height: -moz-calc(100% - 180px);
+	min-height: calc(100% - 180px);
+	
+}
+
+#my-wrapper {
+	margin: 0px 0px 0px 0px;
+	width: 100%;
+	padding-top: 0px;
+	margin-left: 0px;
+	overflow: scroll;
+	position: relative;
+  	z-index: 4;
+}
+
+#main {
+	box-sizing: border-box;
+	padding-top: 20px;
+}
+
+#what-we-do {
+  	box-sizing: border-box;
+	padding-left: 15px;
+}
+
+#open-projects {
+  	box-sizing: border-box;
+	padding-right: 15px;
+}
+
+.thumbnails {
+	text-align: center;
+}
+
+.thumbnails > li {
+	display: inline-block;
+	float: none;
+}
+
+#my-footer { 
+  	text-align: right;
+  	background-color: #FFFFFF;
+	height: 40px;
+	padding-right: 20px;
+  	box-sizing: border-box;
+}
+
+#open-projects-header {
+	text-align: center;
+}	
+
+#more-projects {
+	text-align: center;
+}	
+
+.hidden {
+	display: none;
+}
+
+.my-thumbnail-image {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.no-image-wrapper {
+	/*position: absolute;*/
+	/*margin: 0 auto;*/
+}
+
+.mapquest-wrapper {
+	font-size: 10px;
+  	margin: 50px 15px 0px;
+	width:calc(100% - 30px);
+}
+
+.mapquest-image-wrapper {
+	max-width: 100px;
+	position: relative;
+}
+
+.my-fb-like, .my-fb-share {
+	vertical-align: top;
+	margin-left: 5px;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+.my-fb-like {
+	width: 22px;
+	height: 21px;
+	background-image: url("../images/like-button.png");
+}
+
+.my-fb-share {
+	width: 40px;
+	height: 21px;
+	background-image: url("../images/fb_share.png");
+}

@@ -1,0 +1,68 @@
+.search-wrapper {
+	width: 100%;
+	border: 1px solid #cccccc;
+	border-radius: 3;
+	box-sizing: border-box;
+	padding: 10px;
+	margin-bottom: 20px;
+}
+
+.search-table {
+	width: 100%;
+	font-size: 14px;
+}
+
+.search-top-wrapper {
+	/*position: relative;*/
+}
+
+.search-text-wrapper {
+	width: 49%;
+	padding: 10px 0px 0px 10px;
+}
+
+.search-image-table-column {
+	width: 49%;
+	padding: 10px 10px 0px 0px;
+}
+
+.search-image-wrapper {
+	height: 5px;
+	position: relative;
+}
+
+.search-image {
+	text-align: horizontal;
+	vertical-align: middle;
+}
+
+.search-bottom-wrapper {
+	margin-top: 10px;
+}
+.search-description-wrapper {
+	padding: 10px 10px 10px 10px;
+}
+
+dl {
+	-webkit-margin-before: 0px;
+	-webkit-margin-after: 0px;
+}
+
+.account-project-image {
+	width: 100%;
+	height: 150px;
+	position: relative;
+}
+
+#reject-button {
+	margin-left: 30px;
+}
+
+.help-offers-buttons-wrapper {
+	padding-left: 10px;
+	box-sizing: border-box;
+}
+
+.status-paragraph {
+	margin-bottom: 0px;
+}

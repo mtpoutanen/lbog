@@ -87,12 +87,14 @@ TEMPLATE_CONTEXT_PROCESSORS = (
      # 'django_facebook.context_processors.facebook',
      'django.core.context_processors.request',
      'lbog.context_processors.fb_app_id',
+     'django_mobile.context_processors.flavour',
      # 'messages.context_processors.inbox',
      # 'django.core.context_processors.media',
     )
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
+    'django_mobile.loader.Loader',
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 #     'django.template.loaders.eggs.Loader',
@@ -111,6 +113,10 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    # 'django_mobile.middleware.MobileDetectionMiddleware',
+    'django_mobile.middleware.SetFlavourMiddleware',
+    'mobileesp.mobile.MobileDetectionMiddleware',
+    
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -150,10 +156,7 @@ INSTALLED_APPS = (
     # django_cleanup deletes the previous image and must
     # be placed below all apps that use images on this list
     'django_cleanup',
-    # 'django_facebook',
-    # 'django_js_utils',
-    # 'blahshsha',
-    # 'password_reset',
+    'django_mobile',
 )
 
 URLS_JS_GENERATED_FILE='globalstatic/js/dutils.conf.urls.js'

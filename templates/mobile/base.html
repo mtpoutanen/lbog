@@ -1,0 +1,44 @@
+{% load staticfiles %}
+
+<html>
+<head>
+
+    {% include 'mobile/base_head.html' %}
+    {% block extrahead_level1 %}
+    {% endblock extrahead_level1 %}
+    
+    {% block extrahead_level2 %}
+    {% endblock extrahead_level2 %}
+    
+    {% block extrahead_level3 %}
+    {% endblock extrahead_level3 %}
+
+</head>
+<body>
+    <div class="mobile-wrapper">
+            {% include 'mobile/navbar.html' %}
+
+            <div id="fb-app-id" rel="{{ FB_APP_ID }}"></div>
+            <div id="site-address" rel='http://{{ SITE_ROOT }}'></div>
+            <div id="image-address" rel='http://{{ SITE_ROOT }}/static/global/images/lbog_logo_large.png'></div>
+
+            {% include 'fbscript.html' %}
+
+            <div id="my-wrapper">
+                <div class="container-fluid" id="body-wrapper">               
+                    <div id="fb-root"></div>
+                    {% block content %}
+                    {% endblock content %}
+                </div>
+            </div>
+
+            {% include 'mobile/footer.html' %}
+    </div>
+
+<script src="{% static "global/js/form_listeners.js" %}"></script>
+    
+{% block extrascripts %}
+{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+{% load new_notifications %}
+{% load staticfiles %}
+
+<header>
+    {% comment %}
+        
+    <div class="container" id="header-wrapper">
+        <div class="container" id="navbar-container">
+    {% endcomment %}
+            <div class="navbar navbar-inverse" id="navbar-outer">
+                <div class="navbar-inner">
+                        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"/>
+                            <span class="icon-bar"/>
+                            <span class="icon-bar"/>
+                        </button>
+                        <div class="nav-collapse collapse" id="navlinks">
+                            <ul class="nav">
+                                <li class="" id="nav-home">
+                                    <a href="/">Home</a>
+                                </li>
+                                <li class="">
+                                    <a href="{% url 'i-want-to-help' %}">For Volunteers</a>
+                                </li>
+                                <li class="">
+                                    <a href="{% url 'looking-for-volunteers' %}">I'm Looking for Volunteers</a>
+                                </li>
+                                {% if user.is_authenticated %}
+                                    <li>
+                                        {% get_new_notifications 10 %}
+                                        <a href="{% url 'my-notifications' pk=user.id %}">
+                                            {% if new_notifications %}
+                                                <div class="inner-circle"><b>{{ new_notifications.count }}</b></div> 
+                                            {% endif %}
+                                            <div id="notification-text">Notifications</div>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if user.is_authenticated %}
+                                    <li class="">
+                                        <a href="{% url "my-account" pk=user.id %}">My Account</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="{% url "logout" %}">Logout</a>
+                                    </li>
+                                {% else %}
+                                    <li class="">
+                                        <a href="{% url "login" %}">Login</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="{% url "register" %}">Register</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div> <!-- navlinks -->
+                </div> <!-- navbar-inner -->
+            </div> <!-- navbar-outer -->
+    {% comment %}
+        
+        </div>  <!-- navbar-container -->
+        </div>  <!-- header-wrapper -->
+    {% endcomment %}
+</header>

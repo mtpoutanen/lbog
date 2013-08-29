@@ -575,10 +575,10 @@ class DB_Filler():
 
         all_skills = Skill.objects.all()
 
-        skills_sample = random.sample(skills, 3)
+        skills_sample = random.sample(all_skills, 3)
         devprofile.skills = skills_sample
 
-        skills_sample = random.sample(skills, 3)
+        skills_sample = random.sample(all_skills, 3)
         adminprofile.skills = skills_sample
 
         devuser.save()

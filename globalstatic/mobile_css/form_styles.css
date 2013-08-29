@@ -1,0 +1,71 @@
+#id_status_chzn > a, #id_country_chzn > a, #id_state_chzn > a, .chzn-choices > li > input,
+#id_search_country_chzn > a, #id_search_state_chzn > a {
+  background-color:#FFFFFF !important;
+  border:1px solid #AAAAAA !important;
+  background-image: none !important;
+
+  color: #999999;
+  border: 1px solid #CCCCCC;
+  webkit-box-shadow:rgba(0, 0, 0, 0.0745098) 0 1px 1px inset !important;
+  -webkit-transition:border 0.2s linear, box-shadow 0.2s linear !important;
+  background-color:#FFFFFF !important;
+  border:1px solid #CCCCCC !important;
+  box-shadow:rgba(0, 0, 0, 0.0745098) 0 1px 1px inset !important;
+  transition:border 0.2s linear, box-shadow 0.2s linear !important;
+}
+
+#id_status_chzn {
+  margin-bottom: 20px;
+}
+
+#remainingC {
+  font-size: 10px;
+  color: #888888
+}
+
+.chzn-choices > li > input {
+    height: 20px !important;
+    padding: 0px 5px 0px 0px !important;
+    line-height: 20px !important;
+}
+
+select, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+  font-size: 13px;
+  height: 25px;
+  line-height: 25px;
+  color: #333333;
+}
+
+textarea {
+  color: #333333; 
+}
+
+select {
+  background-color:#FFFFFF;
+  border:1px solid #CCCCCC;
+  /*width: 100%;*/
+  /*height: 30px;*/
+  /*line-height: 30px;*/
+}
+
+.chzn-container-single .chzn-single {
+  height: 25px;
+  line-height: 25px;
+}
+
+.chzn-container-single .chzn-default, .chzn-select my-select, select, input::-webkit-input-placeholder { 
+  color:    #999999;
+}
+.chzn-container-single .chzn-default, .chzn-select, select, input:-moz-placeholder { 
+  color:    #999999;
+}
+.chzn-container-single .chzn-default, .chzn-select, select, input::-moz-placeholder { 
+  color:    #999999;
+}
+.chzn-container-single .chzn-default, .chzn-select, select, input:-ms-input-placeholder { 
+  color:    #999999;
+}
+
+.mapquest-form {
+  font-size: 10px;
+}

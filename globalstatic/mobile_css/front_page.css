@@ -1,0 +1,38 @@
+#front-page-main {
+	padding: 20px 20px 0px 20px;
+	-moz-box-sizing:    border-box;
+   	-webkit-box-sizing: border-box;
+   	-ms-box-sizing:     border-box;
+   	box-sizing:        	border-box;
+}
+
+.carousel-image {
+	position: relative;
+	width: 100%;
+	height: 300px;
+	background-color: #FFFFFF;
+}
+
+.front-page-header {
+	text-align: center;
+	margin: 0px;
+	padding: 0px;
+}
+
+.my-img-thumb {
+	position: relative;
+	width: 265px;
+	height: 180px;
+	background-color: #FFFFFF;
+}
+
+.story {
+	width: 95%;
+	margin: 10px 2.5% 0px 2.5%;
+}
+
+.story-img-wrapper {
+	width: 100%;
+	height: 200px;
+	position: relative;
+}
