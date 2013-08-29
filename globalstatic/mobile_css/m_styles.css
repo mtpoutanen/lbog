@@ -89,6 +89,15 @@
   	box-sizing: border-box;
 }
 
+ #my-wrapper:after 
+ {
+     content:".";
+     clear:both;
+     visibility:hidden;
+     display:block;
+     height:0px;
+ }
+
 #open-projects-header {
 	text-align: center;
 }	

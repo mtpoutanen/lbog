@@ -157,7 +157,10 @@ INSTALLED_APPS = (
     # be placed below all apps that use images on this list
     'django_cleanup',
     'django_mobile',
+    'dbbackup',
 )
+
+DBBACKUP_MEDIA_PATH = MEDIA_ROOT
 
 URLS_JS_GENERATED_FILE='globalstatic/js/dutils.conf.urls.js'
 
