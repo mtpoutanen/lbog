@@ -27,12 +27,7 @@
 </div>
 
 	<script>
-		$(document).ready(function() {
-		    $('#sidr').animate({
-		        left: '-'+$('.main-content').width()*2
-		    }, 10);
-		});
-
+		
 		$(document).ready(function() {
 			// $('#my-menu-toggle>a').css('display', 'inline');
 			$('#my-menu-toggle>a').click(function() {
@@ -46,7 +41,7 @@
 				} else {
 					$('#open-sidebar').show();
 					$('#sidr').animate({
-					    left: '-'+$('.main-content').width()*2
+					    left: '-'+$('body').width()*2
 					}, 200);
 				}
 			});

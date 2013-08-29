@@ -1,0 +1,42 @@
+{% extends 'base_accounts.html' %}
+{% load staticfiles %}
+
+{% block accounts_content %}
+test projects mobile
+    {% comment %}
+      
+    {% csrf_token %}
+    {% for project in projects %}
+        <div class="search-wrapper" id="project-{{ project.id }}">
+        <p>Title: 
+          {% block title %}
+          {% endblock title %}
+        </p>
+            <div  class="account-project-image">
+              {% block image %}
+                
+              {% endblock image %}
+            </div>
+        <p>Status: {{ project.get_status_display }}</p>
+
+        <p>Developers: 
+        {% if project.developers.all %}
+          {% for dev in project.developers.all %}
+            {% if forloop.counter == 1 %}
+              <a href="{% url 'developer-details' pk=dev.id %}">{{ dev }}</a>
+            {% else %}
+            / <a href="{% url 'developer-details' pk=dev.id %}">{{ dev }}</a>
+            {% endif %}
+          {% endfor %}</p>
+        {% else %}
+        n/a
+        {% endif %}
+        <p>Description: {{ project.description | truncatewords:"20" }}...</p> 
+        </p>
+        {% if user.get_profile.user_type == 'Charity' %}
+          <button class="btn btn-primary" onclick="deleteContent('{% url 'delete-project' pk=project.id %}')">Delete</button>          
+        {% endif %}
+        </div>
+    {% endfor %}
+    {% endcomment %}
+{% endblock accounts_content %}

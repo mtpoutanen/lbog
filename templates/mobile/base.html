@@ -27,11 +27,14 @@
             <div id="my-wrapper">
                 <div class="container-fluid" id="body-wrapper">               
                     <div id="fb-root"></div>
+                    
                     {% block content %}
+                    
                     {% endblock content %}
+                    
                 </div>
             </div>
-
+            
             {% include 'mobile/footer.html' %}
     </div>
 
