@@ -17,7 +17,7 @@ class ProjectCreationForm(forms.ModelForm):
                     required=False)
     description     = forms.CharField(max_length=1000, widget=forms.Textarea(
                             attrs={'placeholder': 'Title'}), required=False)
-    logo            = forms.ImageField(required=False)
+    image           = forms.ImageField(required=False)
     country         = forms.ModelChoiceField(empty_label="Country...", 
                         queryset=Country.objects.all(), widget=forms.Select(
                         attrs={'class': 'chzn-select change-color', 'data-placeholder': 'Select Country'}))
@@ -31,7 +31,7 @@ class ProjectCreationForm(forms.ModelForm):
     need_locals     = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(),
                         required=True)
 
-    def clean_logo(self):
+    def clean_image(self):
         image = self.cleaned_data['image']
         check_no_new_image = isinstance(image, ImageFieldFile)
     
