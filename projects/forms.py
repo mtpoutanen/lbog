@@ -67,16 +67,19 @@ class ProjectChangeForm(ProjectCreationForm):
     #     return project
 
 class HelpOfferForm(forms.ModelForm):
-
-    message         = forms.CharField(max_length=500, widget=forms.Textarea, required=False)
+    '''
+    Sends a help offer.
+    '''
+    message = forms.CharField(max_length=500, widget=forms.Textarea, required=False)
 
     class Meta:
-        model       = HelpOffer
-        fields      = ('message',)
-            # 'project')
+        model   = HelpOffer
+        fields  = ('message',)
 
     def clean(self):
-        # check if the user is a developer (the form is not even rendered anyway)
+        # These checks should be redundant as the form is not rendered
+        # if the conditions aren't met
+        # Check if the user is a developer
         profile         = self.view_request.user.get_profile()
         if profile.user_type    != 'Developer':
             raise forms.ValidationError('You must log in as a Developer to offer your help on projects')
@@ -84,7 +87,7 @@ class HelpOfferForm(forms.ModelForm):
         project_id              = self.view_request_pk
         project                 = Project.objects.get(id=project_id)
         
-        # check if the user has already offered to help (the form is not even rendered anyway)
+        # Check if the user has already offered to help
         has_already_offered =   HelpOffer.objects.filter(sender=profile, project=project)
         if has_already_offered:
             raise forms.ValidationError('You have already offered to help on this project')

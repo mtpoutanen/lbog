@@ -3,7 +3,7 @@
 {% if not latest_completed %}
 	<h2>No projects completed</h2>
 {% else %}
-<h2 class="front-page-header">Recently completed projects</h2>
+<h3 id="completed-projects-header" class="front-page-header">Recently completed projects</h3>
 <div id="front-page-carousel" class="carousel slide"><!-- class of slide for animation -->
 	<div class="carousel-inner">
 		{% for project in latest_completed  %}
@@ -26,4 +26,5 @@
 	<a class="carousel-control left" href="#front-page-carousel" data-slide="prev">&lsaquo;</a>
 	<a class="carousel-control right" href="#front-page-carousel" data-slide="next">&rsaquo;</a>
 </div><!-- /.carousel -->
+<div id="find-volunteers"><a href="{% url 'looking-for-volunteers' %}">Click here</a> to find out how you can find volunteers.</div>
 {% endif %}

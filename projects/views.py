@@ -13,18 +13,18 @@ from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect
 
 class CorrectUserMixin(object):
-    error_message           = 'You are logged in as the wrong user. \
+    #default error message
+    error_message = 'You are logged in as the wrong user. \
                                 No detailed error message was provided'
-    url_id                  = 0 # default value
+    url_id       = 0 # default value
 
     def render_to_response(self, context, **response_kwargs):
-        """
-        Returns a response with a template rendered with the given context.
-        """
+        """Returns either the desired template or wrong_user.html."""
         logged_in_id        = self.request.user.id
+        # if no url_id was set in the view, raise an error
         if self.url_id == 0:
             raise ImproperlyConfigured("url_id missing")
-
+        # if the object belongs to the is logged in user, return template
         if logged_in_id == int(self.url_id):
             return self.response_class(
                 request = self.request,
@@ -32,6 +32,7 @@ class CorrectUserMixin(object):
                 context = context,
                 **response_kwargs
             )
+        # otherwise, return wrong_user.html with a custom error message
         else:
             context['error_message'] = self.error_message
             return self.response_class(
@@ -411,15 +412,21 @@ def delete_project(request, pk):
             return HttpResponse(simplejson.dumps(result), mimetype='application/json')
 
 def delete_notification(request, pk):
+    ''' Deletes a notification '''
+
+    # Get the notification to be deleted.
     notification = Notification.objects.get(id=pk)
 
+    # Check if the URL is being called by the owner of that Notification
     if request.user.id != notification.receiver.id:
+        # if not, return an error message
         result =    {
                     'error_message': 'Something went wrong, this notification belongs to user '+notification.receiver.user.username, 
                     'div_id': '',
                     }
         return HttpResponse(simplejson.dumps(result), mimetype='application/json')
     else:
+        # if yes, delete the notification and return a response with no error message.
         if request.method == 'POST':
             notification.delete()
             div_id = "#notification-" + str(pk)

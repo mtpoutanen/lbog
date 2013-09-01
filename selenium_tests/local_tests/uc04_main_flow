@@ -23,7 +23,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>css=#reg-login &gt; a</td>
+	<td>link=Login</td>
 	<td></td>
 </tr>
 <tr>

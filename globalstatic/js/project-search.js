@@ -3,38 +3,32 @@
 // });
 
 function getErrors() {
-
 	var tempErrors 		= "";
 	var country         = $("#id_country option:selected").text();
 	var state           = $("#id_state option:selected").text();
 	var city            = $("#id_city").val();
 	var radius          = $("#id_radius option:selected").text();
-
 	var countryEmpty    = (country == "Country...");
 	var stateEmpty    	= (state == "State...");
 	var cityEmpty    	= (city == "");
 	var radiusEmpty  	= (radius == "Radius...");
-
 	if (countryEmpty && stateEmpty && cityEmpty && radiusEmpty) {
     	// do nothing, as the user is not filtering by geography
     } else if (country != 'Country...' && radius == 'Selected Country') {
     	// do nothing, the user is searching within one country.
-    } else {
-    	if (country     == "Country...") {
+    } else { // check if all the data is in place
+    	if (country == "Country...") {
     		tempErrors += "- Please select a country...\n";
     	}
-    	if (state       == "State..."
-    		&& radius 	!= 'same_country') {
+    	if (state == "State..." && radius 	!= 'same_country') {
     		tempErrors += "- Please select a state...\n";
     	}
-    	if (city        == ""
-    		&& radius 	!= 'same_country') {
+    	if (city == "" && radius!= 'same_country') {
     		tempErrors += "- Please enter a city...\n";
 		}
-		if (radius        == "Radius...") {
+		if (radius == "Radius...") {
     		tempErrors += "- Please select a radius\n";
-		}
-	}
+		}}
 	return tempErrors;
 }
 

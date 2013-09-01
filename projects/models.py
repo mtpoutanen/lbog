@@ -3,11 +3,14 @@ from users.models import Skill, UserProfile, Country, State
 import os
 # Create your models here.
 
+
 def get_image_path(instance, filename):
     return os.path.join('images/project_images', str(instance.id), filename)
 
-class Project(models.Model):
 
+class Project(models.Model):
+    ''' The main class of the application '''
+    
     STATUS_CHOICES = {
         ('looking', 'Looking for developers'),
         ('under_way', 'Project under way'),
@@ -19,8 +22,8 @@ class Project(models.Model):
     image           = models.ImageField(upload_to=get_image_path, blank=True, null=True)
     skills          = models.ManyToManyField(Skill)
     status          = models.CharField(choices=STATUS_CHOICES, max_length=50,
-                        blank=False, null=False, default='looking')
-    # restrict to Developers at form level.
+                                    blank=False, null=False, default='looking')
+    # Control at form level that only Developes can be added to Projects.
     developers      = models.ManyToManyField(UserProfile, related_name='project_developers',
                             null=True, blank=True)
     charity         = models.ForeignKey(UserProfile, related_name='project_charity',
@@ -38,18 +41,20 @@ class Project(models.Model):
                         null=False, blank=False)
     time_completed  = models.DateTimeField(null=True, blank=True)
 
-
+    # The __unicode__ method defines the default description for the model
     def __unicode__(self):
         return self.title
 
 class HelpOffer(models.Model):
+    ''' HelpOffers can only be sent by Developers. This is controlled 
+        at form validation and template rendering level '''
 
     HELP_OFFER_CHOICES = {
         ('pending', 'pending'),
         ('rejected', 'rejected'),
         ('accepted', 'accepted'),
     }
-    # restrict to developers, validation at form level
+
     sender          = models.ForeignKey(UserProfile,
                         null=False, blank=False)
     message         = models.TextField(blank=True)
@@ -64,6 +69,9 @@ class HelpOffer(models.Model):
         return      "Help offer for " + self.project.title + " from " + self.sender.user.username
 
 class Notification(models.Model):
+    ''' Notifications are generated automatically when 
+        a HelpOffer is sent or responded to '''
+
     help_offer      = models.ForeignKey(HelpOffer) 
     sender          = models.ForeignKey(UserProfile,
                     null=False, blank=False, related_name="noti_sender")

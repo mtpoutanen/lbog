@@ -14,7 +14,6 @@ from projects.views import CorrectUserMixin
 from django.http import HttpResponse
 from django.utils import simplejson
 
-
 def update_profile(user, form):
     profile                 = user.get_profile()
     profile.given_name      = form.cleaned_data['given_name']
@@ -86,7 +85,6 @@ class RegistrationView(FormView):
 
 class PasswordChangeView(LoginRequiredMixin, CorrectUserMixin, FormView):
     form_class      = PasswordChangeForm
-    # model           = User
     template_name   = 'registration/password_change_form.html'
     success_url     = reverse_lazy('profile-changed')
 
@@ -105,31 +103,47 @@ class PasswordChangeView(LoginRequiredMixin, CorrectUserMixin, FormView):
         )
     
 class ChangeView(LoginRequiredMixin, CorrectUserMixin, UpdateView):
+    '''
+    A view class for updating a user's account information.
+    '''
 
-    model           = UserProfile  #get_user_model()
+    model           = UserProfile
+    # used by the LoginRequiredMixin
     login_url       = reverse_lazy('login')
     template_name   = 'change_account_details.html'
     form_class      = MyChangeForm
     success_url     = reverse_lazy('profile-changed')
+    # Initialise error message for CorrectUserMixin, if a 
+    # user tries to access someone else's account details.
     error_message   = 'Oops, something went wrong. \
             The browser was trying to access someone else\'s profile.'
     
     def get_form(self, form_class):
+        ''' 
+        Override get_form to attaches the HTTP request 
+        to the form to access user information in form validation
+        '''
         self.form_class         = MyChangeForm
         form = super(ChangeView, self).get_form(form_class)
         form.view_request       = self.request
         return form
 
     def form_valid(self, form):
+        ''' 
+        This method executes when a POST request is received and 
+        saves the model data to the database if there are no errors
+        '''
         user = self.request.user
         update_profile(user, form)
         return super(ChangeView, self).form_valid(form)
 
     def get_initial(self):
-        """
-        Returns the initial data to use for forms on this view.
-        """ 
+        ''' 
+        Add the skills data to the form object,
+        does not work by default. 
+        '''
         super(ChangeView, self).get_initial()
+        # set url_id for CorrectUserMixin
         self.url_id = self.kwargs['pk']
         my_id       = self.kwargs['pk']
         my_user     = User.objects.get(pk=my_id) 
@@ -192,9 +206,6 @@ class DeveloperView(TemplateView):
             developer_permission  = filter(lambda loop_developer: 
                             loop_developer.id == my_id, project.developers.all())
         
-        # import pdb
-        # pdb.set_trace()
-        
         if is_self or allow_contact or charity_help_offers or charity_projects or developer_permission:
             template = 'developer_details.html'
         else:
@@ -206,7 +217,6 @@ class DeveloperView(TemplateView):
                 context = context,
                 **response_kwargs
             )
-
 
 def deactivate_account(request):
     req_user = request.user

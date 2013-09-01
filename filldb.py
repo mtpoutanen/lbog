@@ -271,11 +271,11 @@ statelist = [
 skill_list = ['iOS','Android','Windows Mobile','Mobile Development HTML5','Desktop Development',
 'Web Development Full Stack','Web Development Server Side','Web Development Frond End','SQL / Database Development',]
 
-usernames       = ['test_dev_manchester',   'test_char_london',         'mikko']
+usernames       = ['developer',   			'charity',         			'adminuser']
 emails          = ['dev@lbog.com',          'charity@lbog.com',         'mtpoutanen@gmail.com']
-passwords       = ['password',              'password',                 'postgres']    
+passwords       = ['password',              'password',                 'password']    
 titles          = ['Senior Developer',      'Director',                 'Overall Genius']
-wwws            = ['www.mikkosoft.com',      'www.world-peace.com',     'www.ucl.ac.uk']
+wwws            = ['www.mikkosoft.com',     'www.world-peace.com',     	'www.ucl.ac.uk']
 user_types      = ['Developer',             'Charity',                  'Developer']
 given_names     = ['John',                  'Mary',                     'Mikko']
 family_names    = ['Smith',                 'Poppins',                  'Poutanen']
@@ -311,14 +311,14 @@ p_titles            = [
 'Liverpool Looking',
 'Manchester Looking',
 'Cambridge Looking',
-'Slough Looking',
-'Sheffield Looking',
+'E-Learning App for Kenyan Children',
+'Children\'s Charity Needs a Fundraising App',
 'Edinburgh Under Way',
 'Brighton Under Way',
 'Bristol Under Way',
 'Chelmsform Under Way',
 'Liverpool Under Way',
-'Luton Completed',
+'Luton Volunteer Fire Service Needs a Website',
 'London Completed',
 'Swindon Completed',
 'Reading Completed',
@@ -495,13 +495,13 @@ project_lists = [p_titles, p_need_locals, p_statuses, p_cities,
 # 'time_created', 'time_completed', 'country', 'state','skills',
 
 story_titles 		= [
-	'First test story',
-	'Second test story',
+	'Dina Helped a Women\'s Shelter Find Volunteers',
+	'Chinese Children Now Learning English on the Go',
 ]
 
 story_articles      = [
-'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+'Before signing up for the project, Dina was excited, but had little idea of what to expect from the coming few months. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...',
+'Matthew\'s company had been looking for opportunities to engage their developers in charitable activities. When Project Tiger contacted them on Little Bits of Good... Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
 ]
 
 story_images		= [

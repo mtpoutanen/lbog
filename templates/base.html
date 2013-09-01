@@ -31,13 +31,12 @@
         <div class="container" id="body-wrapper">               
             <div id="fb-root"></div>
             {% block content %}
+                {# all contents in subclassed templates must be in a block called content #}
+                {# (curly brackets and hashes denote Django template comments) #}
             {% endblock content %}
         </div>
     </div>
-
     {% include 'footer.html' %}
-
-
 <script src="{% static "global/js/form_listeners.js" %}"></script>
     
 {% block extrascripts %}

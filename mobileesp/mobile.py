@@ -25,4 +25,4 @@ class MobileDetectionMiddleware(object):
         request.is_phone = is_phone
 
         # if is_mobile:
-        request.flavour = 'mobile'
+        request.flavour = 'full'

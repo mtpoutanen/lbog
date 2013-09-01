@@ -6,10 +6,11 @@
 {% endblock extrahead_level1 %}
 
 {% block content %}
+	{# these are the contents of the front page #}
 	<div class="row">
 		<div class="span8" id="front-page-main">
-		{% include 'carousel.html' %}	
-		{% include 'thumbs.html' %}
+		{% include 'completed_projects.html' %}	
+		{% include 'new_projects.html' %}
 		</div>
 
 		<div class="span4" id="front_page_stories">

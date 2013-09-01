@@ -1,4 +1,4 @@
-<h4 class="front-page-header">New Projects Still Looking for Volunteers</h4>
+<h3 id="new-projects-header" class="front-page-header">New Projects Still Looking for Volunteers</h3>
 {% if not latest_created %}
  	<h2>No projects created</h2>
 {% else %}
@@ -16,11 +16,11 @@
 			    		{% endif %}
 					</div>
 				</a>
-				<h5 class="front-page-header">{{ project.title }}</h5>
+				<h6 class="front-page-header">{{ project.title }}</h6>
 			</div>
 		</li>	
 		{% endfor %}
 	</ul>
 </div>
  {% endif %} 
-<div id="more-volunteers"><a href="#">Click here</a> to find out how you can help.</div>
+<div id="more-volunteers"><a href="{% url 'i-want-to-help' %}">Click here</a> to find out how you can help.</div>
