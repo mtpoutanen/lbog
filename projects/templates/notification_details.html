@@ -20,6 +20,13 @@
 Go to <a href="{% url 'my-help-offers' pk=user.id %}">my Help Offers</a>{% if user.get_profile.user_type == 'Charity' %}
 	to accept or reject the offer.
 {% endif %}
+
+{% if user.get_profile.user_type == 'Developer' %}
+<br>
+<br>
+Or go to <a href="{% url 'my-projects' pk=user.id %}">My Projects</a>
+{% endif %}
+
     
  </div>
 <script src="{% static "projects/js/delete.js" %}"></script>  

@@ -11,6 +11,7 @@ from django import forms
 from django.utils import simplejson
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect
+import datetime
 
 class CorrectUserMixin(object):
     #default error message
@@ -94,6 +95,16 @@ class ProjectUpdateView(LoginRequiredMixin, CorrectUserMixin, UpdateView):
 
         self.url_id     = project.charity.id
         return initial
+
+    def form_valid(self, form):
+        project_id        = self.kwargs['pk']
+        pre_save_project  = Project.objects.get(id=project_id)
+        existing_time_completed = pre_save_project.time_completed
+        project           = form.save()
+        if not existing_time_completed and form.cleaned_data['status'] == 'completed':
+            project.time_completed = datetime.datetime.now()
+            project.save()
+        return super(ProjectUpdateView, self).form_valid(form)
 
 class ProjectUpdatedView(TemplateView):
     template_name = 'project_updated.html'

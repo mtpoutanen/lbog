@@ -59,12 +59,6 @@ class ProjectChangeForm(ProjectCreationForm):
                         'need_locals', 'country',
                         'state', 'city', 'lat', 'lon', 'status')
 
-    # def save(self, commit=False):
-    #     project = Project.objects.create()
-    #     return project        
-        
-
-    #     return project
 
 class HelpOfferForm(forms.ModelForm):
     '''
