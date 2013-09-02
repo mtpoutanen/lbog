@@ -1,4 +1,4 @@
-{% extends 'base_accounts.html' %}
+{% extends 'base_main_pages.html' %}
 {% load staticfiles %}
 
 {% block extrahead_level3 %}
@@ -6,7 +6,7 @@
   <link href="{% static "users/css/dev_table.css" %}"                     rel="stylesheet">
 {% endblock extrahead_level3 %}
 
-{% block accounts_content %}
+{% block main_content %}
 <div class="span6 main-content">
   {% if user.get_profile.user_type == 'Charity' %}
      <div id="create-new">
@@ -41,9 +41,13 @@
 <p class="hidden" id="p_country">{{ user.get_profile.country }}</p>
 <p class="hidden" id="p_state">{{ user.get_profile.state }}</p>
 <p class="hidden" id="p_city">{{ user.get_profile.city }}</p>
-<script src="{% static "users/js/coordinates.js" %}"></script>             
 {# <div id='charity-data-url' rel="{% url 'charity-data' %}"></div> #}
-<script src="{% static "users/js/text_to_dark.js" %}"></script>
+<script src="{% static "projects/js/chosen_activate.js" %}"></script>
+<script src="{% static "users/js/coordinates.js" %}"></script> 
 <script src="{% static "projects/js/volunteers.js" %}"></script> 
 
-{% endblock accounts_content %}
+<script>
+  $('#open-sidebar').hide();
+</script>
+
+{% endblock main_content %}
