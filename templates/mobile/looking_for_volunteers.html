@@ -1,0 +1,40 @@
+{% extends 'base_main_pages.html' %}
+{% load staticfiles %}
+
+{% block extrahead_level3 %}
+{# <link href="{% static "users/css/forms.css" %}"                     rel="stylesheet"> #}
+<link href="{% static "global/mobile_css/m_i_want_to_help.css" %}"             rel="stylesheet" />
+{# <script src="{% static "projects/js/volunteers.js" %}"></script>  #}
+{% endblock extrahead_level3 %}
+
+{% block sidebar_content %}
+    {% include 'search_form_fields.html' %}
+{% endblock sidebar_content %}
+
+{% block main_extra_content %}
+
+<div class="main-content" id="tabs">
+	<ul class="nav nav-tabs">
+     <li id="info-li"><a href="#info-div">How We Aim to Help</a></li>
+     <li id="search-li"><a href="#search-results">Search Results</a></li>
+   </ul>
+   <div id="info-div">
+   	Have you ever wondered why the internet is full of free, high-quality software. Whilst some of it isn't technically free but instead supported by advertisements,
+    there are thousands upon thousands of software developers who write incredible software for the sheer joy of seeing their creations in use across the world. These are the types of people we target as potential volunteers and aim to give the opportunity to use their skills for charitable projects.<br><br>
+
+    Our potential volunteers include teams of developers, solo developers with years of experience as well as more junior developers eager to help. So whether you need an application to help in fundraising, a simple website, or something else entirely, we might be able to help. In case you have already <a href="{% url 'register' %}">registered</a> and <a href="{% url 'create-new-project' %}">created a project</a>, you can also look for developers that meet your needs on this page.
+   </div>
+   <div id="search-results">
+   	Search results will appear here.
+   </div>
+</div>
+  <div id="search-url" rel="{% url "search-developers" %}" ></div> <!-- needed for js -->
+
+  <script src="{% static "global/mobile_js/m_project-search.js" %}"></script>
+
+{# <div id='charity-data-url' rel="{% url 'charity-data' %}"></div> #}
+
+{% endblock main_extra_content %}
+
+{% block extrascripts %}
+{% endblock extrascripts %}

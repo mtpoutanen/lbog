@@ -1,0 +1,17 @@
+{% extends 'base_accounts.html' %}
+
+{% block accounts_content %}
+  <div id="mobile-change-account-details">
+    <form id="profile-form" class="form-horizontal" method="post" action="" enctype="multipart/form-data"> {% csrf_token %}
+      <fieldset>
+        {% if form.errors %}
+          <div class="controls">
+              <div class="errors main-errors">Please correct the following fields</div>
+          </div>
+        {% endif %}
+        
+        {% include 'profile_fields.html' %}
+        </fieldset> 
+    </form>
+  </div>
+{% endblock accounts_content %}

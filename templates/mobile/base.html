@@ -3,7 +3,7 @@
 <html>
 <head>
 
-    {% include 'tablet/base_head.html' %}
+    {% include 'mobile/base_head.html' %}
     {% block extrahead_level1 %}
     {% endblock extrahead_level1 %}
     
@@ -18,7 +18,6 @@
 
     <div class="mobile-wrapper">
             {% include 'mobile/navbar.html' %}
-            phone version
             <div id="fb-app-id" rel="{{ FB_APP_ID }}"></div>
             <div id="site-address" rel='http://{{ SITE_ROOT }}'></div>
             <div id="image-address" rel='http://{{ SITE_ROOT }}/static/global/images/lbog_logo_large.png'></div>
@@ -26,7 +25,7 @@
             {% include 'fbscript.html' %}
 
             <div id="my-wrapper">
-                <div class="container-fluid" id="body-wrapper">               
+                <div class="container" id="body-wrapper">               
                     <div id="fb-root"></div>
                     
                     {% block content %}
@@ -40,6 +39,15 @@
     </div>
 
 <script src="{% static "global/js/form_listeners.js" %}"></script>
+<script>
+    var windowHeight = $(window).height();
+    var minHeight = windowHeight - 110;
+    var wrapperHeight = $('#my-wrapper').height();
+
+    if(wrapperHeight < minHeight) {
+        $('#my-wrapper').height(minHeight);        
+    }
+</script>
     
 {% block extrascripts %}
 {% endblock %}

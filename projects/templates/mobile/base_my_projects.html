@@ -2,9 +2,9 @@
 {% load staticfiles %}
 
 {% block accounts_content %}
-test projects mobile
-    {% comment %}
-      
+    {% if not projects %}
+          No Projects Found
+    {% endif %}    
     {% csrf_token %}
     {% for project in projects %}
         <div class="search-wrapper" id="project-{{ project.id }}">
@@ -38,5 +38,4 @@ test projects mobile
         {% endif %}
         </div>
     {% endfor %}
-    {% endcomment %}
 {% endblock accounts_content %}

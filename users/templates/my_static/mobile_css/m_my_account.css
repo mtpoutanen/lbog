@@ -1,0 +1,18 @@
+.sidebar, .my-account-main {
+	margin-top: 20px;
+}
+
+.link-button-accounts {
+	margin-bottom: 20px;
+	width: 80%;
+	margin-left: 7.5%;
+	padding: 0% 2.5% 0% 2.5%;
+}
+
+#deactivate-button {
+	width: 85%
+}
+
+#mobile-change-account-details {
+	margin-left: 15%;
+}
