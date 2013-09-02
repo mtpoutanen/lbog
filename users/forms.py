@@ -17,6 +17,7 @@ class MyBaseForm(forms.ModelForm):
         'duplicate_username': ("The username exists already"),
         'password_mismatch': ("The two password fields didn't match."),
         't_and_c': ("Please accept our terms and conditions."),
+        'user_type': ("Please select a user type."),
     }
 
     # Many of the attributes are set in users/templates/users/users/js/userfx.js
@@ -132,6 +133,13 @@ class MyCreationForm(MyBaseForm):
         except User.DoesNotExist:
             return username
         raise forms.ValidationError(self.error_messages['duplicate_username'])
+
+    def clean_user_type(self):
+        user_type = self.cleaned_data["user_type"]
+        if user_type:
+            return user_type
+        else:
+            raise forms.ValidationError(self.error_messages['duplicate_username'])
 
 
     def clean_email(self):

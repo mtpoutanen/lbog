@@ -31,7 +31,7 @@ def update_profile(user, form):
     profile.allow_contact   = form.cleaned_data['allow_contact']
     
     # only appears in the registration form
-    if not user:
+    if not profile.user_type:
         profile.user_type       = form.cleaned_data['user_type']    
 
     skill_list = []
