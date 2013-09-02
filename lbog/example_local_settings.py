@@ -28,8 +28,8 @@ ALLOWED_HOSTS = ['example.com']
 SECRET_KEY = 'example_key'
 
 # these settings are needed for the password recovery e-mail to appear correctly.
-# The mail will be sent in any case, but the links won't work.
 EMAIL_HOST = 'smtp.gmail.com'
+# keep this for gmail
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'example@gmail.com'
 EMAIL_HOST_PASSWORD = 'example_password'
@@ -41,3 +41,17 @@ FACEBOOK_APP_ID = '123'
 
 # set to your e-mail account
 DEFAULT_FROM_EMAIL = 'example@gmail.com'
+
+# set to your email
+DEFAULT_FROM_EMAIL = 'example@gmail.com'
+
+# these are quite self-explanatory after setting up the app
+# in dropbox developers. See the below blog post for detailed instructions:
+# http://pushingkarma.com/projects/django-dbbackup/%7B/projects/django-dbbackup/dropbox/
+# also see: https://pypi.python.org/pypi/django-dbbackup
+
+DBBACKUP_STORAGE = 'dbbackup.storage.dropbox_storage'
+DBBACKUP_TOKENS_FILEPATH = '/home/example_user/Documents/dropbox_keys'
+DBBACKUP_DROPBOX_APP_KEY = 'app_key'
+DBBACKUP_DROPBOX_APP_SECRET = 'app_secret'
+DBBACKUP_DROPBOX_ACCESS_TYPE = 'app_folder'

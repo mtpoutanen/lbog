@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 from users.models import UserProfile, Skill, Country, State
 
-# Define an inline admin descriptor for Employee model
+# Define an inline admin descriptor for UserProfile model
 # which acts a bit like a singleton
 class ProfileInline(admin.StackedInline):
     model = UserProfile
