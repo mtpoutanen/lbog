@@ -32,7 +32,7 @@ class MobileDetectionMiddleware(object):
             set_flavour('tablet')
             request.flavour = 'tablet'
         else:
-            # set_flavour('full')
-            # request.flavour = 'full'
-            set_flavour('mobile')
-            request.flavour = 'mobile'
+            set_flavour('full')
+            request.flavour = 'full'
+            # set_flavour('mobile')
+            # request.flavour = 'mobile'
