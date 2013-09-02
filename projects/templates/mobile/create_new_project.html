@@ -41,9 +41,9 @@
 <p class="hidden" id="p_country">{{ user.get_profile.country }}</p>
 <p class="hidden" id="p_state">{{ user.get_profile.state }}</p>
 <p class="hidden" id="p_city">{{ user.get_profile.city }}</p>
+<script src="{% static "users/js/coordinates.js" %}"></script>             
 {# <div id='charity-data-url' rel="{% url 'charity-data' %}"></div> #}
 <script src="{% static "users/js/text_to_dark.js" %}"></script>
 <script src="{% static "projects/js/volunteers.js" %}"></script> 
-<script src="{% static "users/js/coordinates.js" %}"></script>             
 
 {% endblock accounts_content %}
