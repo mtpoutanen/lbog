@@ -1,0 +1,46 @@
+{% load staticfiles %}
+
+<html>
+<head>
+
+    {% include 'tablet/base_head.html' %}
+    {% block extrahead_level1 %}
+    {% endblock extrahead_level1 %}
+    
+    {% block extrahead_level2 %}
+    {% endblock extrahead_level2 %}
+    
+    {% block extrahead_level3 %}
+    {% endblock extrahead_level3 %}
+
+</head>
+<body>
+    {% include 'mobile/navbar.html' %}
+    <div id="fb-app-id" rel="{{ FB_APP_ID }}"></div>
+    <div id="site-address" rel='http://{{ SITE_ROOT }}'></div>
+    <div id="image-address" rel='http://{{ SITE_ROOT }}/static/global/images/lbog_logo_large.png'></div>
+
+    {% include 'fbscript.html' %}
+    <div class="container" id="box-hide-wrapper">
+        <div class="container" id="box-hide">
+        
+        </div>
+    </div>
+    <!-- These extra divs are needed to create the shadow effect -->
+    <div id="my-wrapper">
+        <div class="container" id="body-wrapper">               
+            <div id="fb-root"></div>
+            {% block content %}
+                {# all contents in subclassed templates must be in a block called content #}
+                {# (curly brackets and hashes denote Django template comments) #}
+            {% endblock content %}
+        </div>
+    </div>
+    {% include 'mobile/footer.html' %}
+<script src="{% static "global/js/form_listeners.js" %}"></script>
+    
+{% block extrascripts %}
+{% endblock %}
+
+</body>
+</html>

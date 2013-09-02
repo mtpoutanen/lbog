@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block extrahead_level1 %}
+	<link href="{% static "global/css/sidebar.css" %}" rel="stylesheet" />
+{% endblock extrahead_level1 %}
+
+{% block content %}
+	<div class="span3 sidebar">
+		{% block sidebar_content %}
+		{% endblock sidebar_content %}
+	</div>
+	
+		{% block main_content %}
+		{% endblock main_content %}
+	
+{% endblock content %}

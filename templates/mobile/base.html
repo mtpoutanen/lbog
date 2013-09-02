@@ -3,7 +3,7 @@
 <html>
 <head>
 
-    {% include 'mobile/base_head.html' %}
+    {% include 'tablet/base_head.html' %}
     {% block extrahead_level1 %}
     {% endblock extrahead_level1 %}
     
@@ -15,9 +15,10 @@
 
 </head>
 <body>
+
     <div class="mobile-wrapper">
             {% include 'mobile/navbar.html' %}
-
+            phone version
             <div id="fb-app-id" rel="{{ FB_APP_ID }}"></div>
             <div id="site-address" rel='http://{{ SITE_ROOT }}'></div>
             <div id="image-address" rel='http://{{ SITE_ROOT }}/static/global/images/lbog_logo_large.png'></div>

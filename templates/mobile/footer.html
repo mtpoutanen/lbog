@@ -4,13 +4,12 @@
         <a href="{% url 'feedback' %}">Feedback / Tell us Your Story</a> <b>|</b> 
         <a href="{% url 'about' %}">About Us</a> <b>|</b> 
         <a href="{% url 't-and-c' %}">Terms and Conditions</a><br>
-        <div class="span3" id="fb-buttons">
-{#                 <a href="{% url 'fbtest' %}">Fb test</a> #}
-                <fb:login-button autologoutlink="true" onlogin="OnRequestPermission();">
-                </fb:login-button>
-                <button class="my-fb-like" onclick="postLike('http://{{ SITE_ROOT }}{% url 'home' %}')"></button>
-                <button class="my-fb-share" onclick="postShare('http://{{ SITE_ROOT }}{% url 'home' %}')"></button>
-            </div>
+        <div id="fb-buttons">
+            <fb:login-button autologoutlink="true" onlogin="OnRequestPermission();">
+            </fb:login-button>
+            <button class="my-fb-like" onclick="postLike('http://{{ SITE_ROOT }}{% url 'home' %}')"></button>
+            <button class="my-fb-share" onclick="postShare('http://{{ SITE_ROOT }}{% url 'home' %}')"></button>
+        </div>
       
     </div>
 </div>

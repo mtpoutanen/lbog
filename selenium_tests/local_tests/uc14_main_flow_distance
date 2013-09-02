@@ -53,17 +53,17 @@
 </tr>
 <tr>
 	<td>waitForTextPresent</td>
-	<td>Liverpool Looking</td>
+	<td>Liverpool</td>
 	<td></td>
 </tr>
 <tr>
 	<td>waitForTextPresent</td>
-	<td>Sheffield Looking</td>
+	<td>Sheffield</td>
 	<td></td>
 </tr>
 <tr>
 	<td>waitForTextPresent</td>
-	<td>Manchester Looking</td>
+	<td>Manchester</td>
 	<td></td>
 </tr>
 </tbody></table>

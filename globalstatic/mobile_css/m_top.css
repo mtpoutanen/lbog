@@ -3,41 +3,23 @@ header {
   margin-left: -20px;
 }
 
-#header-wrapper {
-/*  padding: -10px 10px -10px 10px;
-  box-shadow: 0px 0px 10px black;
-  position: relative;*/
-}
-
-/*#logo {
-  position: relative;
-  min-height: 90px;
-}
-
-#lbog_logo {
-  position: absolute;
-  top: 20px;
-  margin-left: 20px; 
-}*/
-
 #navbg-top {
   margin-left: 0px;
-  /*background-color: #333333;*/
 }
 
 #fb-buttons, #reg-login{
   box-sizing: border-box;
   padding-top: 10px;
   color: white;
-  text-align: left;
 }
 
-/*#fb-buttons {
-  max-width: 300px;
-}*/
+#fb-buttons {
+  text-align: right;
+}
 
 #reg-login{
   /*margin-left: -20px;*/
+  text-align: left;
   text-align: right;
 }
 

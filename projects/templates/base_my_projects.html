@@ -3,6 +3,9 @@
 
 {% block accounts_content %}
     {% csrf_token %}
+    {% if not projects %}
+      No Projects found
+    {% endif %}
     {% for project in projects %}
         <div class="search-wrapper" id="project-{{ project.id }}">
         <p>Title: 

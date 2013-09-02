@@ -1,5 +1,6 @@
 import re
 from mobileesp import mdetect
+from django_mobile import set_flavour
 
 class MobileDetectionMiddleware(object):
     """
@@ -24,5 +25,14 @@ class MobileDetectionMiddleware(object):
         request.is_tablet = is_tablet
         request.is_phone = is_phone
 
-        # if is_mobile:
-        request.flavour = 'full'
+        if is_phone:
+            request.flavour = 'mobile'
+            set_flavour('mobile')
+        elif is_tablet:
+            set_flavour('tablet')
+            request.flavour = 'tablet'
+        else:
+            # set_flavour('full')
+            # request.flavour = 'full'
+            set_flavour('tablet')
+            request.flavour = 'tablet'

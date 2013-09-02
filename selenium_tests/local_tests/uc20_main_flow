@@ -33,12 +33,12 @@
 </tr>
 <tr>
 	<td>waitForTextPresent</td>
-	<td>mikko</td>
+	<td>adminuser</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=mikko</td>
+	<td>link=adminuser</td>
 	<td></td>
 </tr>
 <tr>

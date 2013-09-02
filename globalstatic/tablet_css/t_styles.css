@@ -21,9 +21,13 @@
 
 .main-content {
 	margin-top: 20px;
-	position: absolute;
 	top: 0;
 	/*overflow: scroll;*/
+}
+
+.container {
+	margin-right: 0px;
+	margin-left: 0px;
 }
 
 #sidr {
@@ -41,10 +45,10 @@
 }*/
 
 #my-wrapper, #my-wrapper > #body-wrapper {
-	min-height: -webkit-calc(100% - 115px);
-    min-height: -moz-calc(100% - 115px);
+	min-height: -webkit-calc(100% - 90px);
+    min-height: -moz-calc(100% - 90px);
 	/*min-height: 100%;*/
-	min-height: calc(100% - 115px);
+	min-height: calc(100% - 90px);
 }
 
 #my-wrapper {
@@ -52,7 +56,7 @@
 	width: 100%;
 	padding-top: 0px;
 	margin-left: 0px;
-	overflow: scroll;
+	/*overflow: scroll;*/
 	position: relative;
   	z-index: 4;
 }
@@ -158,4 +162,8 @@
 #footer-wrapper, #my-footer {
 	background-color: #3B3B3B;
 	bottom: 0;
+}
+
+.link-button-accounts {
+	font-size: 12px;
 }

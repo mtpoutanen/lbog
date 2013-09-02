@@ -92,6 +92,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
      # 'django.core.context_processors.media',
     )
 
+FLAVOURS = ('full', 'mobile', 'tablet')
+
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django_mobile.loader.Loader',
