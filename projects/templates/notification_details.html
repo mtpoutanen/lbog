@@ -16,6 +16,10 @@
 {% else %}
     {% include "notification_charity.html" %}	
 {% endif %}
+<br>
+Go to <a href="{% url 'my-help-offers' pk=user.id %}">my Help Offers</a>{% if user.get_profile.user_type == 'Charity' %}
+	to accept or reject the offer.
+{% endif %}
     
  </div>
 <script src="{% static "projects/js/delete.js" %}"></script>  

@@ -97,7 +97,7 @@ class MyCreationForm(MyBaseForm):
         if user_type == 'Developer' and len(skills) > 5:
             raise forms.ValidationError(self.error_messages['too_many_skills'])
         else:
-            if user_type != 'Charity' and skills:
+            if user_type == 'Charity':
                 skills = []
             return skills
 
@@ -157,6 +157,8 @@ class MyCreationForm(MyBaseForm):
         user_type       = self.cleaned_data['user_type']
         if user_type == 'Charity' and not company_name:
             raise forms.ValidationError(self.error_messages['no_charity'])
+        else:
+            return company_name
 
 
     def save(self, commit=True):

@@ -20,6 +20,7 @@ def update_profile(user, form):
     profile.family_name     = form.cleaned_data['family_name']
     profile.title           = form.cleaned_data['title']
     profile.company_name    = form.cleaned_data['company_name']
+    
     profile.country         = form.cleaned_data['country']
     profile.state           = form.cleaned_data['state']
     profile.city            = form.cleaned_data['city']
